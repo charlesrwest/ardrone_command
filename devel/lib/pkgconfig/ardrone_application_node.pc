@@ -1,0 +1,8 @@
+prefix=/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/devel
+
+Name: ardrone_application_node
+Description: Description of ardrone_application_node
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/devel/lib 
+Requires: message_runtime ardrone_autonomy

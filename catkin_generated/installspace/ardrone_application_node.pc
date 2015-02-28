@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: ardrone_application_node
+Description: Description of ardrone_application_node
+Version: 0.0.0
+Cflags: 
+Libs: -L/usr/local/lib 
+Requires: message_runtime ardrone_autonomy

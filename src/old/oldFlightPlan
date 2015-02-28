@@ -1,0 +1,26 @@
+try
+{
+
+activateTakeoffSequence();
+while(state != HOVERING)
+{
+sleep(1);
+}
+printf("Finished sleeping\n");
+
+//Send move instructions in each of the directions for 1 second
+//setVelocityAndRotation(0.0,0.0,0.2,0.0);
+//activateLEDAnimationSequence(BLINK_GREEN_RED, 5, 3);
+activateFlightAnimation(ARDRONE_ANIM_FLIP_LEFT);
+
+
+sleep(3);
+enableAutoHover();
+
+
+activateLandingSequence();
+}
+catch(std::exception inputException)
+{
+fprintf(stderr, "Error: %s\n", inputException.what());
+}

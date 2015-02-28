@@ -1,0 +1,17 @@
+To force the drone to land, run the following command:
+rostopic pub /ardrone/land std_msgs/Empty
+
+To reset the drone after it hit something, run the following command:
+rostopic pub /ardrone/reset std_msgs/Empty
+
+Need to make a "wait until within delta of altitude command"
+
+The ARDRONE_ANIM_YAW_DANCE flight animation makes the drone look like it is shaking its head no.
+
+ARDRONE_ANIM_PHI_DANCE is the boggyish one.
+
+ARDRONE_ANIM_THETA_DANCE looks sort of like the drone is nodding yes, but lasts a bit too long.
+
+Need to launch ardrone_autonomy with the following command to get proper tag detection (black and white oriented roundel on the bottom camera).
+
+rosrun ardrone_autonomy ardrone_driver _detect_type:=12 _detections_select_v:=4
