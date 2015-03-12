@@ -2,6 +2,7 @@
 #define COMMANDHPP
 
 #include<vector>
+#include<string>
 #include "ARDroneEnums.hpp"
 #include<cstdint>
 
@@ -19,14 +20,17 @@ SET_CONTROL_SHUTDOWN_COMMAND,
 SET_TARGET_ALTITUDE_COMMAND,
 SET_HORIZONTAL_HEADING_COMMAND,
 SET_ANGULAR_VELOCITY_COMMAND,
-SET_HOME_IN_ON_TAG_COMMAND,
-SET_CANCEL_HOME_IN_ON_TAG_COMMAND,
-SET_MATCH_ORIENTATION_TO_TAG_COMMAND,
-SET_CANCEL_MATCH_ORIENTATION_TO_TAG_COMMAND,
 SET_FLIGHT_ANIMATION_COMMAND,
 SET_LED_ANIMATION_COMMAND,
+
+SET_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT,
+SET_CANCEL_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT,
+SET_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE,
+SET_CANCEL_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE,
+
 SET_WAIT_COMMAND,
 SET_WAIT_UNTIL_TAG_IS_SPOTTED_COMMAND,
+SET_WAIT_UNTIL_SPECIFIC_QR_CODE_IS_SPOTTED_COMMAND,
 SET_WAIT_UNTIL_ALTITUDE_REACHED
 };
 
@@ -91,26 +95,6 @@ This function clears the command and then sets the angular velocity of the drone
 void setAngularVelocityCommand(double inputAngularVelocity);
 
 /*
-This function clears the command and then tells the drone to seek in on the first tag in its vision.  This command's effect persists until canceled, but will not cause any changes in horizontal velocity if no tag is in view. 
-*/
-void setHomeInOnTagCommand();
-
-/*
-This function clears the command and then cancels the home in on tag behavior. 
-*/
-void setCancelHomeInOnTagCommand();
-
-/*
-This function clears the command and then tells the drone to try to match the orientation of the first tag in view.  This command's effect persists until canceled, but will not cause any changes in angular velocity if no tag is in view. 
-*/
-void setMatchOrientationToTagCommand();
-
-/*
-This function clears the command and then tells the drone to cancel the match orientation to tag command. 
-*/
-void setCancelMatchOrientationToTagCommand();
-
-/*
 This function clears the command and then sets the flight animation to perform.
 @param inputFlightAnimation: The type of flight animation to perform
 */
@@ -125,6 +109,32 @@ This function clears the command and then sets the LED animation to perform.
 void setLEDAnimationCommand(LEDAnimationType inputLEDAnimation, double inputFrequency, int inputDuration);
 
 /*
+This function clears the command and then tells the drone to attempt to maintain its position at the given (specific) QR code defined location while it does other things (such as wait).  This is a QR code state estimation based command, which means that landing will automatically engage if the designated QR code has not been seen within SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING.
+@param inputQRCodeID: The string identifying the QR code to use for state estimation (will use any if an empty string is passed)
+@param inputXCoordinate: The x coordinate in the QR code coordinate system (meters)
+@param inputYCoordinate: The y coordinate in the QR code coordinate system (meters)
+@param inputZCoordinate: The z coordinate in the QR code coordinate system (meters)
+*/
+void setMaintainPositionAtSpecificQRCodePoint(const std::string &inputQRCodeID, double inputXCoordinate, double inputYCoordinate, double inputZCoordinate);
+
+/*
+This function clears the command and then tells the drone to stop trying to maintain/go to a specific point in the QR code coordinate system.
+*/
+void setCancelMaintainPositionAtSpecificQRCodePoint();
+
+/*
+This function clears the command and then tells the drone to point at a specific QR code in its point that is defining its coordinate system.  This is a QR code state estimation based command, which means that landing will automatically engage if the designated QR code has not been seen within SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING.
+@param inputQRCodeID: The string identifying the QR code to use for state estimation (will use any if an empty string is passed)
+*/
+void setMaintainOrientationTowardSpecificQRCode(const std::string &inputQRCodeID);
+
+/*
+This function clears the command and then tells the drone to stop trying to point at a specific QR code in its point that is defining its coordinate system.
+*/
+void setCancelMaintainOrientationTowardSpecificQRCode();
+
+
+/*
 This function clears the command and then tells the drone to simply maintain its current state for the given number of seconds.
 @param inputNumberOfSeconds: The number of seconds to wait
 */
@@ -135,6 +145,14 @@ This function clears the command and then tells the drone to maintain its curren
 @param inputNumberOfSeconds: The number of seconds to wait
 */
 void setWaitUntilTagIsSpottedCommand(double inputNumberOfSeconds);
+
+/*
+This function clears the command and then tells the drone to maintain its current state for the given number of seconds until a specific QR code tag comes into its field of view.
+@param inputQRCodeID: The string identifying the QR code to use for state estimation (will use any if an empty string is passed)
+@param inputNumberOfSeconds: The number of seconds to wait
+*/
+void setWaitUntilSpecificQRCodeIsSpottedCommand(const std::string inputQRCodeID, double inputNumberOfSeconds);
+
 
 /*
 This function clears the command and then tells the drone to maintain its current state for the given number of seconds until a tag comes into its field of view.
@@ -153,6 +171,7 @@ friend bool operator< (const command &inputLeftCommand, const command &inputRigh
 
 commandType type; //What type of command this is
 std::vector<command> subCommands;
+std::vector<std::string> strings;
 std::vector<double> doubles;
 std::vector<int> integers;
 std::vector<flightAnimationType> flightAnimations;

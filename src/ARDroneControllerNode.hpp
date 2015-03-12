@@ -39,6 +39,9 @@
 #include <condition_variable>
 #include <chrono>
 
+//This defines how long to wait for a QR code sighting when in a mode reliant on QR code state estimation before automatically landing
+#define SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING 2
+
 /*
 This object subscribes to a set of ROS information streams that are available regarding a AR drone (some of which may be aggregators of other streams) and publishes a command stream to control the drone using information gleamed from those streams.  This object also has commands available to launch the other nodes so that it may subscribe to them.
 */

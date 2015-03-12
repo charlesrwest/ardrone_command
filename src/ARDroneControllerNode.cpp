@@ -231,23 +231,6 @@ throw SOMException("Error, set angular velocity command is invalid\n", INCORRECT
 }
 break;
 
-case SET_HOME_IN_ON_TAG_COMMAND:
-xCoordinateITerm = 0.0;
-yCoordinateITerm = 0.0;
-homeInOnTag = true;
-break;
-
-case SET_CANCEL_HOME_IN_ON_TAG_COMMAND:
-homeInOnTag = false;
-break;
-
-case SET_MATCH_ORIENTATION_TO_TAG_COMMAND:
-matchTagOrientation = true;
-break;
-
-case SET_CANCEL_MATCH_ORIENTATION_TO_TAG_COMMAND:
-matchTagOrientation = false;
-break;
 
 case SET_FLIGHT_ANIMATION_COMMAND:
 if(commandBuffer.flightAnimations.size() > 0)

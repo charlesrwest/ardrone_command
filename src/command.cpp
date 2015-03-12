@@ -102,42 +102,6 @@ doubles.push_back(inputAngularVelocity);
 }
 
 /*
-This function clears the command and then tells the drone to seek in on the first tag in its vision.  This command's effect persists until canceled, but will not cause any changes in horizontal velocity if no tag is in view. 
-*/
-void command::setHomeInOnTagCommand()
-{
-clear();
-type = SET_HOME_IN_ON_TAG_COMMAND;
-}
-
-/*
-This function clears the command and then cancels the home in on tag behavior. 
-*/
-void command::setCancelHomeInOnTagCommand()
-{
-clear();
-type = SET_CANCEL_HOME_IN_ON_TAG_COMMAND;
-}
-
-/*
-This function clears the command and then tells the drone to try to match the orientation of the first tag in view.  This command's effect persists until canceled, but will not cause any changes in angular velocity if no tag is in view. 
-*/
-void command::setMatchOrientationToTagCommand()
-{
-clear();
-type = SET_MATCH_ORIENTATION_TO_TAG_COMMAND;
-}
-
-/*
-This function clears the command and then tells the drone to cancel the match orientation to tag command. 
-*/
-void command::setCancelMatchOrientationToTagCommand()
-{
-clear();
-type = SET_CANCEL_MATCH_ORIENTATION_TO_TAG_COMMAND;
-}
-
-/*
 This function clears the command and then sets the flight animation to perform.
 @param inputFlightAnimation: The type of flight animation to perform
 */
@@ -162,6 +126,55 @@ ledAnimations.push_back(inputLEDAnimation);
 doubles.push_back(inputFrequency);
 integers.push_back(inputDuration);
 }
+
+
+/*
+This function clears the command and then tells the drone to attempt to maintain its position at the given (specific) QR code defined location while it does other things (such as wait).  This is a QR code state estimation based command, which means that landing will automatically engage if the designated QR code has not been seen within SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING.
+@param inputQRCodeID: The string identifying the QR code to use for state estimation (will use any if an empty string is passed)
+@param inputXCoordinate: The x coordinate in the QR code coordinate system (meters)
+@param inputYCoordinate: The y coordinate in the QR code coordinate system (meters)
+@param inputZCoordinate: The z coordinate in the QR code coordinate system (meters)
+*/
+void command::setMaintainPositionAtSpecificQRCodePoint(const std::string &inputQRCodeID, double inputXCoordinate, double inputYCoordinate, double inputZCoordinate)
+{
+clear();
+type = SET_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT;
+strings.push_back(inputQRCodeID);
+doubles.push_back(inputXCoordinate);
+doubles.push_back(inputYCoordinate);
+doubles.push_back(inputZCoordinate);
+}
+
+/*
+This function clears the command and then tells the drone to stop trying to maintain/go to a specific point in the QR code coordinate system.
+*/
+void command::setCancelMaintainPositionAtSpecificQRCodePoint()
+{
+clear();
+type = SET_CANCEL_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT;
+}
+
+/*
+This function clears the command and then tells the drone to point at a specific QR code in its point that is defining its coordinate system.  This is a QR code state estimation based command, which means that landing will automatically engage if the designated QR code has not been seen within SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING.
+@param inputQRCodeID: The string identifying the QR code to use for state estimation (will use any if an empty string is passed)
+*/
+void command::setMaintainOrientationTowardSpecificQRCode(const std::string &inputQRCodeID)
+{
+clear();
+type = SET_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE;
+strings.push_back(inputQRCodeID);
+}
+
+/*
+This function clears the command and then tells the drone to stop trying to point at a specific QR code in its point that is defining its coordinate system.
+*/
+void command::setCancelMaintainOrientationTowardSpecificQRCode()
+{
+clear();
+type = SET_CANCEL_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE;
+}
+
+
 
 /*
 This function clears the command and then tells the drone to simply maintain its current state for the given number of seconds.

@@ -126,6 +126,24 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
+/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/Navdata.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+std_msgs/Header.h
+-
+
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/RecordEnable.h
 ros/service_traits.h
 -
@@ -271,7 +289,7 @@ ardrone_autonomy/FlightAnim.h
 -
 ardrone_autonomy/RecordEnable.h
 -
-../ardrone_autonomy/include/ardrone_autonomy/NavdataMessageDefinitions.h
+ardrone_autonomy/Navdata.h
 -
 queue
 -
@@ -302,8 +320,14 @@ unistd.h
 ARDroneControllerNode.hpp
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/ARDroneControllerNode.hpp
 
+/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/command.cpp
+command.hpp
+/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/command.hpp
+
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/command.hpp
 vector
+-
+string
 -
 ARDroneEnums.hpp
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/ARDroneEnums.hpp
@@ -1007,6 +1031,22 @@ ros/message_operations.h
 -
 
 /opt/ros/indigo/include/std_msgs/Float32.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/opt/ros/indigo/include/std_msgs/Header.h
 string
 -
 vector

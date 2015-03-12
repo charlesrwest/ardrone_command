@@ -49,9 +49,9 @@ myARDroneControllerNode->addCommand(commandSetHorizontalHeading);
 
 
 
-command commandWaitUntilTagSpotted;
-commandWaitUntilTagSpotted.setWaitUntilTagIsSpottedCommand(6.0);
-myARDroneControllerNode->addCommand(commandWaitUntilTagSpotted);
+//command commandWaitUntilTagSpotted;
+//commandWaitUntilTagSpotted.setWaitUntilTagIsSpottedCommand(6.0);
+//myARDroneControllerNode->addCommand(commandWaitUntilTagSpotted);
 
 command commandSetHorizontalHeading2;
 commandSetHorizontalHeading2.setHorizontalHeadingCommand(0.00, 0.0);
@@ -59,9 +59,9 @@ myARDroneControllerNode->addCommand(commandSetHorizontalHeading2);
 
 
 
-command commandSetHomeInOnTag;
-commandSetHomeInOnTag.setHomeInOnTagCommand();
-myARDroneControllerNode->addCommand(commandSetHomeInOnTag);
+//command commandSetHomeInOnTag;
+//commandSetHomeInOnTag.setHomeInOnTagCommand();
+//myARDroneControllerNode->addCommand(commandSetHomeInOnTag);
 
 
 command commandWait;
