@@ -1,5 +1,5 @@
 set(_CATKIN_CURRENT_PACKAGE "catkin")
-set(catkin_VERSION "0.6.9")
+set(catkin_VERSION "0.6.11")
 set(catkin_BUILD_DEPENDS_python-catkin-pkg_VERSION_GTE "0.2.2")
 set(catkin_BUILD_DEPENDS "python-empy" "python-argparse" "python-catkin-pkg")
 set(catkin_DEPRECATED "")

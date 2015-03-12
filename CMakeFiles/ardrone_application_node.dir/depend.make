@@ -10,7 +10,6 @@ CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /home/h
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/LedAnim.h
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/LedAnimRequest.h
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/LedAnimResponse.h
-CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/Navdata.h
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/RecordEnable.h
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/RecordEnableRequest.h
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/RecordEnableResponse.h
@@ -84,7 +83,6 @@ CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /opt/ro
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /opt/ros/indigo/include/rosconsole/macros_generated.h
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /opt/ros/indigo/include/std_msgs/Empty.h
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /opt/ros/indigo/include/std_msgs/Float32.h
-CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /opt/ros/indigo/include/std_msgs/Header.h
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /opt/ros/indigo/include/std_msgs/Int16.h
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /opt/ros/indigo/include/std_msgs/Int32.h
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: /opt/ros/indigo/include/std_msgs/UInt16.h
@@ -109,7 +107,6 @@ CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /hom
 CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/LedAnim.h
 CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/LedAnimRequest.h
 CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/LedAnimResponse.h
-CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/Navdata.h
 CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/RecordEnable.h
 CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/RecordEnableRequest.h
 CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/RecordEnableResponse.h
@@ -183,7 +180,6 @@ CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /opt
 CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /opt/ros/indigo/include/rosconsole/macros_generated.h
 CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /opt/ros/indigo/include/std_msgs/Empty.h
 CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /opt/ros/indigo/include/std_msgs/Float32.h
-CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /opt/ros/indigo/include/std_msgs/Header.h
 CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /opt/ros/indigo/include/std_msgs/Int16.h
 CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /opt/ros/indigo/include/std_msgs/Int32.h
 CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o: /opt/ros/indigo/include/std_msgs/UInt16.h

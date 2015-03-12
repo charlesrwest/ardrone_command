@@ -8,7 +8,6 @@
 #include "ros/ros.h"
 #include "std_msgs/Empty.h"
 
-#include "ardrone_autonomy/Navdata.h"
 #include "tagTrackingInfo.hpp"
 #include "ARDroneEnums.hpp"
 #include "command.hpp"
@@ -34,6 +33,7 @@
 #include <ardrone_autonomy/LedAnim.h>
 #include <ardrone_autonomy/FlightAnim.h>
 #include <ardrone_autonomy/RecordEnable.h>
+#include <ardrone_autonomy/Navdata.h>
 
 #include <queue>
 #include <condition_variable>
@@ -283,6 +283,9 @@ double accelerationX;  //Current estimated X acceleration
 double accelerationY;  //Current estimated Y acceleration
 double accelerationZ;  //Current estimated Z acceleration
 std::vector<tagTrackingInfo> trackedTags; //Information about any oriented roundel tags in the field of view
+
+
+
 
 ros::NodeHandle nodeHandle;
 

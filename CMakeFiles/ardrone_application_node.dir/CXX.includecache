@@ -126,24 +126,6 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/Navdata.h
-string
--
-vector
--
-map
--
-ros/types.h
--
-ros/serialization.h
--
-ros/builtin_message_traits.h
--
-ros/message_operations.h
--
-std_msgs/Header.h
--
-
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/RecordEnable.h
 ros/service_traits.h
 -
@@ -247,8 +229,6 @@ ros/ros.h
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/ros/ros.h
 std_msgs/Empty.h
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/std_msgs/Empty.h
-ardrone_autonomy/Navdata.h
-/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/ardrone_autonomy/Navdata.h
 tagTrackingInfo.hpp
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/tagTrackingInfo.hpp
 ARDroneEnums.hpp
@@ -291,6 +271,8 @@ ardrone_autonomy/FlightAnim.h
 -
 ardrone_autonomy/RecordEnable.h
 -
+../ardrone_autonomy/include/ardrone_autonomy/NavdataMessageDefinitions.h
+-
 queue
 -
 condition_variable
@@ -309,6 +291,16 @@ functional
 -
 cstdio
 -
+
+/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/ardrone_application_node.cpp
+ros/ros.h
+/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/ros/ros.h
+std_msgs/Empty.h
+/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/std_msgs/Empty.h
+unistd.h
+-
+ARDroneControllerNode.hpp
+/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/ARDroneControllerNode.hpp
 
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/command.hpp
 vector
@@ -1015,22 +1007,6 @@ ros/message_operations.h
 -
 
 /opt/ros/indigo/include/std_msgs/Float32.h
-string
--
-vector
--
-map
--
-ros/types.h
--
-ros/serialization.h
--
-ros/builtin_message_traits.h
--
-ros/message_operations.h
--
-
-/opt/ros/indigo/include/std_msgs/Header.h
 string
 -
 vector

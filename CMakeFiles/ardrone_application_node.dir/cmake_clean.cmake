@@ -1,10 +1,10 @@
 FILE(REMOVE_RECURSE
-  "CMakeFiles/ardrone_application_node.dir/src/command.cpp.o"
-  "CMakeFiles/ardrone_application_node.dir/src/tagTrackingInfo.cpp.o"
-  "CMakeFiles/ardrone_application_node.dir/src/SOMScopeGuard.cpp.o"
-  "CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.o"
-  "CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o"
   "CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o"
+  "CMakeFiles/ardrone_application_node.dir/src/tagTrackingInfo.cpp.o"
+  "CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o"
+  "CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.o"
+  "CMakeFiles/ardrone_application_node.dir/src/command.cpp.o"
+  "CMakeFiles/ardrone_application_node.dir/src/SOMScopeGuard.cpp.o"
   "devel/lib/ardrone_application_node/ardrone_application_node.pdb"
   "devel/lib/ardrone_application_node/ardrone_application_node"
 )
