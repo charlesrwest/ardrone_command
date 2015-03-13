@@ -5,33 +5,35 @@
 #include<string>
 #include "ARDroneEnums.hpp"
 #include<cstdint>
+#include "ardrone_application_node/serialized_ardrone_command.h"
+
 
 #define MAX_PRIORITY 1000
 
 enum commandType
 {
-INVALID,
-SET_CLEAR_COMMAND_QUEUE,
-SET_EMERGENCY_LANDING_COMMAND,
-SET_EMERGENCY_STOP_COMMAND,
-SET_TAKEOFF_COMMAND,
-SET_LANDING_COMMAND,
-SET_CONTROL_SHUTDOWN_COMMAND,
-SET_TARGET_ALTITUDE_COMMAND,
-SET_HORIZONTAL_HEADING_COMMAND,
-SET_ANGULAR_VELOCITY_COMMAND,
-SET_FLIGHT_ANIMATION_COMMAND,
-SET_LED_ANIMATION_COMMAND,
+INVALID = 10,
+SET_CLEAR_COMMAND_QUEUE = 20,
+SET_EMERGENCY_LANDING_COMMAND = 30,
+SET_EMERGENCY_STOP_COMMAND = 40,
+SET_TAKEOFF_COMMAND = 50,
+SET_LANDING_COMMAND = 60,
+SET_CONTROL_SHUTDOWN_COMMAND = 70,
+SET_TARGET_ALTITUDE_COMMAND = 80,
+SET_HORIZONTAL_HEADING_COMMAND = 90,
+SET_ANGULAR_VELOCITY_COMMAND = 100,
+SET_FLIGHT_ANIMATION_COMMAND = 110,
+SET_LED_ANIMATION_COMMAND = 120,
 
-SET_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT,
-SET_CANCEL_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT,
-SET_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE,
-SET_CANCEL_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE,
+SET_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT = 130,
+SET_CANCEL_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT = 140,
+SET_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE = 150,
+SET_CANCEL_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE = 160,
 
-SET_WAIT_COMMAND,
-SET_WAIT_UNTIL_TAG_IS_SPOTTED_COMMAND,
-SET_WAIT_UNTIL_SPECIFIC_QR_CODE_IS_SPOTTED_COMMAND,
-SET_WAIT_UNTIL_ALTITUDE_REACHED
+SET_WAIT_COMMAND = 170,
+SET_WAIT_UNTIL_TAG_IS_SPOTTED_COMMAND = 180,
+SET_WAIT_UNTIL_SPECIFIC_QR_CODE_IS_SPOTTED_COMMAND = 190,
+SET_WAIT_UNTIL_ALTITUDE_REACHED = 200
 };
 
 /*
@@ -44,6 +46,11 @@ public:
 Default constructor.  Does nothing.
 */
 command();
+
+/*
+This function decomposes the command into a ROS message for sending over the network.  ROS messages don't support containing submessages of the same type as the message, so this requires all subcommands to be decomposed into a list of simple (nonrecursive) commands.
+*/
+ardrone_application_node::serialized_ardrone_command serialize();
 
 /*
 This function clears the command and then creates a command that will have maximum priority and clear all of the remaining commands in the command queue.
@@ -195,6 +202,31 @@ This function is used by the priority queue to sort the order of the commands in
 */
 bool operator< (const command &inputLeftCommand, const command &inputRightCommand);
 
+/*
+This function adds the command and then recursively goes through any subcommands in the command, adding them to the list of commands (depth first search).  The resulting list only contains commands without subcommands.  This is typically used to break down commands for serialization with the ROS message type.
+@param inputCommand: The top command to process
+@param inputCommandList: The list to start appending to
+*/
+void unwrapCommand(const command &inputCommand, std::vector<command> &inputCommandList);
 
+/*
+This function serializes the command to a serialized_ardrone_command_part, ignoring any subcommands the command may have.
+@param inputCommand: The command to serialize
+*/
+ardrone_application_node::serialized_ardrone_command_part serializeCommandPart(const command &inputCommand);
+
+/*
+This function converts a serialized command into a list of commands/subcommands.
+@param inputSerializedCommand: The message to deserialize
+@return: The list of commands stored in the message
+*/
+std::vector<command> deserialize_commands(const ardrone_application_node::serialized_ardrone_command &inputSerializedCommand);
+
+/*
+This function converts a serialized command part into a command
+@param inputSerializedCommandPart: The message to deserialize
+@return: The command stored in the message
+*/
+command deserialize_command_part(const ardrone_application_node::serialized_ardrone_command_part &inputSerializedCommandPart);
 
 #endif

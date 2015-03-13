@@ -24,6 +24,13 @@
 #include <std_srvs/Empty.h>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Vector3.h>
+#include "ardrone_application_node/serialized_ardrone_command.h"
+
+#include <image_transport/image_transport.h>
+#include <cv_bridge/cv_bridge.h>
+#include <sensor_msgs/image_encodings.h>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
 #include <ardrone_autonomy/vector31.h>
 #include <ardrone_autonomy/vector21.h>
@@ -49,7 +56,7 @@ class ARDroneControllerNode
 {
 public:
 /*
-This function takes the AR drone address and starts up the nessisary ROS nodes to be able to communicate with it.  If the string is empty, it uses the default AR drone address (currently only default functionality is implemented).  If a joystick node is being published, the node will also subscribe to that and interpret its movements as commands to send to the drone (if the manual flight flag is set)
+This function takes the AR drone address and starts up the nessisary ROS nodes to be able to communicate with it.  If the string is empty, it uses the default AR drone address (currently only default functionality is implemented).
 @param inputARDroneAddress: The address of the AR drone to connect to 
 
 @exceptions: This function can throw exceptions
@@ -86,11 +93,16 @@ friend void initializeAndRunControlThread(ARDroneControllerNode *inputARDroneCon
 //Only used as callback
 
 /*
-This function is used as a callback to handle legacy nav-data.
+This function is used as a callback to handle navdata info.
 @param inputMessage: The legacy nav-data message to handle 
 */
-void handleLegacyNavData(const ardrone_autonomy::Navdata::ConstPtr &inputMessage);
+void handleNavData(const ardrone_autonomy::Navdata::ConstPtr &inputMessage);
 
+/*
+This function is used as a callback to handle images from the AR drone.
+@param inputImageMessage: The image message to handle 
+*/
+void handleImageUpdate(const sensor_msgs::ImageConstPtr& inputImageMessage);
 
 private:
 /*

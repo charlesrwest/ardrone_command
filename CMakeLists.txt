@@ -13,8 +13,20 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_generation
   ardrone_autonomy
+  sensor_msgs
+  cv_bridge
+  image_transport
 )
 
+
+ add_message_files(
+   DIRECTORY msg
+   FILES
+   serialized_ardrone_command_part.msg
+   serialized_ardrone_command.msg
+ )
+
+generate_messages(DEPENDENCIES geometry_msgs std_msgs)
 
 
 
@@ -33,6 +45,9 @@ catkin_package(
 #  DEPENDS system_lib
 CATKIN_DEPENDS message_runtime ardrone_autonomy
 )
+
+
+
 
 ###########
 ## Build ##

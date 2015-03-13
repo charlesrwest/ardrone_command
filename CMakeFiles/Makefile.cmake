@@ -83,6 +83,8 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "/opt/ros/indigo/share/class_loader/cmake/class_loaderConfig.cmake"
   "/opt/ros/indigo/share/cpp_common/cmake/cpp_commonConfig-version.cmake"
   "/opt/ros/indigo/share/cpp_common/cmake/cpp_commonConfig.cmake"
+  "/opt/ros/indigo/share/cv_bridge/cmake/cv_bridgeConfig-version.cmake"
+  "/opt/ros/indigo/share/cv_bridge/cmake/cv_bridgeConfig.cmake"
   "/opt/ros/indigo/share/gencpp/cmake/gencpp-extras.cmake"
   "/opt/ros/indigo/share/gencpp/cmake/gencppConfig-version.cmake"
   "/opt/ros/indigo/share/gencpp/cmake/gencppConfig.cmake"

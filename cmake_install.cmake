@@ -137,6 +137,10 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ardrone_application_node" TYPE FILE FILES "/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/package.xml")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ardrone_application_node/msg" TYPE FILE FILES "/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/msg/ardrone_command.msg")
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   INCLUDE("/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/gtest/cmake_install.cmake")

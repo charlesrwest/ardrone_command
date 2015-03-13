@@ -28,7 +28,7 @@ yHeading = 0.0;
 currentAngularVelocitySetting = 0.0; //The setting of the current velocity
 
 //Subscribe to the legacy nav-data topic with a buffer size of 1000
-legacyNavigationDataSubscriber = nodeHandle.subscribe("ardrone/navdata", 1000, &ARDroneControllerNode::handleLegacyNavData, this); 
+legacyNavigationDataSubscriber = nodeHandle.subscribe("ardrone/navdata", 1000, &ARDroneControllerNode::handleNavData, this); 
 
 //Create publisher to control takeoff
 takeOffPublisher = nodeHandle.advertise<std_msgs::Empty>("/ardrone/takeoff", 1000);
@@ -736,7 +736,7 @@ else
 This function is used as a callback to handle legacy nav-data.
 @param inputMessage: The legacy nav-data message to handle 
 */
-void ARDroneControllerNode::handleLegacyNavData(const ardrone_autonomy::Navdata::ConstPtr &inputMessage)
+void ARDroneControllerNode::handleNavData(const ardrone_autonomy::Navdata::ConstPtr &inputMessage)
 {
 //Update navdata cache
 try
@@ -833,6 +833,15 @@ catch(std::exception &inputException)
 {
 fprintf(stderr, "%s\n", inputException.what()); 
 }
+}
+
+/*
+This function is used as a callback to handle images from the AR drone.
+@param inputImageMessage: The image message to handle 
+*/
+void ARDroneControllerNode::handleImageUpdate(const sensor_msgs::ImageConstPtr& inputImageMessage)
+{
+//TODO: Implement function
 }
 
 
@@ -1179,8 +1188,8 @@ void initializeAndRunControlThread(ARDroneControllerNode *inputARDroneController
 {
 try
 {
-//Set camera to look down for tags
-inputARDroneControllerNode->setCameraFront(false);
+//Set camera to look forward for tags
+inputARDroneControllerNode->setCameraFront(true);
 inputARDroneControllerNode->controlDrone();
 }
 catch(const std::exception &inputException)

@@ -10,6 +10,27 @@ priority = 0; //Standard priority
 }
 
 /*
+This function decomposes the command into a ROS message for sending over the network.  ROS messages don't support containing submessages of the same type as the message, so this requires all subcommands to be decomposed into a list of simple (nonrecursive) commands.
+*/
+ardrone_application_node::serialized_ardrone_command command::serialize()
+{
+//Unwrap the commands so that they can be converted into ros messages
+std::vector<command> commandList;
+unwrapCommand(*this, commandList); //Unwrap this command into the command list
+
+//Serialize
+ardrone_application_node::serialized_ardrone_command buffer;
+buffer.command = serializeCommandPart(commandList[0]);
+
+for(int i=1; i<commandList.size(); i++)
+{
+buffer.subcommands.push_back(serializeCommandPart(commandList[i]));
+}
+
+return buffer;
+}
+
+/*
 This function clears the command and then creates a command that will have maximum priority and clear all of the remaining commands in the command queue.
 */
 void command::setClearCommandQueueCommand()
@@ -231,3 +252,117 @@ bool operator< (const command &inputLeftCommand, const command &inputRightComman
 {
 return inputLeftCommand.priority < inputRightCommand.priority;
 }
+
+/*
+This function adds the command and then recursively goes through any subcommands in the command, adding them to the list of commands (depth first search).  The resulting list only contains commands without subcommands.  This is typically used to break down commands for serialization with the ROS message type.
+@param inputCommand: The top command to process
+@param inputCommandList: The list to start appending to
+*/
+void unwrapCommand(const command &inputCommand, std::vector<command> &inputCommandList)
+{
+//Add top level command without subcommands
+command commandBuffer = inputCommand;
+commandBuffer.subCommands.clear();
+
+inputCommandList.push_back(commandBuffer);
+
+//Process subcommands
+for(int i=0; i<inputCommand.subCommands.size(); i++)
+{
+unwrapCommand(inputCommand.subCommands[i], inputCommandList);
+}
+}
+
+
+/*
+This function serializes the command to a serialized_ardrone_command_part, ignoring any subcommands the command may have.
+@param inputCommand: The command to serialize
+*/
+ardrone_application_node::serialized_ardrone_command_part serializeCommandPart(const command &inputCommand)
+{
+ardrone_application_node::serialized_ardrone_command_part buffer;
+buffer.type = inputCommand.type;
+for(int i=0; i<inputCommand.strings.size(); i++)
+{
+buffer.strings.push_back(inputCommand.strings[i]);
+}
+
+for(int i=0; i<inputCommand.integers.size(); i++)
+{
+buffer.integers.push_back(inputCommand.integers[i]);
+}
+
+for(int i=0; i<inputCommand.doubles.size(); i++)
+{
+buffer.doubles.push_back(inputCommand.doubles[i]);
+}
+
+for(int i=0; i<inputCommand.flightAnimations.size(); i++)
+{
+buffer.flightAnimations.push_back(inputCommand.flightAnimations[i]);
+}
+
+for(int i=0; i<inputCommand.ledAnimations.size(); i++)
+{
+buffer.ledAnimations.push_back(inputCommand.ledAnimations[i]);
+}
+
+return buffer;
+}
+
+/*
+This function converts a serialized command into a list of commands/subcommands.
+@param inputSerializedCommand: The message to deserialize
+@return: The list of commands stored in the message
+*/
+std::vector<command> deserialize_commands(const ardrone_application_node::serialized_ardrone_command &inputSerializedCommand)
+{
+std::vector<command> buffer;
+buffer.push_back(deserialize_command_part(inputSerializedCommand.command));
+
+for(int i=0; i<inputSerializedCommand.subcommands.size(); i++)
+{
+buffer.push_back(deserialize_command_part(inputSerializedCommand.subcommands[i]));
+}
+
+return buffer;
+}
+
+/*
+This function converts a serialized command part into a command
+@param inputSerializedCommandPart: The message to deserialize
+@return: The command stored in the message
+*/
+command deserialize_command_part(const ardrone_application_node::serialized_ardrone_command_part &inputSerializedCommandPart)
+{
+command buffer;
+
+buffer.type = (commandType) inputSerializedCommandPart.type;
+for(int i=0; i<inputSerializedCommandPart.strings.size(); i++)
+{
+buffer.strings.push_back(inputSerializedCommandPart.strings[i]);
+}
+
+for(int i=0; i<inputSerializedCommandPart.integers.size(); i++)
+{
+buffer.integers.push_back(inputSerializedCommandPart.integers[i]);
+}
+
+for(int i=0; i<inputSerializedCommandPart.doubles.size(); i++)
+{
+buffer.doubles.push_back(inputSerializedCommandPart.doubles[i]);
+}
+
+for(int i=0; i<inputSerializedCommandPart.flightAnimations.size(); i++)
+{
+buffer.flightAnimations.push_back((flightAnimationType) inputSerializedCommandPart.flightAnimations[i]);
+}
+
+for(int i=0; i<inputSerializedCommandPart.ledAnimations.size(); i++)
+{
+buffer.ledAnimations.push_back((LEDAnimationType)  inputSerializedCommandPart.ledAnimations[i]);
+}
+
+return buffer;
+}
+
