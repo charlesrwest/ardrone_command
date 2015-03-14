@@ -25,6 +25,7 @@ SET(CMAKE_TARGET_LINKED_INFO_FILES
 
 # The include file search paths:
 SET(CMAKE_C_TARGET_INCLUDE_PATH
+  "devel/include"
   "/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include"
   "/opt/ros/indigo/include"
   "/usr/include/opencv"

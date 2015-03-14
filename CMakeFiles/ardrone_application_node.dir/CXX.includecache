@@ -6,6 +6,42 @@
 
 #IncludeRegexTransform: 
 
+/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_application_node/serialized_ardrone_command.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+ardrone_application_node/serialized_ardrone_command_part.h
+-
+ardrone_application_node/serialized_ardrone_command_part.h
+-
+
+/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_application_node/serialized_ardrone_command_part.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/ardrone_autonomy/CamSelect.h
 ros/service_traits.h
 -
@@ -275,6 +311,8 @@ geometry_msgs/Twist.h
 -
 geometry_msgs/Vector3.h
 -
+ardrone_application_node/serialized_ardrone_command.h
+/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/ardrone_application_node/serialized_ardrone_command.h
 image_transport/image_transport.h
 -
 cv_bridge/cv_bridge.h
@@ -330,10 +368,6 @@ unistd.h
 ARDroneControllerNode.hpp
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/ARDroneControllerNode.hpp
 
-/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/command.cpp
-command.hpp
-/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/command.hpp
-
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/command.hpp
 vector
 -
@@ -343,6 +377,8 @@ ARDroneEnums.hpp
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/ARDroneEnums.hpp
 cstdint
 -
+ardrone_application_node/serialized_ardrone_command.h
+/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/ardrone_application_node/serialized_ardrone_command.h
 
 /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/tagTrackingInfo.hpp
 cstdint

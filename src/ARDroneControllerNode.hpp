@@ -88,7 +88,6 @@ This function cleans up the object and waits for any threads the object spawned 
 bool manualControlEnabled; //Not currently set up
 
 friend void initializeAndRunSpinThread(ARDroneControllerNode *inputARDroneControllerNode);
-friend void initializeAndRunControlThread(ARDroneControllerNode *inputARDroneControllerNode);
 
 //Only used as callback
 
@@ -106,11 +105,16 @@ void handleImageUpdate(const sensor_msgs::ImageConstPtr& inputImageMessage);
 
 private:
 /*
-This threadsafe function puts the next available command in the buffer and returns false if there was no command to give.  Retrieved commands are removed from the buffer.
+This threadsafe function copies the next available command in the buffer and returns false if there was no command to give.  Retrieved commands are remain in the buffer.
 @param inputCommandBuffer: The next command in the queue or the same as before if no command was available
 @return: True if there was a new command and false otherwise
 */
-bool getNextCommand(command &inputCommandBuffer);
+bool copyNextCommand(command &inputCommandBuffer);
+
+/*
+This threadsafe function deletes the next available command in the buffer.  If the buffer is empty, it returns without deleting.
+*/
+void popNextCommand();
 
 /*
 This threadsafe function removes all of the elements in the command queue
@@ -118,10 +122,10 @@ This threadsafe function removes all of the elements in the command queue
 void clearCommandQueue();
 
 /*
-This function is called by the control thread to execute the commands in the command queue.  The function normally does not return unless it receives the control shutdown command.
-@exceptions: This function can throw exceptions
+This function is called to update the local cache of navdata information based on the given message.
+@param inputMessage: The navdata message to update the cache with
 */
-void controlDrone();
+void updateNavdataCache(const ardrone_autonomy::Navdata::ConstPtr &inputMessage);
 
 /*
 This function sends a message to tell the drone to takeoff using its built in takeoff sequence
@@ -197,60 +201,62 @@ This function causes the drone to start recording to its USB stick (if it has on
 void enableUSBRecording(bool inputStartRecording);
 
 /*
-This function waits on the given locked mutex until the signal for the next navdata update occurs (though there can be fake wakeups)
-@param inputLockedUniqueLock: A locked unique lock that has the navdata mutex.  It is returned in a locked state again
-
-@exceptions: This function can throw exceptions
+This function returns true if the ARDrone has achieved the hovering state.
+@return: True if the hovering state has been achieved
 */
-void waitUntilNextNavDataUpdate(std::unique_lock<std::mutex> &inputLockedUniqueLock);
+bool checkIfHoveringStateAchieved();
 
 /*
-This function blocks until the ARDrone has achieved the hovering state.  This is normally used after the takeoff signal has been sent to wait until the drone finishes taking off.  It doesn't update low level behaviors.
-
-@exceptions: This function can throw exceptions
+This function returns if the ARDrone has achieved the landed state.
+@return: True if the landed state has been achieved
 */
-void waitUntilHoveringStateAchieved();
+bool checkIfLandedStateAchieved();
 
 /*
-This function blocks until the ARDrone has achieved the landed state.  This is normally used after the land signal has been sent to wait until the drone finishes setting down.  It updates low level behaviors.
-
-@exceptions: This function can throw exceptions
+This function checks if a tag has been spotted.
+@return: True if there is one or more tags in the navdata cache
 */
-void waitUntilLandedStateAchieved();
+bool checkIfTagSpotted();
 
 /*
-This function blocks until the given amount of time has passed, while maintaining low level behaviors (tag tracking and altitude control).
-@param inputSecondsToWait: The number of seconds to wait
-
-@exceptions: This function can throw exceptions
+This function checks if the target altitude is reached.
+@param inputNumberOfMillimetersToTarget: The wiggle room to match the target height (+- this amount from the target).  It is normally 10 mm.
 */
-void waitSeconds(double inputSecondsToWait);
+bool checkIfAltitudeReached(int inputNumberOfMillimetersToTarget = 10);
 
 /*
-This function blocks until the given amount of time has passed or a tag has been spotted, while maintaining low level behaviors (tag tracking and altitude control).
-@param inputSecondsToWait: The number of seconds to wait
-
-@exceptions: This function can throw exceptions
+This function checks if a command has been completed and should be removed from the queue.
+@return: true if the command has been completed and false otherwise
 */
-void waitSecondsOrUntilTagSpotted(double inputSecondsToWait);
+bool checkIfCommandCompleted(const command &inputCommand);
 
 /*
-This function blocks until the given amount of time has passed or the target altitude is reached, while maintaining low level behaviors (tag tracking and altitude control).
-@param inputNumberOfSeconds: The number of seconds to wait
-@param inputNumberOfMillimetersToTarget: The wiggle room to match the target height (+- this amount from the target).  It is normally 1 mm.
-
-@exceptions: This function can throw exceptions
+This function removes the top command from the queue and does any state adjustment associated with the command being completed (such as marking the AR drone as having landed).
 */
-void waitSecondsOrUntilAltitudeReached(double inputNumberOfSeconds, int inputNumberOfMillimetersToTarget);
+void removeCompletedCommand();
 
 /*
-This function takes care of low level behavior that depends on the specific state variables (such as reaching the desired altitude, orientation, and following tags).  It assumes that the navdata mutex is locked by the function that called it, so that it can access navdata freely.  This function is typically called in waiting functions after each navdata update. 
-@param inputLockedUniqueLock: A locked unique lock that has the navdata mutex.  It is returned in a locked state again
+This function takes the appropriate actions for control given the current commands in the queue and data state.  It calls lower level functions to send out the appropriate commands.
+*/
+void processCurrentCommandsForUpdateCycle();
+
+/*
+This function adjusts and enables/disables low level behavior depending on the given command.
+@param inputCommand: The command to execute.
+@return: true if the command has been completed and false otherwise (allowing multiple commands to be executed in a single update cycle if they are instant).
 
 @exceptions: This function can throw exceptions
 */
-void handleLowLevelBehavior(std::unique_lock<std::mutex> &inputLockedUniqueLock);
+bool adjustBehavior(const command &inputCommand);
 
+/*
+This function takes care of low level behavior that depends on the specific state variables (such as reaching the desired altitude and orientation).
+
+@exceptions: This function can throw exceptions
+*/
+void handleLowLevelBehavior();
+
+bool shutdownControlEngine;
 bool controlEngineIsDisabled;
 bool onTheGroundWithMotorsOff;
 bool takingOff;
@@ -266,15 +272,12 @@ double yHeading;
 double xCoordinateITerm;
 double yCoordinateITerm;
 double currentAngularVelocitySetting; //The setting of the current velocity
-bool highPriorityCommandWaiting; //True if a high priority command has been added to the queue
+bool currentlyWaiting;
+std::chrono::time_point<std::chrono::high_resolution_clock> waitFinishTime; //When any current wait command is due to expire
 
 //Mutex protected, only public access through threadsafe addCommand function and threadsafe commandQueueSize function
 std::mutex commandMutex;
 std::queue<command> commandQueue;
-
-//Mutex protected, changed as data becomes available
-std::condition_variable newNavDataAvailable;
-std::mutex navDataMutex;
 
 enum droneCurrentState state;  //The current state of the drone
 double batteryPercent;  //Percentage of the drone's battery remaining
@@ -298,6 +301,7 @@ double accelerationX;  //Current estimated X acceleration
 double accelerationY;  //Current estimated Y acceleration
 double accelerationZ;  //Current estimated Z acceleration
 std::vector<tagTrackingInfo> trackedTags; //Information about any oriented roundel tags in the field of view
+std::chrono::time_point<std::chrono::high_resolution_clock> navdataUpdateTime; //The timestamp of when the navdata update was received
 
 
 
@@ -306,10 +310,9 @@ ros::NodeHandle nodeHandle;
 
 bool spinThreadExitFlag; //This flag indicates if thread that is calling spinOnce should exit
 std::unique_ptr<std::thread> spinThread;
-std::unique_ptr<std::thread> controlThread;
 
 
-ros::Subscriber legacyNavigationDataSubscriber; 
+ros::Subscriber navDataSubscriber; 
 
 ros::Publisher takeOffPublisher;
 ros::Publisher landingPublisher;
@@ -330,11 +333,6 @@ This function repeatedly calls ros::spinOnce until the spinThreadExitFlag in the
 */
 void initializeAndRunSpinThread(ARDroneControllerNode *inputARDroneControllerNode);
 
-/*
-This function calls controlDrone until the controlThreadExitFlag in the given object is set (usually by the object destructor.  It is usually run in a seperate thread.
-@param inputARDroneControllerNode: The node this function call is associated
-*/
-void initializeAndRunControlThread(ARDroneControllerNode *inputARDroneControllerNode);
 
 
 

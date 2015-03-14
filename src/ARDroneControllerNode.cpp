@@ -14,21 +14,21 @@ ARDroneControllerNode::ARDroneControllerNode(std::string inputARDroneAddress)
 {
 spinThreadExitFlag = false;
 controlEngineIsDisabled = true;
+shutdownControlEngine = false;
+currentlyWaiting = false;
 
 onTheGroundWithMotorsOff = true;
 takingOff = false;
 landing = false;
 emergencyStopTriggered = false;
 maintainAltitude = false;
-homeInOnTag = false;
-matchTagOrientation = false;
 targetAltitude = 1000.0; //The altitude to maintain in mm
 xHeading = 0.0; 
 yHeading = 0.0; 
 currentAngularVelocitySetting = 0.0; //The setting of the current velocity
 
 //Subscribe to the legacy nav-data topic with a buffer size of 1000
-legacyNavigationDataSubscriber = nodeHandle.subscribe("ardrone/navdata", 1000, &ARDroneControllerNode::handleNavData, this); 
+navDataSubscriber = nodeHandle.subscribe("ardrone/navdata", 1000, &ARDroneControllerNode::handleNavData, this); 
 
 //Create publisher to control takeoff
 takeOffPublisher = nodeHandle.advertise<std_msgs::Empty>("/ardrone/takeoff", 1000);
@@ -96,216 +96,8 @@ SOM_CATCH("Error starting ROS message processing thread\n")
 printf("Spin thread has been initialized\n");
 
 
-//Create seperate thread to call controlDrone
-SOM_TRY
-controlThread.reset(new std::thread(initializeAndRunControlThread, this));
-SOM_CATCH("Error starting drone control thread\n")
-printf("Control thread has been initialized\n");
-
-
 }
 
-/*
-This function is called by the control thread to execute the commands in the command queue.  The function normally does not return unless it receives the control shutdown command.
-@exceptions: This function can throw exceptions
-*/
-void ARDroneControllerNode::controlDrone()
-{
-//Handle flags
-controlEngineIsDisabled = false;
-SOMScopeGuard controlEngineIsDisabledGuard([&](){controlEngineIsDisabled = true;}); //Set flag to be set when the control function returns
-
-//Process commands
-command commandBuffer;
-while(true)
-{
-//Retrieve next command
-if(getNextCommand(commandBuffer) != true)
-{
-printf("Busy waiting!\n");
-continue; //Busy wait, TODO: replace with something better 
-}
-printf("Doing stuff!\n");
-
-switch(commandBuffer.type)
-{
-case INVALID:
-continue; //Skip command
-break;
-
-case SET_CLEAR_COMMAND_QUEUE: //Clear the command queue
-clearCommandQueue();
-break;
-
-case SET_EMERGENCY_LANDING_COMMAND:
-landing = true;
-clearCommandQueue();
-
-SOM_TRY
-enableAutoHover();//Kill any horizontal velocity
-SOM_CATCH("Error enabling autohover\n")
-
-SOM_TRY
-activateLandingSequence();
-SOM_CATCH("Error activating emergency landing sequence\n")
-break;
-
-case SET_EMERGENCY_STOP_COMMAND:
-SOM_TRY
-activateEmergencyStop();
-SOM_CATCH("Error activating emergency stop\n")
-emergencyStopTriggered = true;
-clearCommandQueue();
-break;
-
-case SET_TAKEOFF_COMMAND:
-printf("Takeoff command\n");
-takingOff = true;
-SOM_TRY
-activateTakeoffSequence(); //TODO: control until takeoff achieved
-onTheGroundWithMotorsOff = false;
-SOM_CATCH("Error activating takeoff sequence")
-
-SOM_TRY
-waitUntilHoveringStateAchieved();
-SOM_CATCH("Error waiting for hovering state\n")
-takingOff = false;
-printf("Takeoff command completed\n");
-break;
-
-case SET_LANDING_COMMAND:
-printf("Landing command\n");
-landing = true;
-SOM_TRY
-activateLandingSequence(); //TODO: control until takeoff achieved
-SOM_CATCH("Error activating landing sequence")
-
-SOM_TRY
-waitUntilLandedStateAchieved();
-SOM_CATCH("Error waiting for hovering state\n")
-onTheGroundWithMotorsOff = true;
-landing = false;
-printf("Landing command completed\n");
-break;
-
-case SET_CONTROL_SHUTDOWN_COMMAND:
-printf("Shutting down\n");
-return; //Exit control
-break;
-
-case SET_TARGET_ALTITUDE_COMMAND:
-printf("set target altitude command\n");
-if(commandBuffer.doubles.size() > 0)
-{
-targetAltitude = commandBuffer.doubles[0];
-targetAltitudeITerm = 0.0;
-maintainAltitude = true; //Enable trying to meet a set altitude
-}
-else
-{
-throw SOMException("Error, set target altitude command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
-}
-printf("set target altitude command completed\n");
-break;
-
-case SET_HORIZONTAL_HEADING_COMMAND:
-if(commandBuffer.doubles.size() > 1)
-{
-xHeading = commandBuffer.doubles[0];
-yHeading = commandBuffer.doubles[1];
-}
-else
-{
-throw SOMException("Error, set set horizontal heading command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
-}
-break;
-
-case SET_ANGULAR_VELOCITY_COMMAND:
-if(commandBuffer.doubles.size() > 0)
-{
-currentAngularVelocitySetting = commandBuffer.doubles[0];
-}
-else
-{
-throw SOMException("Error, set angular velocity command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
-}
-break;
-
-
-case SET_FLIGHT_ANIMATION_COMMAND:
-if(commandBuffer.flightAnimations.size() > 0)
-{
-SOM_TRY
-activateFlightAnimation(commandBuffer.flightAnimations[0]);
-SOM_CATCH("Error activating flight animation\n")
-}
-else
-{
-throw SOMException("Error, set flight animation command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
-}
-break;
-
-case SET_LED_ANIMATION_COMMAND:
-if(commandBuffer.ledAnimations.size() > 0 && commandBuffer.doubles.size() > 0 && commandBuffer.integers.size() > 0)
-{
-SOM_TRY
-activateLEDAnimationSequence(commandBuffer.ledAnimations[0], commandBuffer.doubles[0], commandBuffer.integers[0]);
-SOM_CATCH("Error activating LED animation\n")
-}
-else
-{
-throw SOMException("Error, set led animation command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
-}
-break;
-
-case SET_WAIT_COMMAND:
-printf("set wait command\n");
-if(commandBuffer.doubles.size() > 0)
-{
-SOM_TRY
-waitSeconds(commandBuffer.doubles[0]);
-SOM_CATCH("Error waiting for seconds\n")
-}
-else
-{
-throw SOMException("Error, waiting for seconds command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
-}
-printf("set wait command completed\n");
-break;
-
-case SET_WAIT_UNTIL_TAG_IS_SPOTTED_COMMAND:
-if(commandBuffer.doubles.size() > 0)
-{
-SOM_TRY
-waitSecondsOrUntilTagSpotted(commandBuffer.doubles[0]);
-SOM_CATCH("Error waiting for seconds or until tag spotted\n")
-}
-else
-{
-throw SOMException("Error, waiting for seconds or until tag spotted command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
-}
-
-break;
-
-case SET_WAIT_UNTIL_ALTITUDE_REACHED:
-if(commandBuffer.doubles.size() > 0 && commandBuffer.integers.size() > 0)
-{
-SOM_TRY
-waitSecondsOrUntilAltitudeReached(commandBuffer.doubles[0], commandBuffer.integers[0]);
-SOM_CATCH("Error waiting till altitude reached\n")
-}
-else
-{
-throw SOMException("Error, waiting to reach altitude command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
-}
-break;
-
-}
-
-
-}
-
-}
 
 /*
 This function allows a command to be added to the queue of commands for the drone to execute.  This function is threadsafe, so it can be used from multiple threads but may sometimes block.
@@ -323,19 +115,15 @@ SOM_CATCH("Error locking command mutex\n")
 //Make sure mutex is unlocked when the function returns
 SOMScopeGuard mutexGuard([&](){commandMutex.unlock();});
 
-if(inputCommand.subCommands.size() > 0)
+//Unwrap command so that it can be easily processed
+std::vector<command> simpleCommandsBuffer;
+unwrapCommand(inputCommand, simpleCommandsBuffer);
+
+for(int i=0; i<simpleCommandsBuffer.size(); i++)
 {
-//This is an aggregation command, so just add the subcommands
-for(int i=0; i < inputCommand.subCommands.size(); i++)
-{
-commandQueue.push(inputCommand.subCommands[i]);
-}
-return;
+commandQueue.push(simpleCommandsBuffer[i]);
 }
 
-commandQueue.push(inputCommand);
-
-printf("Added command %d\n", inputCommand.type);
 }
 
 /*
@@ -358,11 +146,11 @@ return commandQueue.size();
 }
 
 /*
-This threadsafe function puts the next available command in the buffer and returns false if there was no command to give.  Retrieved commands are removed from the buffer.
+This threadsafe function copies the next available command in the buffer and returns false if there was no command to give.  Retrieved commands are remain in the buffer.
 @param inputCommandBuffer: The next command in the queue or the same as before if no command was available
 @return: True if there was a new command and false otherwise
 */
-bool ARDroneControllerNode::getNextCommand(command &inputCommandBuffer)
+bool ARDroneControllerNode::copyNextCommand(command &inputCommandBuffer)
 {
 //Check to see if there is a command available
 std::unique_lock<std::mutex> uniqueLock(commandMutex, std::defer_lock);
@@ -377,9 +165,28 @@ return false;
 
 //There should be a command ready and we should have mutex ownership
 inputCommandBuffer = commandQueue.front();
-commandQueue.pop();
 
 return true;
+}
+
+/*
+This threadsafe function deletes the next available command in the buffer.  If the buffer is empty, it returns without deleting.
+*/
+void ARDroneControllerNode::popNextCommand()
+{
+//Check to see if there is a command available
+std::unique_lock<std::mutex> uniqueLock(commandMutex, std::defer_lock);
+SOM_TRY
+uniqueLock.lock();
+SOM_CATCH("Error locking command mutex\n")
+
+if(commandQueue.size() == 0)
+{
+return;
+}
+
+//There should be a command ready and we should have mutex ownership
+commandQueue.pop();
 }
 
 /*
@@ -400,6 +207,88 @@ commandQueue.pop();
 }
 }
 
+
+/*
+This function is called to update the local cache of navdata information based on the given message.
+@param inputMessage: The navdata message to update the cache with
+*/
+void ARDroneControllerNode::updateNavdataCache(const ardrone_autonomy::Navdata::ConstPtr &inputMessage)
+{
+batteryPercent = inputMessage->batteryPercent;
+
+switch(inputMessage->state)
+{
+case 0:
+state = UNKNOWN_STATE;
+break;
+
+case 1:
+state = INITIALIZED;
+break;
+
+case 2:
+state = LANDED;
+break;
+
+case 3:
+case 7:
+state = FLYING;
+break;
+
+case 4:
+state = HOVERING;
+break;
+
+case 5:
+state = TEST;
+break;
+
+case 6:
+state = TAKING_OFF;
+break;
+
+case 8:
+state = LANDING;
+break;
+
+case 9:
+state = LOOPING;
+break;
+}
+
+rotationX = inputMessage->rotX;
+rotationY = inputMessage->rotY;
+rotationZ = inputMessage->rotZ;
+magneticX = inputMessage->magX;
+magneticY = inputMessage->magY;
+magneticZ = inputMessage->magZ;
+pressure  = inputMessage->pressure;
+temperature = inputMessage->temp;
+windSpeed = inputMessage->wind_speed;
+windAngle = inputMessage->wind_angle;
+windCompensationAngle = inputMessage->wind_comp_angle;
+altitude  = inputMessage->altd;
+motorPWM[0] = inputMessage->motor1;
+motorPWM[1] = inputMessage->motor2;
+motorPWM[2] = inputMessage->motor3;
+motorPWM[3] = inputMessage->motor4;
+velocityX = inputMessage->vx;
+velocityY = inputMessage->vy;
+velocityZ = inputMessage->vz;
+accelerationX = inputMessage->ax;
+accelerationY = inputMessage->ay;
+accelerationZ = inputMessage->az;
+
+//Set tag info
+trackedTags.clear();
+for(int i=0; i < inputMessage->tags_count; i++)
+{
+trackedTags.push_back(tagTrackingInfo(inputMessage->tags_xc[i], inputMessage->tags_yc[i], inputMessage->tags_width[i], inputMessage->tags_height[i], inputMessage->tags_orientation[i], inputMessage->tags_distance[i]));
+}
+
+//Set when the update was received
+navdataUpdateTime = std::chrono::high_resolution_clock::now();
+}
 
 /*
 This function sends a message to tell the drone to takeoff using its built in takeoff sequence
@@ -514,64 +403,7 @@ void ARDroneControllerNode::activateLEDAnimationSequence(LEDAnimationType inputA
 
 ardrone_autonomy::LedAnim requestMessage;
 
-switch(inputAnimationType)
-{
-case BLINK_GREEN_RED:
-requestMessage.request.type = 0;
-break;
-
-case BLINK_GREEN:
-requestMessage.request.type = 1;
-break;
-
-case BLINK_RED:
-requestMessage.request.type = 2;
-break;
-
-case BLINK_ORANGE:
-requestMessage.request.type = 3;
-break;
-
-case SNAKE_GREEN_RED:
-requestMessage.request.type = 4;
-break;
-
-case FIRE:
-requestMessage.request.type = 5;
-break;
-
-case STANDARD:
-requestMessage.request.type = 6;
-break;
-
-case RED:
-requestMessage.request.type = 7;
-break;
-
-case GREEN:
-requestMessage.request.type = 8;
-break;
-
-case RED_SNAKE:
-requestMessage.request.type = 9;
-break;
-
-case BLANK:
-requestMessage.request.type = 10;
-break;
-
-case LEFT_GREEN_RIGHT_RED:
-requestMessage.request.type = 11;
-break;
-
-case LEFT_RED_RIGHT_GREEN:
-requestMessage.request.type = 12;
-break;
-
-case BLINK_STANDARD:
-requestMessage.request.type = 13;
-break;
-}
+requestMessage.request.type = (int) inputAnimationType;
 
 requestMessage.request.freq = inputFrequency;
 requestMessage.request.duration = inputDuration;
@@ -596,90 +428,7 @@ void ARDroneControllerNode::activateFlightAnimation(flightAnimationType inputFli
 {
 ardrone_autonomy::FlightAnim requestMessage;
 
-switch(inputFlightAnimationType)
-{
-case ARDRONE_ANIM_PHI_M30_DEG:
-requestMessage.request.type = 0;
-break;
-
-case ARDRONE_ANIM_PHI_30_DEG:
-requestMessage.request.type = 1;
-break;
-
-case ARDRONE_ANIM_THETA_M30_DEG:
-requestMessage.request.type = 2;
-break;
-
-case ARDRONE_ANIM_THETA_30_DEG:
-requestMessage.request.type = 3;
-break;
-
-case ARDRONE_ANIM_THETA_20DEG_YAW_200DEG:
-requestMessage.request.type = 4;
-break;
-
-case ARDRONE_ANIM_THETA_20DEG_YAW_M200DEG:
-requestMessage.request.type = 5;
-break;
-
-case ARDRONE_ANIM_TURNAROUND:
-requestMessage.request.type = 6;
-break;
-
-case ARDRONE_ANIM_TURNAROUND_GODOWN:
-requestMessage.request.type = 7;
-break;
-
-case ARDRONE_ANIM_YAW_SHAKE:
-requestMessage.request.type = 8;
-break;
-
-case ARDRONE_ANIM_YAW_DANCE:
-requestMessage.request.type = 9;
-break;
-
-case ARDRONE_ANIM_PHI_DANCE:
-requestMessage.request.type = 10;
-break;
-
-case ARDRONE_ANIM_THETA_DANCE:
-requestMessage.request.type = 11;
-break;
-
-case ARDRONE_ANIM_VZ_DANCE:
-requestMessage.request.type = 12;
-break;
-
-case ARDRONE_ANIM_WAVE:
-requestMessage.request.type = 13;
-break;
-
-case ARDRONE_ANIM_PHI_THETA_MIXED:
-requestMessage.request.type = 14;
-break;
-
-case ARDRONE_ANIM_DOUBLE_PHI_THETA_MIXED:
-requestMessage.request.type = 15;
-break;
-
-case ARDRONE_ANIM_FLIP_AHEAD:
-requestMessage.request.type = 16;
-break;
-
-case ARDRONE_ANIM_FLIP_BEHIND:
-requestMessage.request.type = 17;
-break;
-
-case ARDRONE_ANIM_FLIP_LEFT:
-requestMessage.request.type = 18;
-break;
-
-case ARDRONE_ANIM_FLIP_RIGHT:
-requestMessage.request.type = 19;
-break;
-
-}
-
+requestMessage.request.type = (int) inputFlightAnimationType;
 requestMessage.request.duration = 0;
 
 if(setFlightAnimationClient.call(requestMessage))
@@ -718,8 +467,6 @@ This function causes the drone to start recording to its USB stick (if it has on
 void ARDroneControllerNode::enableUSBRecording(bool inputStartRecording)
 {
 ardrone_autonomy::RecordEnable requestMessage;
-
-
 requestMessage.request.enable = inputStartRecording;
 
 if(setUSBRecordingClient.call(requestMessage))
@@ -733,106 +480,19 @@ else
 }
 
 /*
-This function is used as a callback to handle legacy nav-data.
-@param inputMessage: The legacy nav-data message to handle 
+This function is used as a callback to handle nav-data.
+@param inputMessage: The  nav-data message to handle 
 */
 void ARDroneControllerNode::handleNavData(const ardrone_autonomy::Navdata::ConstPtr &inputMessage)
 {
 //Update navdata cache
-try
-{
-//Lock mutex so data can be accessed
-std::unique_lock<std::mutex> uniqueLock(navDataMutex, std::defer_lock);
+updateNavdataCache(inputMessage);
+
+//Send control messages for this cycle and process commands
 SOM_TRY
-uniqueLock.lock();
-SOM_CATCH("Error locking command mutex\n")
+processCurrentCommandsForUpdateCycle();
+SOM_CATCH("Error adjusting/sending commands for commands/behavior")
 
-//printf("Updating navdata\n");
-
-batteryPercent = inputMessage->batteryPercent;
-
-switch(inputMessage->state)
-{
-case 0:
-state = UNKNOWN_STATE;
-break;
-
-case 1:
-state = INITIALIZED;
-break;
-
-case 2:
-state = LANDED;
-break;
-
-case 3:
-case 7:
-state = FLYING;
-break;
-
-case 4:
-state = HOVERING;
-break;
-
-case 5:
-state = TEST;
-break;
-
-case 6:
-state = TAKING_OFF;
-break;
-
-case 8:
-state = LANDING;
-break;
-
-case 9:
-state = LOOPING;
-break;
-}
-
-rotationX = inputMessage->rotX;
-rotationY = inputMessage->rotY;
-rotationZ = inputMessage->rotZ;
-magneticX = inputMessage->magX;
-magneticY = inputMessage->magY;
-magneticZ = inputMessage->magZ;
-pressure  = inputMessage->pressure;
-temperature = inputMessage->temp;
-windSpeed = inputMessage->wind_speed;
-windAngle = inputMessage->wind_angle;
-windCompensationAngle = inputMessage->wind_comp_angle;
-altitude  = inputMessage->altd;
-motorPWM[0] = inputMessage->motor1;
-motorPWM[1] = inputMessage->motor2;
-motorPWM[2] = inputMessage->motor3;
-motorPWM[3] = inputMessage->motor4;
-velocityX = inputMessage->vx;
-velocityY = inputMessage->vy;
-velocityZ = inputMessage->vz;
-accelerationX = inputMessage->ax;
-accelerationY = inputMessage->ay;
-accelerationZ = inputMessage->az;
-
-//printf("I see %d tags\n", inputMessage->tags_count);
-
-//Set tag info
-trackedTags.clear();
-for(int i=0; i < inputMessage->tags_count; i++)
-{
-trackedTags.push_back(tagTrackingInfo(inputMessage->tags_xc[i], inputMessage->tags_yc[i], inputMessage->tags_width[i], inputMessage->tags_height[i], inputMessage->tags_orientation[i], inputMessage->tags_distance[i]));
-}
-
-//Release mutex
-uniqueLock.unlock();
-
-//Signal data is available
-newNavDataAvailable.notify_all();
-}
-catch(std::exception &inputException)
-{
-fprintf(stderr, "%s\n", inputException.what()); 
-}
 }
 
 /*
@@ -867,211 +527,411 @@ catch(const std::exception &inputException)
 fprintf(stderr, "%s\n", inputException.what());
 }
 
-controlThread->join();
-printf("Control thread joined\n");
-
 spinThreadExitFlag = true;
 spinThread->join();
 printf("Spin thread joined\n");
 }
 
-/*
-This function waits on the given locked mutex until the signal for the next navdata update occurs (though there can be fake wakeups)
-@param inputLockedUniqueLock: A locked unique lock that has the navdata mutex.  It is returned in a locked state again
 
-@exceptions: This function can throw exceptions
+
+/*
+This function returns true if the ARDrone has achieved the hovering state.
+@return: True if the hovering state has been achieved
 */
-void ARDroneControllerNode::waitUntilNextNavDataUpdate(std::unique_lock<std::mutex> &inputLockedUniqueLock)
+bool ARDroneControllerNode::checkIfHoveringStateAchieved()
 {
-newNavDataAvailable.wait(inputLockedUniqueLock);
+return state == HOVERING || state == FLYING;
 }
 
 /*
-This function blocks until the ARDrone has achieved the hovering state.  This is normally used after the takeoff signal has been sent to wait until the drone finishes taking off.  It doesn't update low level behaviors.
-
-@exceptions: This function can throw exceptions
+This function returns if the ARDrone has achieved the landed state.
+@return: True if the landed state has been achieved
 */
-void ARDroneControllerNode::waitUntilHoveringStateAchieved()
+bool ARDroneControllerNode::checkIfLandedStateAchieved()
 {
-//Lock mutex so data can be accessed
-std::unique_lock<std::mutex> uniqueLock(navDataMutex, std::defer_lock);
-SOM_TRY
-uniqueLock.lock();
-SOM_CATCH("Error locking navdata mutex\n")
+return state == LANDED;
+}
 
-while(true)
+/*
+This function checks if a tag has been spotted.
+@return: True if there is one or more tags in the navdata cache
+*/
+bool ARDroneControllerNode::checkIfTagSpotted()
 {
-if(state == HOVERING || state == FLYING)
+return trackedTags.size() > 0;
+}
+
+
+/*
+This function checks if the target altitude is reached.
+@param inputNumberOfMillimetersToTarget: The wiggle room to match the target height (+- this amount from the target).  It is normally 10 mm.
+*/
+bool ARDroneControllerNode::checkIfAltitudeReached(int inputNumberOfMillimetersToTarget)
 {
+return fabs(altitude - targetAltitude) < inputNumberOfMillimetersToTarget;
+}
+
+/*
+This function checks if a command has been completed and should be removed from the queue.
+@return: true if the command has been completed and false otherwise
+*/
+bool ARDroneControllerNode::checkIfCommandCompleted(const command &inputCommand)
+{
+
+switch(inputCommand.type)
+{
+case INVALID:
+return true; //Invalid commands have always been completed
+break;
+
+case SET_CLEAR_COMMAND_QUEUE: //Clear the command queue
+case SET_EMERGENCY_LANDING_COMMAND:
+case SET_EMERGENCY_STOP_COMMAND:
+return false;
+break;
+
+case SET_TAKEOFF_COMMAND:
+return checkIfHoveringStateAchieved();
+break;
+
+case SET_LANDING_COMMAND:
+return checkIfLandedStateAchieved();
+break;
+
+case SET_CONTROL_SHUTDOWN_COMMAND:
+case SET_TARGET_ALTITUDE_COMMAND:
+case SET_HORIZONTAL_HEADING_COMMAND:
+case SET_ANGULAR_VELOCITY_COMMAND:
+case SET_FLIGHT_ANIMATION_COMMAND:
+case SET_LED_ANIMATION_COMMAND:
+return false;
+break;
+
+case SET_WAIT_COMMAND:
+return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - waitFinishTime).count() >= 0;
+break;
+
+case SET_WAIT_UNTIL_TAG_IS_SPOTTED_COMMAND:
+//Return true if the timer has expired or a tag has been spotted
+return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - waitFinishTime).count() >= 0 || checkIfTagSpotted();
+break;
+
+case SET_WAIT_UNTIL_ALTITUDE_REACHED:
+//Return true if the timer has expired or the altitude has been reached
+if(inputCommand.integers.size() < 1)
+{
+return true; //Invalid command, so completed
+}
+
+return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - waitFinishTime).count() >= 0 || checkIfAltitudeReached(inputCommand.integers[0]);
 break;
 }
-waitUntilNextNavDataUpdate(uniqueLock); //Wait until next update
-}
 
+return true;
 }
 
 /*
-This function blocks until the ARDrone has achieved the landed state.  This is normally used after the land signal has been sent to wait until the drone finishes setting down.  It updates low level behaviors.
-
-@exceptions: This function can throw exceptions
+This function removes the top command from the queue and does any state adjustment associated with the command being completed (such as marking the AR drone as having landed).
 */
-void ARDroneControllerNode::waitUntilLandedStateAchieved()
+void ARDroneControllerNode::removeCompletedCommand()
 {
-//Lock mutex so data can be accessed
-std::unique_lock<std::mutex> uniqueLock(navDataMutex, std::defer_lock);
-SOM_TRY
-uniqueLock.lock();
-SOM_CATCH("Error locking navdata mutex\n")
+//Get top command
+command commandBuffer;
+if(copyNextCommand(commandBuffer) != true)
+{
+return; //No command to remove
+}
 
-while(true)
+//Make sure command is removed when the function returns
+SOMScopeGuard commandScopeGuard([&](){popNextCommand();});
+
+switch(commandBuffer.type)
 {
-if(state == LANDED)
-{
+case INVALID:
+case SET_CLEAR_COMMAND_QUEUE: //Clear the command queue
+case SET_EMERGENCY_LANDING_COMMAND:
+case SET_EMERGENCY_STOP_COMMAND:
+return;
+break;
+
+case SET_TAKEOFF_COMMAND:
+takingOff = false;
+return;
+break;
+
+case SET_LANDING_COMMAND:
+onTheGroundWithMotorsOff = true;
+landing = false;
+return;
+break;
+
+case SET_CONTROL_SHUTDOWN_COMMAND:
+case SET_TARGET_ALTITUDE_COMMAND:
+case SET_HORIZONTAL_HEADING_COMMAND:
+case SET_ANGULAR_VELOCITY_COMMAND:
+case SET_FLIGHT_ANIMATION_COMMAND:
+case SET_LED_ANIMATION_COMMAND:
+return;
+break;
+
+case SET_WAIT_COMMAND:
+case SET_WAIT_UNTIL_TAG_IS_SPOTTED_COMMAND:
+case SET_WAIT_UNTIL_ALTITUDE_REACHED:
+currentlyWaiting = false;
+return;
 break;
 }
 
-SOM_TRY
-handleLowLevelBehavior(uniqueLock);
-SOM_CATCH("Error handling low level behavior\n")
-
-SOM_TRY
-waitUntilNextNavDataUpdate(uniqueLock); //Wait until next update
-SOM_CATCH("Error waiting for next nav update\n")
-}
-
 }
 
 /*
-This function blocks until the given amount of time has passed, while maintaining low level behaviors (tag tracking and altitude control).
-@param inputSecondsToWait: The number of seconds to wait
-
-@exceptions: This function can throw exceptions
+This function takes the appropriate actions for control given the current commands in the queue and data state.  It calls lower level functions to send out the appropriate commands.
 */
-void ARDroneControllerNode::waitSeconds(double inputSecondsToWait)
+void ARDroneControllerNode::processCurrentCommandsForUpdateCycle()
 {
-//Get the start time
-auto originalTime = std::chrono::high_resolution_clock::now();
-//Lock mutex so data can be accessed
-std::unique_lock<std::mutex> uniqueLock(navDataMutex, std::defer_lock);
-SOM_TRY
-uniqueLock.lock();
-SOM_CATCH("Error locking navdata mutex\n")
-
 while(true)
 {
-auto currentTime = std::chrono::high_resolution_clock::now();
-auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - originalTime);
-
-if(elapsedTime.count() >= inputSecondsToWait*1000.0)
+command commandBuffer;
+if(copyNextCommand(commandBuffer) != true)
 {
-break; //Timer finished
-}
-
-//Handle low level behaviors
+//No command is active, initiate emergency landing
+commandBuffer.setEmergencyLandingCommand();
 SOM_TRY
-handleLowLevelBehavior(uniqueLock);
-SOM_CATCH("Error handling low level behavior\n")
-
-SOM_TRY
-waitUntilNextNavDataUpdate(uniqueLock); //Wait until next update
-SOM_CATCH("Error waiting for next nav update\n")
+addCommand(commandBuffer);
+adjustBehavior(commandBuffer);
+return; //Set emergency landing and then exit command loop
+SOM_CATCH("Error setting emergency landing")
 }
 
-}
-
-/*
-This function blocks until the given amount of time has passed, while maintaining low level behaviors (tag tracking and altitude control).
-@param inputSecondsToWait: The number of seconds to wait
-
-@exceptions: This function can throw exceptions
-*/
-void ARDroneControllerNode::waitSecondsOrUntilTagSpotted(double inputSecondsToWait)
+if(adjustBehavior(commandBuffer) == true)
 {
-//Get the start time
-auto originalTime = std::chrono::high_resolution_clock::now();
-//Lock mutex so data can be accessed
-std::unique_lock<std::mutex> uniqueLock(navDataMutex, std::defer_lock);
-SOM_TRY
-uniqueLock.lock();
-SOM_CATCH("Error locking navdata mutex\n")
-
-while(true)
+removeCompletedCommand();
+}
+else
 {
-auto currentTime = std::chrono::high_resolution_clock::now();
-auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - originalTime);
-
-if(elapsedTime.count() >= inputSecondsToWait*1000.0 || trackedTags.size() > 0)
-{
-break; //Timer finished
+break; //Command will take time to complete, so wait for next navdata update to check
 }
 
-//Handle low level behaviors
-SOM_TRY
-handleLowLevelBehavior(uniqueLock);
-SOM_CATCH("Error handling low level behavior\n")
-
-SOM_TRY
-waitUntilNextNavDataUpdate(uniqueLock); //Wait until next update
-SOM_CATCH("Error waiting for next nav update\n")
-}
 }
 
-/*
-This function blocks until the given amount of time has passed or the target altitude is reached, while maintaining low level behaviors (tag tracking and altitude control).
-@param inputNumberOfSeconds: The number of seconds to wait
-@param inputNumberOfMillimetersToTarget: The wiggle room to match the target height (+- this amount from the target).  It is normally 1 mm.
-
-@exceptions: This function can throw exceptions
-*/
-void ARDroneControllerNode::waitSecondsOrUntilAltitudeReached(double inputNumberOfSeconds, int inputNumberOfMillimetersToTarget)
-{
-//Get the start time
-auto originalTime = std::chrono::high_resolution_clock::now();
-//Lock mutex so data can be accessed
-std::unique_lock<std::mutex> uniqueLock(navDataMutex, std::defer_lock);
+//Handle low level behaviors using the settings from the adjusted behavior
 SOM_TRY
-uniqueLock.lock();
-SOM_CATCH("Error locking navdata mutex\n")
-
-while(true)
-{
-auto currentTime = std::chrono::high_resolution_clock::now();
-auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - originalTime);
-
-if(elapsedTime.count() >= inputNumberOfSeconds*1000.0 || (fabs(altitude - targetAltitude) < inputNumberOfMillimetersToTarget) )
-{
-break; //Timer finished
-}
-
-//Handle low level behaviors
-SOM_TRY
-handleLowLevelBehavior(uniqueLock);
-SOM_CATCH("Error handling low level behavior\n")
-
-SOM_TRY
-waitUntilNextNavDataUpdate(uniqueLock); //Wait until next update
-SOM_CATCH("Error waiting for next nav update\n")
-}
+handleLowLevelBehavior();
+SOM_CATCH("Error, problem implementing low level behavior\n")
 }
 
 
 /*
-This function takes care of low level behavior that depends on the specific state variables (such as reaching the desired altitude, orientation, and following tags).  It assumes that the navdata mutex is locked by the function that called it, so that it can access navdata freely.  This function is typically called in waiting functions after each navdata update. 
-@param inputLockedUniqueLock: A locked unique lock that has the navdata mutex.  It is returned in a locked state again
+This function adjusts and enables/disables low level behavior depending on the given command.
+@param inputCommand: The command to execute.
+@return: true if the command has been completed and false otherwise (allowing multiple commands to be executed in a single update cycle if they are instant).
 
 @exceptions: This function can throw exceptions
 */
-void ARDroneControllerNode::handleLowLevelBehavior(std::unique_lock<std::mutex> &inputLockedUniqueLock)
+bool ARDroneControllerNode::adjustBehavior(const command &inputCommand)
+{
+if(checkIfCommandCompleted(inputCommand))
+{
+return true; //Command completed already, so do nothing
+}
+
+switch(inputCommand.type)
+{
+case INVALID:
+break;
+
+case SET_CLEAR_COMMAND_QUEUE: //Clear the command queue
+clearCommandQueue();
+return true; //Instant commands return true
+break;
+
+case SET_EMERGENCY_LANDING_COMMAND:
+landing = true;
+clearCommandQueue();
+
+SOM_TRY
+enableAutoHover();//Kill any horizontal velocity
+SOM_CATCH("Error enabling autohover\n")
+
+SOM_TRY
+activateLandingSequence();
+SOM_CATCH("Error activating emergency landing sequence\n")
+return true; //Instant commands return true
+break;
+
+case SET_EMERGENCY_STOP_COMMAND:
+SOM_TRY
+activateEmergencyStop();
+SOM_CATCH("Error activating emergency stop\n")
+emergencyStopTriggered = true;
+clearCommandQueue();
+return true; //Instant commands return true
+break;
+
+case SET_TAKEOFF_COMMAND:
+
+if(takingOff != true)
+{
+SOM_TRY
+activateTakeoffSequence();
+onTheGroundWithMotorsOff = false;
+SOM_CATCH("Error activating takeoff sequence")
+takingOff = true;
+}
+break;
+
+case SET_LANDING_COMMAND:
+if(landing != true)
+{
+SOM_TRY
+activateLandingSequence();
+SOM_CATCH("Error activating landing sequence")
+landing = true;
+}
+break;
+
+case SET_CONTROL_SHUTDOWN_COMMAND:
+shutdownControlEngine = true;
+return true; //Instant commands return true
+break;
+
+case SET_TARGET_ALTITUDE_COMMAND:
+if(inputCommand.doubles.size() > 0)
+{
+targetAltitude = inputCommand.doubles[0];
+targetAltitudeITerm = 0.0;
+maintainAltitude = true; //Enable trying to meet a set altitude
+}
+else
+{
+throw SOMException("Error, set target altitude command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
+}
+return true; //Instant commands return true
+break;
+
+case SET_HORIZONTAL_HEADING_COMMAND:
+if(inputCommand.doubles.size() > 1)
+{
+xHeading = inputCommand.doubles[0];
+yHeading = inputCommand.doubles[1];
+}
+else
+{
+throw SOMException("Error, set set horizontal heading command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
+}
+return true; //Instant commands return true
+break;
+
+case SET_ANGULAR_VELOCITY_COMMAND:
+if(inputCommand.doubles.size() > 0)
+{
+currentAngularVelocitySetting = inputCommand.doubles[0];
+}
+else
+{
+throw SOMException("Error, set angular velocity command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
+}
+return true; //Instant commands return true
+break;
+
+
+case SET_FLIGHT_ANIMATION_COMMAND:
+if(inputCommand.flightAnimations.size() > 0)
+{
+SOM_TRY
+activateFlightAnimation(inputCommand.flightAnimations[0]);
+SOM_CATCH("Error activating flight animation\n")
+}
+else
+{
+throw SOMException("Error, set flight animation command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
+}
+return true; //Instant commands return true
+break;
+
+case SET_LED_ANIMATION_COMMAND:
+if(inputCommand.ledAnimations.size() > 0 && inputCommand.doubles.size() > 0 && inputCommand.integers.size() > 0)
+{
+SOM_TRY
+activateLEDAnimationSequence(inputCommand.ledAnimations[0], inputCommand.doubles[0], inputCommand.integers[0]);
+SOM_CATCH("Error activating LED animation\n")
+}
+else
+{
+throw SOMException("Error, set led animation command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
+}
+return true; //Instant commands return true
+break;
+
+case SET_WAIT_COMMAND:
+if(!currentlyWaiting)
+{
+if(inputCommand.doubles.size() > 0)
+{
+SOM_TRY
+waitFinishTime = std::chrono::high_resolution_clock::now()  - std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputCommand.doubles[0]));
+currentlyWaiting = true;
+SOM_CATCH("Error waiting for seconds\n")
+}
+else
+{
+throw SOMException("Error, waiting for seconds command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
+}
+}
+break;
+
+case SET_WAIT_UNTIL_TAG_IS_SPOTTED_COMMAND:
+if(!currentlyWaiting)
+{
+if(inputCommand.doubles.size() > 0)
+{
+SOM_TRY
+waitFinishTime = std::chrono::high_resolution_clock::now()  - std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputCommand.doubles[0]));
+currentlyWaiting = true;
+SOM_CATCH("Error waiting for seconds or until tag spotted\n")
+}
+else
+{
+throw SOMException("Error, waiting for seconds or until tag spotted command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
+}
+}
+break;
+
+case SET_WAIT_UNTIL_ALTITUDE_REACHED:
+if(!currentlyWaiting)
+{
+if(inputCommand.doubles.size() > 0 && inputCommand.integers.size() > 0)
+{
+SOM_TRY
+waitFinishTime = std::chrono::high_resolution_clock::now()  - std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputCommand.doubles[0]));
+currentlyWaiting = true;
+SOM_CATCH("Error waiting till altitude reached\n")
+}
+else
+{
+throw SOMException("Error, waiting to reach altitude command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
+}
+break;
+}
+}
+
+return checkIfCommandCompleted(inputCommand);
+}
+
+
+/*
+This function takes care of low level behavior that depends on the specific state variables (such as reaching the desired altitude and orientation).
+
+@exceptions: This function can throw exceptions
+*/
+void ARDroneControllerNode::handleLowLevelBehavior()
 {
 
-if(controlEngineIsDisabled || onTheGroundWithMotorsOff || emergencyStopTriggered)
+if(controlEngineIsDisabled || onTheGroundWithMotorsOff || emergencyStopTriggered || shutdownControlEngine)
 {
 printf("No control %d %d %d\n", controlEngineIsDisabled,  onTheGroundWithMotorsOff, emergencyStopTriggered);
 return; //Return if we shouldn't be trying to fly
 }
-
-
-//printf("Hello!\n");
 
 double zThrottle = 0.0;
 if(maintainAltitude)
@@ -1079,73 +939,14 @@ if(maintainAltitude)
 double pTerm = (targetAltitude - fabs(altitude));
 targetAltitudeITerm = targetAltitudeITerm + pTerm;
 
-zThrottle = pTerm/600.0 + targetAltitudeITerm/100000000.0; //Simple P control for now
-
-/*
-if(zThrottle > 0.9) //Clamp values
-{
-zThrottle = .9;
-}
-if(zThrottle < -0.9)
-{
-zThrottle = -0.9;
-}
-*/
-
+zThrottle = pTerm/600.0 + targetAltitudeITerm/100000000.0; //PI control for altitude
 
 //printf("Altitude values: target: %.1lf Current: %.1lf Diff: %.1lf throt:  %.1lf I:%.1lf\n", targetAltitude, altitude, targetAltitude -altitude, zThrottle, targetAltitudeITerm); 
 }
 
-if(trackedTags.size() > 0)
-{
-//printf("I see %ld tags\n", trackedTags.size());
-double xCoordinate = trackedTags[0].xCoordinate;
-double yCoordinate = trackedTags[0].yCoordinate;
-printf("XCoordinate: %.2lf  YCoordinate: %.2lf\n", xCoordinate, yCoordinate);
-}
 
 double xThrottle = xHeading;
 double yThrottle = yHeading;
-if(homeInOnTag && trackedTags.size() > 0)
-{
-//Override heading values if there is a tag to follow
-//(xCoordinate maxs at +-1000, so throttle should max at +-.1)
-double xCoordinate = trackedTags[0].xCoordinate-500.0;
-double yCoordinate = -(trackedTags[0].yCoordinate-500.0);
-xCoordinateITerm = xCoordinateITerm + xCoordinate/10000000.0;
-yCoordinateITerm = yCoordinateITerm + yCoordinate/10000000.0;
-
-printf("XCoordinate: %.2lf  YCoordinate: %.2lf XCoordinateI: %.2lf  YCoordinateI: %.2lf\n\n", xCoordinate, yCoordinate, xCoordinateITerm, yCoordinateITerm);
-
-//X: Tag is right = high positive
-//Y: Tag is back = high positive
-
-if(xCoordinate > 1000)
-{
-xCoordinate = 1000;
-}
-if(xCoordinate < -1000)
-{
-xCoordinate = -1000;
-}
-
-if(yCoordinate > 1000)
-{
-yCoordinate = 1000;
-}
-if(yCoordinate < -1000)
-{
-yCoordinate = -1000;
-}
-
-
-
-xThrottle = yCoordinate/3500.0;// + yCoordinateITerm/500.0; //Simple P control for now
-//(yCoordinate maxs at +-1000, so throttle should max at +-.1)
-yThrottle = xCoordinate/3500.0; //+ xCoordinateITerm/500.0; //Simple P control for now
-//yThrottle = 0;
-printf("Applying x:%.2lf y:%.2lf\n", xThrottle, yThrottle);
-}
 
 double zRotationThrottle = currentAngularVelocitySetting;
 if(matchTagOrientation)
@@ -1154,16 +955,8 @@ if(matchTagOrientation)
 zRotationThrottle = trackedTags[0].orientation / 180; //Might need offset and other configuration
 }
 
-
-//Unlock while sending ROS message
-inputLockedUniqueLock.unlock();
-
 //Tell the drone how it should move
 setVelocityAndRotation(xThrottle, yThrottle, zThrottle, zRotationThrottle);
-
-SOM_TRY
-inputLockedUniqueLock.lock();
-SOM_CATCH("Error relocking mutex\n")
 }
 
 
@@ -1174,26 +967,12 @@ This function repeatedly calls ros::spinOnce until the spinThreadExitFlag in the
 */
 void initializeAndRunSpinThread(ARDroneControllerNode *inputARDroneControllerNode)
 {
+//Set camera to look forward for tags
+inputARDroneControllerNode->setCameraFront(true);
+
 while(inputARDroneControllerNode->spinThreadExitFlag != true)
 {
 ros::spinOnce();
 }
 }
 
-/*
-This function calls controlDrone until the controlThreadExitFlag in the given object is set (usually by the object destructor.  It is usually run in a seperate thread.
-@param inputARDroneControllerNode: The node this function call is associated
-*/
-void initializeAndRunControlThread(ARDroneControllerNode *inputARDroneControllerNode)
-{
-try
-{
-//Set camera to look forward for tags
-inputARDroneControllerNode->setCameraFront(true);
-inputARDroneControllerNode->controlDrone();
-}
-catch(const std::exception &inputException)
-{
-fprintf(stderr, "%s\n", inputException.what());
-}
-}

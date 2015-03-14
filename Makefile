@@ -150,6 +150,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command
+
+# Build rule for target.
+_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command
+.PHONY : _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command
+
+# fast build rule for target.
+_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command/fast:
+	$(MAKE) -f CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/build.make CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/build
+.PHONY : _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command/fast
+
+#=============================================================================
+# Target rules for targets named _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part
+
+# Build rule for target.
+_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part
+.PHONY : _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part
+
+# fast build rule for target.
+_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part/fast:
+	$(MAKE) -f CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/build.make CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/build
+.PHONY : _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part/fast
+
+#=============================================================================
 # Target rules for targets named actionlib_generate_messages_cpp
 
 # Build rule for target.
@@ -239,6 +265,97 @@ ardrone_application_node: cmake_check_build_system
 ardrone_application_node/fast:
 	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/build
 .PHONY : ardrone_application_node/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_application_node_gencpp
+
+# Build rule for target.
+ardrone_application_node_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_gencpp
+.PHONY : ardrone_application_node_gencpp
+
+# fast build rule for target.
+ardrone_application_node_gencpp/fast:
+	$(MAKE) -f CMakeFiles/ardrone_application_node_gencpp.dir/build.make CMakeFiles/ardrone_application_node_gencpp.dir/build
+.PHONY : ardrone_application_node_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_application_node_generate_messages
+
+# Build rule for target.
+ardrone_application_node_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_generate_messages
+.PHONY : ardrone_application_node_generate_messages
+
+# fast build rule for target.
+ardrone_application_node_generate_messages/fast:
+	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages.dir/build.make CMakeFiles/ardrone_application_node_generate_messages.dir/build
+.PHONY : ardrone_application_node_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_application_node_generate_messages_cpp
+
+# Build rule for target.
+ardrone_application_node_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_generate_messages_cpp
+.PHONY : ardrone_application_node_generate_messages_cpp
+
+# fast build rule for target.
+ardrone_application_node_generate_messages_cpp/fast:
+	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/build
+.PHONY : ardrone_application_node_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_application_node_generate_messages_lisp
+
+# Build rule for target.
+ardrone_application_node_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_generate_messages_lisp
+.PHONY : ardrone_application_node_generate_messages_lisp
+
+# fast build rule for target.
+ardrone_application_node_generate_messages_lisp/fast:
+	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/build
+.PHONY : ardrone_application_node_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_application_node_generate_messages_py
+
+# Build rule for target.
+ardrone_application_node_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_generate_messages_py
+.PHONY : ardrone_application_node_generate_messages_py
+
+# fast build rule for target.
+ardrone_application_node_generate_messages_py/fast:
+	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_py.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_py.dir/build
+.PHONY : ardrone_application_node_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_application_node_genlisp
+
+# Build rule for target.
+ardrone_application_node_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_genlisp
+.PHONY : ardrone_application_node_genlisp
+
+# fast build rule for target.
+ardrone_application_node_genlisp/fast:
+	$(MAKE) -f CMakeFiles/ardrone_application_node_genlisp.dir/build.make CMakeFiles/ardrone_application_node_genlisp.dir/build
+.PHONY : ardrone_application_node_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_application_node_genpy
+
+# Build rule for target.
+ardrone_application_node_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_genpy
+.PHONY : ardrone_application_node_genpy
+
+# fast build rule for target.
+ardrone_application_node_genpy/fast:
+	$(MAKE) -f CMakeFiles/ardrone_application_node_genpy.dir/build.make CMakeFiles/ardrone_application_node_genpy.dir/build
+.PHONY : ardrone_application_node_genpy/fast
 
 #=============================================================================
 # Target rules for targets named ardrone_autonomy_generate_messages_cpp
@@ -819,6 +936,8 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command"
+	@echo "... _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part"
 	@echo "... actionlib_generate_messages_cpp"
 	@echo "... actionlib_generate_messages_lisp"
 	@echo "... actionlib_generate_messages_py"
@@ -826,6 +945,13 @@ help:
 	@echo "... actionlib_msgs_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_py"
 	@echo "... ardrone_application_node"
+	@echo "... ardrone_application_node_gencpp"
+	@echo "... ardrone_application_node_generate_messages"
+	@echo "... ardrone_application_node_generate_messages_cpp"
+	@echo "... ardrone_application_node_generate_messages_lisp"
+	@echo "... ardrone_application_node_generate_messages_py"
+	@echo "... ardrone_application_node_genlisp"
+	@echo "... ardrone_application_node_genpy"
 	@echo "... ardrone_autonomy_generate_messages_cpp"
 	@echo "... ardrone_autonomy_generate_messages_lisp"
 	@echo "... ardrone_autonomy_generate_messages_py"
