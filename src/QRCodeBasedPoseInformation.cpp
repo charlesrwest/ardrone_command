@@ -166,7 +166,7 @@ pointToConvert.at<double>(0,2) = inputPointInCameraSpace[2];
 pointToConvert.at<double>(0,3) = 1.0;
 
 //Multiply by QR code pose matrix
-buffer = QRCodePose*pointToConvert;
+buffer = cameraPose*pointToConvert;
 
 //Convert to std::matrix
 std::vector<double> pointToReturn(3);
