@@ -95,9 +95,55 @@ CMakeFiles/ardrone_application_node.dir/src/tagTrackingInfo.cpp.o.provides: CMak
 
 CMakeFiles/ardrone_application_node.dir/src/tagTrackingInfo.cpp.o.provides.build: CMakeFiles/ardrone_application_node.dir/src/tagTrackingInfo.cpp.o
 
+CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o: CMakeFiles/ardrone_application_node.dir/flags.make
+CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o: src/QRCodeBasedPoseInformation.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o -c /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/QRCodeBasedPoseInformation.cpp
+
+CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/QRCodeBasedPoseInformation.cpp > CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.i
+
+CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/QRCodeBasedPoseInformation.cpp -o CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.s
+
+CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o.requires:
+.PHONY : CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o.requires
+
+CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o.provides: CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o.provides.build
+.PHONY : CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o.provides
+
+CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o.provides.build: CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o
+
+CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o: CMakeFiles/ardrone_application_node.dir/flags.make
+CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o: src/QRCodeStateEstimator.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o -c /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/QRCodeStateEstimator.cpp
+
+CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/QRCodeStateEstimator.cpp > CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.i
+
+CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/QRCodeStateEstimator.cpp -o CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.s
+
+CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o.requires:
+.PHONY : CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o.requires
+
+CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o.provides: CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o.provides.build
+.PHONY : CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o.provides
+
+CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o.provides.build: CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o
+
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: CMakeFiles/ardrone_application_node.dir/flags.make
 CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o: src/ARDroneControllerNode.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o -c /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/ARDroneControllerNode.cpp
 
@@ -120,7 +166,7 @@ CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o.provides
 
 CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.o: CMakeFiles/ardrone_application_node.dir/flags.make
 CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.o: src/SOMException.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.o -c /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/SOMException.cpp
 
@@ -143,7 +189,7 @@ CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.o.provides.build: C
 
 CMakeFiles/ardrone_application_node.dir/src/command.cpp.o: CMakeFiles/ardrone_application_node.dir/flags.make
 CMakeFiles/ardrone_application_node.dir/src/command.cpp.o: src/command.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ardrone_application_node.dir/src/command.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ardrone_application_node.dir/src/command.cpp.o -c /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/command.cpp
 
@@ -166,7 +212,7 @@ CMakeFiles/ardrone_application_node.dir/src/command.cpp.o.provides.build: CMakeF
 
 CMakeFiles/ardrone_application_node.dir/src/SOMScopeGuard.cpp.o: CMakeFiles/ardrone_application_node.dir/flags.make
 CMakeFiles/ardrone_application_node.dir/src/SOMScopeGuard.cpp.o: src/SOMScopeGuard.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ardrone_application_node.dir/src/SOMScopeGuard.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ardrone_application_node.dir/src/SOMScopeGuard.cpp.o -c /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/src/SOMScopeGuard.cpp
 
@@ -191,6 +237,8 @@ CMakeFiles/ardrone_application_node.dir/src/SOMScopeGuard.cpp.o.provides.build: 
 ardrone_application_node_OBJECTS = \
 "CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o" \
 "CMakeFiles/ardrone_application_node.dir/src/tagTrackingInfo.cpp.o" \
+"CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o" \
+"CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o" \
 "CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o" \
 "CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.o" \
 "CMakeFiles/ardrone_application_node.dir/src/command.cpp.o" \
@@ -201,6 +249,8 @@ ardrone_application_node_EXTERNAL_OBJECTS =
 
 devel/lib/ardrone_application_node/ardrone_application_node: CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o
 devel/lib/ardrone_application_node/ardrone_application_node: CMakeFiles/ardrone_application_node.dir/src/tagTrackingInfo.cpp.o
+devel/lib/ardrone_application_node/ardrone_application_node: CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o
+devel/lib/ardrone_application_node/ardrone_application_node: CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o
 devel/lib/ardrone_application_node/ardrone_application_node: CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o
 devel/lib/ardrone_application_node/ardrone_application_node: CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.o
 devel/lib/ardrone_application_node/ardrone_application_node: CMakeFiles/ardrone_application_node.dir/src/command.cpp.o
@@ -263,6 +313,8 @@ CMakeFiles/ardrone_application_node.dir/build: devel/lib/ardrone_application_nod
 
 CMakeFiles/ardrone_application_node.dir/requires: CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o.requires
 CMakeFiles/ardrone_application_node.dir/requires: CMakeFiles/ardrone_application_node.dir/src/tagTrackingInfo.cpp.o.requires
+CMakeFiles/ardrone_application_node.dir/requires: CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o.requires
+CMakeFiles/ardrone_application_node.dir/requires: CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o.requires
 CMakeFiles/ardrone_application_node.dir/requires: CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o.requires
 CMakeFiles/ardrone_application_node.dir/requires: CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.o.requires
 CMakeFiles/ardrone_application_node.dir/requires: CMakeFiles/ardrone_application_node.dir/src/command.cpp.o.requires

@@ -5,15 +5,19 @@
 
 
 /*
-This function takes the AR drone address and starts up the nessisary ROS nodes to be able to communicate with it.  If the string is empty, it uses the default AR drone address (currently only default functionality is implemented).  If a joystick node is being published, the node will also subscribe to that and interpret its movements as commands to send to the drone (if the manual flight flag is set)
+This function takes the AR drone address and starts up the nessisary ROS nodes to be able to communicate with it.  If the string is empty, it uses the default AR drone address (currently only default functionality is implemented).  It also initializes the QR code based state estimation engine used for QR code based commands.
+@param inputCameraImageWidth: The width of camera images used in the camera calibration
+@param inputCameraImageHeight: The height of the camera images used in the camera calibration
+@param inputCameraCalibrationMatrix: This is a 3x3 matrix that describes the camera transform (taking the distortion into account) in opencv format
+@param inputDistortionParameters: a 1x5 matrix which has the distortion parameters k1, k2, p1, p2, k3
 @param inputARDroneAddress: The address of the AR drone to connect to 
 
 @exceptions: This function can throw exceptions
 */
-ARDroneControllerNode::ARDroneControllerNode(std::string inputARDroneAddress)
+ARDroneControllerNode::ARDroneControllerNode(int inputCameraImageWidth, int inputCameraImageHeight, const cv::Mat_<double> &inputCameraCalibrationMatrix, const cv::Mat_<double> &inputCameraDistortionParameters, std::string inputARDroneAddress) : QRCodeEngine(inputCameraImageWidth, inputCameraImageHeight, inputCameraCalibrationMatrix, inputCameraDistortionParameters, true), targetXYZCoordinate(3)
 {
 spinThreadExitFlag = false;
-controlEngineIsDisabled = true;
+controlEngineIsDisabled = false;
 shutdownControlEngine = false;
 currentlyWaiting = false;
 
@@ -22,13 +26,18 @@ takingOff = false;
 landing = false;
 emergencyStopTriggered = false;
 maintainAltitude = false;
+maintainQRCodeDefinedPosition = false;
+maintainQRCodeDefinedOrientation = false;
 targetAltitude = 1000.0; //The altitude to maintain in mm
 xHeading = 0.0; 
 yHeading = 0.0; 
 currentAngularVelocitySetting = 0.0; //The setting of the current velocity
 
-//Subscribe to the legacy nav-data topic with a buffer size of 1000
+//Subscribe to the nav-data topic with a buffer size of 1000
 navDataSubscriber = nodeHandle.subscribe("ardrone/navdata", 1000, &ARDroneControllerNode::handleNavData, this); 
+
+//Subscribe to the video from the AR drone with a buffer size of 5
+videoSubscriber = nodeHandle.subscribe("ardrone/front/image_raw", 5, &ARDroneControllerNode::handleImageUpdate, this); 
 
 //Create publisher to control takeoff
 takeOffPublisher = nodeHandle.advertise<std_msgs::Empty>("/ardrone/takeoff", 1000);
@@ -182,6 +191,7 @@ SOM_CATCH("Error locking command mutex\n")
 
 if(commandQueue.size() == 0)
 {
+printf("Queue size reached zero\n");
 return;
 }
 
@@ -493,6 +503,32 @@ SOM_TRY
 processCurrentCommandsForUpdateCycle();
 SOM_CATCH("Error adjusting/sending commands for commands/behavior")
 
+//Get current estimated location from QR code for diagnostics
+if(QRCodeIDToStateEstimate.count("BigQRCode") > 0)
+{
+
+//printf("Camera position: %lf %lf %lf\n", QRCodeIDToStateEstimate["BigQRCode"]->currentCameraPosition[0], QRCodeIDToStateEstimate["BigQRCode"]->currentCameraPosition[1], QRCodeIDToStateEstimate["BigQRCode"]->currentCameraPosition[2]);
+
+
+/*
+printf("QR code position: %lf %lf %lf\n", QRCodeIDToStateEstimate["BigQRCode"]->currentQRCodePosition[0], QRCodeIDToStateEstimate["BigQRCode"]->currentQRCodePosition[1], QRCodeIDToStateEstimate["BigQRCode"]->currentQRCodePosition[2]);
+*/
+
+/*
+for(int row = 0; row < 4; row++)
+{
+for(int col = 0; col < 4; col ++)
+{
+printf("%lf ", QRCodeIDToStateEstimate["BigQRCode"]->cameraPose.at<double>(row, col));
+}
+printf("\n");
+}
+printf("\n");
+*/
+}
+
+
+ 
 }
 
 /*
@@ -502,6 +538,41 @@ This function is used as a callback to handle images from the AR drone.
 void ARDroneControllerNode::handleImageUpdate(const sensor_msgs::ImageConstPtr& inputImageMessage)
 {
 //TODO: Implement function
+//Update QR code pose information based on new image
+cv_bridge::CvImagePtr openCVBridgeImagePointer;
+SOM_TRY
+openCVBridgeImagePointer = cv_bridge::toCvCopy(inputImageMessage, sensor_msgs::image_encodings::BGR8);
+SOM_CATCH("Error converting from ROS image format to Opencv format")
+
+std::vector<cv::Mat> cameraPoses;
+std::vector<std::string> QRCodeIdentifiers;
+std::vector<double> QRCodeDimensions;
+
+//printf("Image size: %d %d\n", openCVBridgeImagePointer->image.cols,openCVBridgeImagePointer->image.rows);
+
+
+SOM_TRY
+QRCodeEngine.estimateOneOrMoreStatesFromBGRFrame(openCVBridgeImagePointer->image, cameraPoses, QRCodeIdentifiers, QRCodeDimensions);
+SOM_CATCH("Error getting poses from opencv frame\n")
+
+//Update associated QR code state estimates
+for(int i=0; i<QRCodeIdentifiers.size(); i++)
+{
+if(QRCodeIDToStateEstimate.count(QRCodeIdentifiers[i]) > 0)
+{ //This QR code has been seen before, so update the estimator
+SOM_TRY
+QRCodeIDToStateEstimate[QRCodeIdentifiers[i]]->updatePose(cameraPoses[i], QRCodeDimensions[i]);
+SOM_CATCH("Error updating QR code state estimate info\n");
+}
+else
+{ //This is a new QR code, so make a new estimator for it
+SOM_TRY
+QRCodeIDToStateEstimate[QRCodeIdentifiers[i]].reset(new QRCodeBasedPoseInformation(QRCodeIdentifiers[i], cameraPoses[i], QRCodeDimensions[i]));
+SOM_CATCH("Error inserting QRCodeBasedPoseInformation into map\n")
+}
+}
+
+
 }
 
 
@@ -572,6 +643,22 @@ return fabs(altitude - targetAltitude) < inputNumberOfMillimetersToTarget;
 }
 
 /*
+This function checks to see if the last state estimate associated with a QR code identifier is either doesn't exist or is older than the given time.
+@param inputQRCodeIdentifier: The identifier of the QR code that is defining the state estimate
+@param inputSecondsBeforeStale: The number of seconds that can pass before an entry is considered stale
+@return: true if the entry is stale and false otherwise
+*/
+bool ARDroneControllerNode::checkIfQRCodeStateEstimateIsStale(const std::string &inputQRCodeIdentifier, double inputSecondsBeforeStale)
+{
+if(QRCodeIDToStateEstimate.count(inputQRCodeIdentifier) == 0)
+{ //We've never seen the QR code that should be defining our coordinate system
+return true;
+}
+
+return (std::chrono::high_resolution_clock::now() - QRCodeIDToStateEstimate[inputQRCodeIdentifier]->cameraPoseUpdateTime) > std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputSecondsBeforeStale)); 
+}
+
+/*
 This function checks if a command has been completed and should be removed from the queue.
 @return: true if the command has been completed and false otherwise
 */
@@ -604,16 +691,84 @@ case SET_HORIZONTAL_HEADING_COMMAND:
 case SET_ANGULAR_VELOCITY_COMMAND:
 case SET_FLIGHT_ANIMATION_COMMAND:
 case SET_LED_ANIMATION_COMMAND:
+case SET_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT:
+case SET_CANCEL_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT:
+case SET_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE:
+case SET_CANCEL_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE:
 return false;
 break;
 
 case SET_WAIT_COMMAND:
+if(!currentlyWaiting)
+{
+return false; //Haven't set time to wait for yet
+}
+
 return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - waitFinishTime).count() >= 0;
 break;
 
 case SET_WAIT_UNTIL_TAG_IS_SPOTTED_COMMAND:
+if(!currentlyWaiting)
+{
+return false; //Haven't set time to wait for yet
+}
+
 //Return true if the timer has expired or a tag has been spotted
 return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - waitFinishTime).count() >= 0 || checkIfTagSpotted();
+break;
+
+case SET_WAIT_UNTIL_SPECIFIC_QR_CODE_IS_SPOTTED_COMMAND:
+//Check if QR code has been spotted in the last quarter second
+if(inputCommand.strings.size() == 0 || inputCommand.doubles.size() == 0)
+{
+return true; //Invalid command, so completed
+}
+
+if(!currentlyWaiting)
+{
+return false; //Haven't set time to wait for yet
+}
+
+if(QRCodeIDToStateEstimate.count(inputCommand.strings[0]) == 0)
+{
+return false; //Tag hasn't ever been seen
+}
+//Return true if the tag has been seen in the last .25 seconds or the time has run out
+return (QRCodeIDToStateEstimate[inputCommand.strings[0]]->cameraPoseUpdateTime - std::chrono::high_resolution_clock::now()) < std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(.25)) || std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - waitFinishTime).count() >= 0;
+break;
+
+case SET_WAIT_UNTIL_POSITION_AT_SPECIFIC_QR_CODE_POINT_REACHED:
+{
+//Calculate distance from point
+if(inputCommand.doubles.size() < 2)
+{
+return true;  //Invalid command, so completed
+}
+
+if(!currentlyWaiting)
+{
+return false; //Haven't set time to wait for yet
+}
+
+//See if we have ever seen the current QR code target
+if(QRCodeIDToStateEstimate.count(targetXYZCoordinateQRCodeIdentifier) == 0)
+{
+return false;
+}
+
+//Calculate distance to point
+std::vector<double> weightedAverageBuffer = QRCodeIDToStateEstimate[targetXYZCoordinateQRCodeIdentifier]->weightedAverageCameraPosition;
+
+double distance = 0;
+for(int i=0; i<targetXYZCoordinate.size(); i++)
+{
+distance = distance +  pow(targetXYZCoordinate[i] - weightedAverageBuffer[i], 2.0);
+}
+distance = sqrt(distance);
+
+//Return true if the wait has finished or the distance is less than the command threshold
+return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - waitFinishTime).count() >= 0 || distance < inputCommand.doubles[1];
+}
 break;
 
 case SET_WAIT_UNTIL_ALTITUDE_REACHED:
@@ -621,6 +776,11 @@ case SET_WAIT_UNTIL_ALTITUDE_REACHED:
 if(inputCommand.integers.size() < 1)
 {
 return true; //Invalid command, so completed
+}
+
+if(!currentlyWaiting)
+{
+return false; //Haven't set time to wait for yet
 }
 
 return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - waitFinishTime).count() >= 0 || checkIfAltitudeReached(inputCommand.integers[0]);
@@ -635,6 +795,7 @@ This function removes the top command from the queue and does any state adjustme
 */
 void ARDroneControllerNode::removeCompletedCommand()
 {
+printf("Removed completed command\n");
 //Get top command
 command commandBuffer;
 if(copyNextCommand(commandBuffer) != true)
@@ -671,11 +832,17 @@ case SET_HORIZONTAL_HEADING_COMMAND:
 case SET_ANGULAR_VELOCITY_COMMAND:
 case SET_FLIGHT_ANIMATION_COMMAND:
 case SET_LED_ANIMATION_COMMAND:
+case SET_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT:
+case SET_CANCEL_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT:
+case SET_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE:
+case SET_CANCEL_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE:
 return;
 break;
 
 case SET_WAIT_COMMAND:
 case SET_WAIT_UNTIL_TAG_IS_SPOTTED_COMMAND:
+case SET_WAIT_UNTIL_SPECIFIC_QR_CODE_IS_SPOTTED_COMMAND:
+case SET_WAIT_UNTIL_POSITION_AT_SPECIFIC_QR_CODE_POINT_REACHED:
 case SET_WAIT_UNTIL_ALTITUDE_REACHED:
 currentlyWaiting = false;
 return;
@@ -863,13 +1030,52 @@ throw SOMException("Error, set led animation command is invalid\n", INCORRECT_SE
 return true; //Instant commands return true
 break;
 
+case SET_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT:
+if(inputCommand.doubles.size() == 3 && inputCommand.strings.size() > 0)
+{
+maintainQRCodeDefinedPosition = true;
+targetXYZCoordinate = inputCommand.doubles;
+targetXYZCoordinateQRCodeIdentifier = inputCommand.strings[0];
+QRTargetXITerm = 0.0;
+QRTargetYITerm = 0.0;
+}
+else
+{
+throw SOMException("Error, set QR Code position command invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
+}
+return true; //Instant commands return true
+break;
+
+case SET_CANCEL_MAINTAIN_POSITION_AT_SPECIFIC_QR_CODE_POINT:
+maintainQRCodeDefinedPosition = false;
+return true; //Instant commands return true
+break;
+
+case SET_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE:
+if(inputCommand.strings.size() > 0)
+{
+maintainQRCodeDefinedOrientation = true;
+targetOrientationQRCodeIdentifier = inputCommand.strings[0];
+}
+else
+{
+throw SOMException("Error, set QR Code orientation target command invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
+}
+return true; //Instant commands return true
+break;
+
+case SET_CANCEL_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE:
+maintainQRCodeDefinedOrientation = false;
+return true; //Instant commands return true
+break;
+
 case SET_WAIT_COMMAND:
 if(!currentlyWaiting)
 {
 if(inputCommand.doubles.size() > 0)
 {
 SOM_TRY
-waitFinishTime = std::chrono::high_resolution_clock::now()  - std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputCommand.doubles[0]));
+waitFinishTime = std::chrono::high_resolution_clock::now()  + std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputCommand.doubles[0]));
 currentlyWaiting = true;
 SOM_CATCH("Error waiting for seconds\n")
 }
@@ -886,7 +1092,7 @@ if(!currentlyWaiting)
 if(inputCommand.doubles.size() > 0)
 {
 SOM_TRY
-waitFinishTime = std::chrono::high_resolution_clock::now()  - std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputCommand.doubles[0]));
+waitFinishTime = std::chrono::high_resolution_clock::now()  + std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputCommand.doubles[0]));
 currentlyWaiting = true;
 SOM_CATCH("Error waiting for seconds or until tag spotted\n")
 }
@@ -897,13 +1103,49 @@ throw SOMException("Error, waiting for seconds or until tag spotted command is i
 }
 break;
 
+case SET_WAIT_UNTIL_SPECIFIC_QR_CODE_IS_SPOTTED_COMMAND:
+if(!currentlyWaiting)
+{
+if(inputCommand.doubles.size() > 0 && inputCommand.strings.size() > 0)
+{
+SOM_TRY
+QRCodeToSpotIdentifier = inputCommand.strings[0];
+waitFinishTime = std::chrono::high_resolution_clock::now()  + std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputCommand.doubles[0]));
+currentlyWaiting = true;
+SOM_CATCH("Error waiting for seconds or until tag spotted\n")
+}
+else
+{
+throw SOMException("Error, waiting for seconds or until QR code spotted command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
+}
+}
+break;
+
+case SET_WAIT_UNTIL_POSITION_AT_SPECIFIC_QR_CODE_POINT_REACHED:
+if(!currentlyWaiting)
+{
+if(inputCommand.doubles.size() == 2)
+{
+SOM_TRY
+waitFinishTime = std::chrono::high_resolution_clock::now()  + std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputCommand.doubles[0]));
+currentlyWaiting = true;
+printf("Got here!\n");
+SOM_CATCH("Error waiting for seconds or until tag spotted\n")
+}
+else
+{
+throw SOMException("Error, waiting for seconds or until QR code define position is reached command is invalid\n", INCORRECT_SERVER_RESPONSE, __FILE__, __LINE__);
+}
+}
+break;
+
 case SET_WAIT_UNTIL_ALTITUDE_REACHED:
 if(!currentlyWaiting)
 {
 if(inputCommand.doubles.size() > 0 && inputCommand.integers.size() > 0)
 {
 SOM_TRY
-waitFinishTime = std::chrono::high_resolution_clock::now()  - std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputCommand.doubles[0]));
+waitFinishTime = std::chrono::high_resolution_clock::now()  + std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputCommand.doubles[0]));
 currentlyWaiting = true;
 SOM_CATCH("Error waiting till altitude reached\n")
 }
@@ -927,7 +1169,8 @@ This function takes care of low level behavior that depends on the specific stat
 void ARDroneControllerNode::handleLowLevelBehavior()
 {
 
-if(controlEngineIsDisabled || onTheGroundWithMotorsOff || emergencyStopTriggered || shutdownControlEngine)
+//if(controlEngineIsDisabled || onTheGroundWithMotorsOff || emergencyStopTriggered || shutdownControlEngine)
+if((controlEngineIsDisabled || onTheGroundWithMotorsOff || emergencyStopTriggered || shutdownControlEngine) && !maintainQRCodeDefinedPosition) //TODO: Change back
 {
 printf("No control %d %d %d\n", controlEngineIsDisabled,  onTheGroundWithMotorsOff, emergencyStopTriggered);
 return; //Return if we shouldn't be trying to fly
@@ -945,17 +1188,72 @@ zThrottle = pTerm/600.0 + targetAltitudeITerm/100000000.0; //PI control for alti
 }
 
 
+
+if(maintainQRCodeDefinedPosition)
+{ //Check to see if we have to engage emergency landing due to losing the code
+if(checkIfQRCodeStateEstimateIsStale(targetXYZCoordinateQRCodeIdentifier, SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING))
+{ //We've never seen the QR code that should be defining our coordinate system or it has been too long since we have seen it
+SOM_TRY
+maintainQRCodeDefinedPosition = false;
+activateLandingSequence();
+clearCommandQueue();
+SOM_CATCH("Error triggering emergency landing and clearing command queue")
+}
+}
+
+
+if(maintainQRCodeDefinedOrientation)
+{ //Check to see if we have to engage emergency landing due to losing the code
+if(checkIfQRCodeStateEstimateIsStale(targetOrientationQRCodeIdentifier, SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING))
+{ //We've never seen the QR code that should be defining our coordinate system or it has been too long since we have seen it
+SOM_TRY
+maintainQRCodeDefinedOrientation = false;
+activateLandingSequence();
+clearCommandQueue();
+SOM_CATCH("Error triggering emergency landing and clearing command queue")
+}
+}
+
+
 double xThrottle = xHeading;
 double yThrottle = yHeading;
 
-double zRotationThrottle = currentAngularVelocitySetting;
-if(matchTagOrientation)
+
+
+if(maintainQRCodeDefinedPosition)
 {
-//Override angular velocity setting to track tag orientation
-zRotationThrottle = trackedTags[0].orientation / 180; //Might need offset and other configuration
+//Convert target point to the drone's coordinate system
+std::vector<double> localTargetPoint = QRCodeIDToStateEstimate[targetXYZCoordinateQRCodeIdentifier]->convertPointInQRCodeSpaceToCameraSpace(targetXYZCoordinate);
+
+std::vector<double> cameraPosition = QRCodeIDToStateEstimate[targetXYZCoordinateQRCodeIdentifier]->currentCameraPosition;
+//printf("Current camera position: %lf %lf %lf\n", cameraPosition[0], cameraPosition[1], cameraPosition[2]);
+
+//printf("Target point: %lf %lf %lf                Mag:%lf\n", localTargetPoint[2], localTargetPoint[0], localTargetPoint[1], sqrt(pow(localTargetPoint[0], 2) + pow(localTargetPoint[1], 2) + pow(localTargetPoint[2], 2) ));
+
+QRTargetXITerm = QRTargetXITerm + localTargetPoint[2];
+QRTargetYITerm = QRTargetYITerm + localTargetPoint[0] ;
+
+//Camera xyz maps to ardrone (-y)xz
+xThrottle = -.0003*velocityX+ .15*localTargetPoint[2]  + .00005*QRTargetXITerm ; //Simple PI control for now
+yThrottle = .0003*velocityY+ .15*localTargetPoint[0] + .00005*QRTargetYITerm ; 
+zThrottle = -.1*localTargetPoint[1]; 
+
+printf("Throttle: %lf %lf %lf  Point: %lf %lf %lf\n", xThrottle, yThrottle, zThrottle, localTargetPoint[2], localTargetPoint[0], localTargetPoint[1]);
 }
 
-//Tell the drone how it should move
+double zRotationThrottle = currentAngularVelocitySetting;
+if(maintainQRCodeDefinedOrientation)
+{
+
+std::vector<double> QRCodePoint = QRCodeIDToStateEstimate[targetOrientationQRCodeIdentifier]->currentQRCodePosition;
+
+//printf("Current QR code position: %lf\n", QRCodePoint[0]);
+
+//Override angular velocity setting to track tag orientation
+zRotationThrottle = -QRCodePoint[0]/fabs(QRCodePoint[2]); //Simple bang/bang control for now
+}
+
+//Tell the drone how it should move TODO: Change back
 setVelocityAndRotation(xThrottle, yThrottle, zThrottle, zRotationThrottle);
 }
 

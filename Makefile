@@ -810,6 +810,54 @@ src/ARDroneControllerNode.cpp.s:
 	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.s
 .PHONY : src/ARDroneControllerNode.cpp.s
 
+src/QRCodeBasedPoseInformation.o: src/QRCodeBasedPoseInformation.cpp.o
+.PHONY : src/QRCodeBasedPoseInformation.o
+
+# target to build an object file
+src/QRCodeBasedPoseInformation.cpp.o:
+	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o
+.PHONY : src/QRCodeBasedPoseInformation.cpp.o
+
+src/QRCodeBasedPoseInformation.i: src/QRCodeBasedPoseInformation.cpp.i
+.PHONY : src/QRCodeBasedPoseInformation.i
+
+# target to preprocess a source file
+src/QRCodeBasedPoseInformation.cpp.i:
+	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.i
+.PHONY : src/QRCodeBasedPoseInformation.cpp.i
+
+src/QRCodeBasedPoseInformation.s: src/QRCodeBasedPoseInformation.cpp.s
+.PHONY : src/QRCodeBasedPoseInformation.s
+
+# target to generate assembly for a file
+src/QRCodeBasedPoseInformation.cpp.s:
+	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.s
+.PHONY : src/QRCodeBasedPoseInformation.cpp.s
+
+src/QRCodeStateEstimator.o: src/QRCodeStateEstimator.cpp.o
+.PHONY : src/QRCodeStateEstimator.o
+
+# target to build an object file
+src/QRCodeStateEstimator.cpp.o:
+	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o
+.PHONY : src/QRCodeStateEstimator.cpp.o
+
+src/QRCodeStateEstimator.i: src/QRCodeStateEstimator.cpp.i
+.PHONY : src/QRCodeStateEstimator.i
+
+# target to preprocess a source file
+src/QRCodeStateEstimator.cpp.i:
+	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.i
+.PHONY : src/QRCodeStateEstimator.cpp.i
+
+src/QRCodeStateEstimator.s: src/QRCodeStateEstimator.cpp.s
+.PHONY : src/QRCodeStateEstimator.s
+
+# target to generate assembly for a file
+src/QRCodeStateEstimator.cpp.s:
+	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.s
+.PHONY : src/QRCodeStateEstimator.cpp.s
+
 src/SOMException.o: src/SOMException.cpp.o
 .PHONY : src/SOMException.o
 
@@ -995,6 +1043,12 @@ help:
 	@echo "... src/ARDroneControllerNode.o"
 	@echo "... src/ARDroneControllerNode.i"
 	@echo "... src/ARDroneControllerNode.s"
+	@echo "... src/QRCodeBasedPoseInformation.o"
+	@echo "... src/QRCodeBasedPoseInformation.i"
+	@echo "... src/QRCodeBasedPoseInformation.s"
+	@echo "... src/QRCodeStateEstimator.o"
+	@echo "... src/QRCodeStateEstimator.i"
+	@echo "... src/QRCodeStateEstimator.s"
 	@echo "... src/SOMException.o"
 	@echo "... src/SOMException.i"
 	@echo "... src/SOMException.s"

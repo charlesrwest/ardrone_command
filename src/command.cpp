@@ -220,6 +220,32 @@ doubles.push_back(inputNumberOfSeconds);
 }
 
 /*
+This function clears the command and then tells the drone to maintain its current state for the given number of seconds until a specific QR code tag comes into its field of view.
+@param inputQRCodeID: The string identifying the QR code to use for state estimation (will use any if an empty string is passed)
+@param inputNumberOfSeconds: The number of seconds to wait
+*/
+void command::setWaitUntilSpecificQRCodeIsSpottedCommand(const std::string inputQRCodeID, double inputNumberOfSeconds)
+{
+clear();
+type = SET_WAIT_UNTIL_SPECIFIC_QR_CODE_IS_SPOTTED_COMMAND;
+strings.push_back(inputQRCodeID);
+doubles.push_back(inputNumberOfSeconds);
+}
+
+/*
+This function clears the command and then tells the drone to maintain its current state (seeking the QR code) for the given number of seconds until the weighted average position reaches within a certain distance of the target point.
+@param inputNumberOfSeconds: The number of seconds to wait
+@param inputTargetDistance: The distance from the point before the goal is considered achieved (in meters)
+*/
+void command::setWaitUntilPositionAtSpecificQRCodePointReachedCommand(double inputNumberOfSeconds, double inputTargetDistance)
+{
+clear();
+type = SET_WAIT_UNTIL_POSITION_AT_SPECIFIC_QR_CODE_POINT_REACHED;
+doubles.push_back(inputNumberOfSeconds);
+doubles.push_back(inputTargetDistance);
+}
+
+/*
 This function clears the command and then tells the drone to maintain its current state for the given number of seconds until a tag comes into its field of view.
 @param inputNumberOfSeconds: The number of seconds to wait
 @param inputNumberOfMillimetersToTarget: The wiggle room to match the target height (+- this amount from the target).  It is normally 1 mm.

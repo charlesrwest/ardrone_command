@@ -1,6 +1,8 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o"
   "CMakeFiles/ardrone_application_node.dir/src/tagTrackingInfo.cpp.o"
+  "CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o"
+  "CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o"
   "CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o"
   "CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.o"
   "CMakeFiles/ardrone_application_node.dir/src/command.cpp.o"

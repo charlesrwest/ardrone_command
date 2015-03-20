@@ -33,7 +33,8 @@ SET_CANCEL_MAINTAIN_ORIENTATION_TOWARD_SPECIFIC_QR_CODE = 160,
 SET_WAIT_COMMAND = 170,
 SET_WAIT_UNTIL_TAG_IS_SPOTTED_COMMAND = 180,
 SET_WAIT_UNTIL_SPECIFIC_QR_CODE_IS_SPOTTED_COMMAND = 190,
-SET_WAIT_UNTIL_ALTITUDE_REACHED = 200
+SET_WAIT_UNTIL_POSITION_AT_SPECIFIC_QR_CODE_POINT_REACHED = 200,
+SET_WAIT_UNTIL_ALTITUDE_REACHED = 210
 };
 
 /*
@@ -159,6 +160,13 @@ This function clears the command and then tells the drone to maintain its curren
 @param inputNumberOfSeconds: The number of seconds to wait
 */
 void setWaitUntilSpecificQRCodeIsSpottedCommand(const std::string inputQRCodeID, double inputNumberOfSeconds);
+
+/*
+This function clears the command and then tells the drone to maintain its current state (seeking the QR code) for the given number of seconds until the weighted average position reaches within a certain distance of the target point.
+@param inputNumberOfSeconds: The number of seconds to wait
+@param inputTargetDistance: The distance from the point before the goal is considered achieved (in meters)
+*/
+void setWaitUntilPositionAtSpecificQRCodePointReachedCommand(double inputNumberOfSeconds, double inputTargetDistance = .4);
 
 
 /*

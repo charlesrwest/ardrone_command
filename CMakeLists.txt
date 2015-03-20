@@ -123,7 +123,7 @@ include_directories(${catkin_INCLUDE_DIRS})
 FILE(GLOB SOURCEFILES src/*.cpp src/*.c)
 
 add_executable(ardrone_application_node ${SOURCEFILES})
-target_link_libraries(ardrone_application_node ${catkin_LIBRARIES})
+target_link_libraries(ardrone_application_node ${catkin_LIBRARIES} zbar opencv_core opencv_highgui opencv_calib3d)
 
 #add_dependencies(talker begineer_tutorials_generate_messages_cpp)
 

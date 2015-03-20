@@ -14,6 +14,8 @@
 
 #include "SOMException.hpp"
 #include "SOMScopeGuard.hpp"
+#include "QRCodeStateEstimator.hpp"
+#include "QRCodeBasedPoseInformation.hpp"
 
 #include <std_msgs/UInt16.h>
 #include <std_msgs/UInt32.h>
@@ -47,7 +49,7 @@
 #include <chrono>
 
 //This defines how long to wait for a QR code sighting when in a mode reliant on QR code state estimation before automatically landing
-#define SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING 2
+#define SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING 1
 
 /*
 This object subscribes to a set of ROS information streams that are available regarding a AR drone (some of which may be aggregators of other streams) and publishes a command stream to control the drone using information gleamed from those streams.  This object also has commands available to launch the other nodes so that it may subscribe to them.
@@ -56,12 +58,16 @@ class ARDroneControllerNode
 {
 public:
 /*
-This function takes the AR drone address and starts up the nessisary ROS nodes to be able to communicate with it.  If the string is empty, it uses the default AR drone address (currently only default functionality is implemented).
+This function takes the AR drone address and starts up the nessisary ROS nodes to be able to communicate with it.  If the string is empty, it uses the default AR drone address (currently only default functionality is implemented).  It also initializes the QR code based state estimation engine used for QR code based commands.
+@param inputCameraImageWidth: The width of camera images used in the camera calibration
+@param inputCameraImageHeight: The height of the camera images used in the camera calibration
+@param inputCameraCalibrationMatrix: This is a 3x3 matrix that describes the camera transform (taking the distortion into account) in opencv format
+@param inputDistortionParameters: a 1x5 matrix which has the distortion parameters k1, k2, p1, p2, k3
 @param inputARDroneAddress: The address of the AR drone to connect to 
 
 @exceptions: This function can throw exceptions
 */
-ARDroneControllerNode(std::string inputARDroneAddress = "");
+ARDroneControllerNode(int inputCameraImageWidth, int inputCameraImageHeight, const cv::Mat_<double> &inputCameraCalibrationMatrix, const cv::Mat_<double> &inputCameraDistortionParameters, std::string inputARDroneAddress = "");
 
 /*
 This function allows a command to be added to the queue of commands for the drone to execute.  This function is threadsafe, so it can be used from multiple threads but may sometimes block.
@@ -225,6 +231,14 @@ This function checks if the target altitude is reached.
 bool checkIfAltitudeReached(int inputNumberOfMillimetersToTarget = 10);
 
 /*
+This function checks to see if the last state estimate associated with a QR code identifier is either doesn't exist or is older than the given time.
+@param inputQRCodeIdentifier: The identifier of the QR code that is defining the state estimate
+@param inputSecondsBeforeStale: The number of seconds that can pass before an entry is considered stale
+@return: true if the entry is stale and false otherwise
+*/
+bool checkIfQRCodeStateEstimateIsStale(const std::string &inputQRCodeIdentifier, double inputSecondsBeforeStale);
+
+/*
 This function checks if a command has been completed and should be removed from the queue.
 @return: true if the command has been completed and false otherwise
 */
@@ -256,6 +270,8 @@ This function takes care of low level behavior that depends on the specific stat
 */
 void handleLowLevelBehavior();
 
+QRCodeStateEstimator QRCodeEngine; //QR code state estimation engine used for QR code based commands
+
 bool shutdownControlEngine;
 bool controlEngineIsDisabled;
 bool onTheGroundWithMotorsOff;
@@ -265,6 +281,8 @@ bool emergencyStopTriggered;
 bool maintainAltitude;
 bool homeInOnTag;
 bool matchTagOrientation;
+bool maintainQRCodeDefinedPosition;
+bool maintainQRCodeDefinedOrientation;
 double targetAltitude; //The altitude to maintain in mm
 double targetAltitudeITerm;
 double xHeading; //The current velocity settings of the drone
@@ -272,6 +290,12 @@ double yHeading;
 double xCoordinateITerm;
 double yCoordinateITerm;
 double currentAngularVelocitySetting; //The setting of the current velocity
+std::vector<double> targetXYZCoordinate; //The target point to reach, if any
+double QRTargetXITerm;
+double QRTargetYITerm;
+std::string targetXYZCoordinateQRCodeIdentifier; //The identifier of the QR code that defines the coordinate system for position holding
+std::string targetOrientationQRCodeIdentifier; //The identifier of the QR code that we are trying to maintain orientation relative to (if any)
+std::string QRCodeToSpotIdentifier; //Identifier of QR code to try to spot
 bool currentlyWaiting;
 std::chrono::time_point<std::chrono::high_resolution_clock> waitFinishTime; //When any current wait command is due to expire
 
@@ -303,7 +327,8 @@ double accelerationZ;  //Current estimated Z acceleration
 std::vector<tagTrackingInfo> trackedTags; //Information about any oriented roundel tags in the field of view
 std::chrono::time_point<std::chrono::high_resolution_clock> navdataUpdateTime; //The timestamp of when the navdata update was received
 
-
+//Structure holding each of the most recently updated entries associated with a given QR code
+std::map<std::string, std::unique_ptr<QRCodeBasedPoseInformation> > QRCodeIDToStateEstimate;
 
 
 ros::NodeHandle nodeHandle;
@@ -313,6 +338,7 @@ std::unique_ptr<std::thread> spinThread;
 
 
 ros::Subscriber navDataSubscriber; 
+ros::Subscriber videoSubscriber; 
 
 ros::Publisher takeOffPublisher;
 ros::Publisher landingPublisher;
