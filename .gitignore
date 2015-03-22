@@ -1,0 +1,17 @@
+*~
+catkin
+catkin_generated
+cmake
+devel
+gtest
+test_results
+buildLog
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+*.pb.cc
+*.pb.h
+*.a
+*.so
+Makefile
