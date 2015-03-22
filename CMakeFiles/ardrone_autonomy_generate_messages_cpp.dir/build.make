@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node
+CMAKE_SOURCE_DIR = /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node
+CMAKE_BINARY_DIR = /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command
 
 # Utility rule file for ardrone_autonomy_generate_messages_cpp.
 
@@ -60,6 +60,6 @@ CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/clean:
 .PHONY : CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/clean
 
 CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/depend:
-	cd /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/depend
 

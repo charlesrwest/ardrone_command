@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ardrone_application_node)
+project(ardrone_command)
 
 #Get c++11
 ADD_DEFINITIONS(-std=c++11)
@@ -10,12 +10,13 @@ ADD_DEFINITIONS(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+
   std_msgs
   message_generation
   ardrone_autonomy
   sensor_msgs
   cv_bridge
-  image_transport
+
 )
 
 
@@ -25,6 +26,12 @@ find_package(catkin REQUIRED COMPONENTS
    serialized_ardrone_command_part.msg
    serialized_ardrone_command.msg
  )
+
+add_service_files(
+    DIRECTORY srv
+    FILES
+    commandInterface.srv
+)
 
 generate_messages(DEPENDENCIES geometry_msgs std_msgs)
 
@@ -117,15 +124,19 @@ CATKIN_DEPENDS message_runtime ardrone_autonomy
 # catkin_add_nosetests(test)
 
 #message('Yowser' ${ardrone_autonomy_INCLUDE_DIRS})
-include_directories(${catkin_INCLUDE_DIRS})
+# Add headers directory
+include_directories(${CATKIN_DEVEL_PREFIX}/ardrone_command ${catkin_INCLUDE_DIRS})
+
+#include_directories(include)
+
 #include_directories('/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/' 'opt/ros/indigo/include/usr/include')
 
 FILE(GLOB SOURCEFILES src/*.cpp src/*.c)
 
-add_executable(ardrone_application_node ${SOURCEFILES})
-target_link_libraries(ardrone_application_node ${catkin_LIBRARIES} zbar opencv_core opencv_highgui opencv_calib3d)
+add_executable(ardrone_command ${SOURCEFILES})
+target_link_libraries(ardrone_command ${catkin_LIBRARIES} zbar opencv_core opencv_highgui opencv_calib3d)
 
-#add_dependencies(talker begineer_tutorials_generate_messages_cpp)
+add_dependencies(ardrone_command ardrone_command_generate_messages_cpp ${PROJECT_NAME}_gencpp)
 
 #add_dependencies(talker ${catkin_EXPORTED_TARGETS})
 

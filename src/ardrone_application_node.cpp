@@ -2,7 +2,21 @@
 #include "std_msgs/Empty.h"
 #include <unistd.h>
 #include "ARDroneControllerNode.hpp"
+#include "ardrone_command/serialized_ardrone_command.h"
+#include "ardrone_command/commandInterface.h"
 
+/*
+This function is used to provide a service which allows other processes on the network to send commands to the AR Drone controlled by this application.  The function will send a response of "true" if the command was successfully added to the queue and "false" otherwise.
+@param inputRequest: The request, which contains a serialized command for the AR drone
+@param inputResponse: The buffer for the function to place the response in
+@return: Always true
+
+@exceptions: This function can throw exceptions.
+*/
+//bool commandReceivedFromNetwork(ardrone_command::commandInterface::Request &inputRequest, ardrone_command::commandInterface::Response &inputResponse);
+
+//Initialize an object for this to point to before initializing the add command service.
+static std::unique_ptr<ARDroneControllerNode> myARDroneControllerNode;
 
 
 int main(int argc, char** argv)
@@ -41,7 +55,7 @@ distortionParameters.at<double>(0, 3) =  0.0;
 distortionParameters.at<double>(0, 4) = -1.1542908311868905e-01;
 
 
-std::unique_ptr<ARDroneControllerNode> myARDroneControllerNode;
+
 try
 {
 printf("Initializing controller node\n");
@@ -78,12 +92,40 @@ commandLookAtQRCodePoint.setMaintainOrientationTowardSpecificQRCode("BigQRCode")
 myARDroneControllerNode->addCommand(commandLookAtQRCodePoint);
 
 command commandGoToQRCodePoint;
-commandGoToQRCodePoint.setMaintainPositionAtSpecificQRCodePoint("BigQRCode", 0.0, 0.0, 3.0);
+commandGoToQRCodePoint.setMaintainPositionAtSpecificQRCodePoint("BigQRCode", .5, 0.0, 3.0+.5);
 myARDroneControllerNode->addCommand(commandGoToQRCodePoint);
 
 
 command QRCodePointWait1; QRCodePointWait1.setWaitUntilPositionAtSpecificQRCodePointReachedCommand(10.0);
 myARDroneControllerNode->addCommand(QRCodePointWait1);
+
+command commandGoToQRCodePoint2;
+commandGoToQRCodePoint2.setMaintainPositionAtSpecificQRCodePoint("BigQRCode", .5, 0.0, 3.0-.5);
+myARDroneControllerNode->addCommand(commandGoToQRCodePoint2);
+
+myARDroneControllerNode->addCommand(QRCodePointWait1);
+
+
+command commandGoToQRCodePoint3;
+commandGoToQRCodePoint3.setMaintainPositionAtSpecificQRCodePoint("BigQRCode", -.5, 0.0, 3.0-.5);
+myARDroneControllerNode->addCommand(commandGoToQRCodePoint3);
+
+myARDroneControllerNode->addCommand(QRCodePointWait1);
+
+
+command commandGoToQRCodePoint4;
+commandGoToQRCodePoint4.setMaintainPositionAtSpecificQRCodePoint("BigQRCode", -.5, 0.0, 3.0+.5);
+myARDroneControllerNode->addCommand(commandGoToQRCodePoint4);
+
+myARDroneControllerNode->addCommand(QRCodePointWait1);
+
+
+command commandGoToQRCodePoint5;
+commandGoToQRCodePoint5.setMaintainPositionAtSpecificQRCodePoint("BigQRCode", .5, 0.0, 3.0+.5);
+myARDroneControllerNode->addCommand(commandGoToQRCodePoint5);
+
+myARDroneControllerNode->addCommand(QRCodePointWait1);
+
 
 command commandWait;
 commandWait.setWaitCommand(500.0);
@@ -201,5 +243,33 @@ while(myARDroneControllerNode->commandQueueSize() > 0)
 
 return 0;
 }
+
+/*
+This function is used to provide a service which allows other processes on the network to send commands to the AR Drone controlled by this application.  The function will send a response of "true" if the command was successfully added to the queue and "false" otherwise.
+@param inputRequest: The request, which contains a serialized command for the AR drone
+@param inputResponse: The buffer for the function to place the response in
+@return: Always true
+
+@exceptions: This function can throw exceptions.
+*/
+/*
+bool commandReceivedFromNetwork(ardrone_command::commandInterface::Request &inputRequest, ardrone_command::commandInterface::Response &inputResponse)
+{
+auto receivedCommands = deserialize_commands(inputRequest.command);
+
+
+for(int i=0; i<receivedCommands.size(); i++)
+{
+SOM_TRY
+myARDroneControllerNode->addCommand(receivedCommands[i]);
+SOM_CATCH("Error, could not add command\n")
+}
+
+inputResponse.received = true;
+
+return true;
+}
+
+*/
 
 

@@ -540,9 +540,20 @@ void ARDroneControllerNode::handleImageUpdate(const sensor_msgs::ImageConstPtr& 
 //TODO: Implement function
 //Update QR code pose information based on new image
 cv_bridge::CvImagePtr openCVBridgeImagePointer;
+
+//printf("Test: %d %d %d %s\n", (int) inputImageMessage->width, (int) inputImageMessage->height, (int) inputImageMessage->step, inputImageMessage->encoding.c_str());
+
+try
+{
 SOM_TRY
-openCVBridgeImagePointer = cv_bridge::toCvCopy(inputImageMessage, sensor_msgs::image_encodings::BGR8);
+openCVBridgeImagePointer = cv_bridge::toCvCopy(inputImageMessage, sensor_msgs::image_encodings::MONO8);
 SOM_CATCH("Error converting from ROS image format to Opencv format")
+}
+catch(std::exception &inputException)
+{
+printf("!!!!!!!!!\n");
+}
+
 
 std::vector<cv::Mat> cameraPoses;
 std::vector<std::string> QRCodeIdentifiers;
@@ -552,7 +563,7 @@ std::vector<double> QRCodeDimensions;
 
 
 SOM_TRY
-QRCodeEngine.estimateOneOrMoreStatesFromBGRFrame(openCVBridgeImagePointer->image, cameraPoses, QRCodeIdentifiers, QRCodeDimensions);
+QRCodeEngine.estimateOneOrMoreStatesFromGrayscaleFrame(openCVBridgeImagePointer->image, cameraPoses, QRCodeIdentifiers, QRCodeDimensions);
 SOM_CATCH("Error getting poses from opencv frame\n")
 
 //Update associated QR code state estimates
@@ -1194,6 +1205,7 @@ if(maintainQRCodeDefinedPosition)
 if(checkIfQRCodeStateEstimateIsStale(targetXYZCoordinateQRCodeIdentifier, SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING))
 { //We've never seen the QR code that should be defining our coordinate system or it has been too long since we have seen it
 SOM_TRY
+printf("Tracking lost\n");
 maintainQRCodeDefinedPosition = false;
 activateLandingSequence();
 clearCommandQueue();
@@ -1207,6 +1219,7 @@ if(maintainQRCodeDefinedOrientation)
 if(checkIfQRCodeStateEstimateIsStale(targetOrientationQRCodeIdentifier, SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING))
 { //We've never seen the QR code that should be defining our coordinate system or it has been too long since we have seen it
 SOM_TRY
+printf("Tracking lost\n");
 maintainQRCodeDefinedOrientation = false;
 activateLandingSequence();
 clearCommandQueue();
@@ -1233,12 +1246,28 @@ std::vector<double> cameraPosition = QRCodeIDToStateEstimate[targetXYZCoordinate
 QRTargetXITerm = QRTargetXITerm + localTargetPoint[2];
 QRTargetYITerm = QRTargetYITerm + localTargetPoint[0] ;
 
+double distance = sqrt(pow(localTargetPoint[0], 2) + pow(localTargetPoint[1], 2) + pow(localTargetPoint[2], 2) );
+
+//Use one PID set if close, another if far
+if(distance < 1.5)
+{ //Near
+printf("Near\n");
 //Camera xyz maps to ardrone (-y)xz
 xThrottle = -.0003*velocityX+ .15*localTargetPoint[2]  + .00005*QRTargetXITerm ; //Simple PI control for now
 yThrottle = .0003*velocityY+ .15*localTargetPoint[0] + .00005*QRTargetYITerm ; 
 zThrottle = -.1*localTargetPoint[1]; 
+}
+else
+{//Far
+printf("Far\n");
+//Camera xyz maps to ardrone (-y)xz
+xThrottle = -.0006*velocityX+ .15*localTargetPoint[2]  + .00005*QRTargetXITerm ; //Simple PI control for now
+yThrottle = .0006*velocityY+ .15*localTargetPoint[0] + .00005*QRTargetYITerm ; 
+zThrottle = -.1*localTargetPoint[1]; 
+}
 
-printf("Throttle: %lf %lf %lf  Point: %lf %lf %lf\n", xThrottle, yThrottle, zThrottle, localTargetPoint[2], localTargetPoint[0], localTargetPoint[1]);
+
+//printf("Throttle: %lf %lf %lf  Point: %lf %lf %lf\n", xThrottle, yThrottle, zThrottle, localTargetPoint[2], localTargetPoint[0], localTargetPoint[1]);
 }
 
 double zRotationThrottle = currentAngularVelocitySetting;

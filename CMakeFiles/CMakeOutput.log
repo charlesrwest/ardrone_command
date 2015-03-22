@@ -297,3 +297,33 @@ Linking C executable cmTryCompileExec3897355782
 make[1]: Leaving directory `/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles/CMakeTmp'
 
 
+Determining if files pthread.h exist passed with the following output:
+Change Dir: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec217067839/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec217067839.dir/build.make CMakeFiles/cmTryCompileExec217067839.dir/build
+make[1]: Entering directory `/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec217067839.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec217067839.dir/CheckIncludeFiles.c.o   -c /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTryCompileExec217067839
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec217067839.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec217067839.dir/CheckIncludeFiles.c.o  -o cmTryCompileExec217067839 -rdynamic 
+make[1]: Leaving directory `/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3096283895/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3096283895.dir/build.make CMakeFiles/cmTryCompileExec3096283895.dir/build
+make[1]: Entering directory `/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3096283895.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec3096283895.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3096283895
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3096283895.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec3096283895.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3096283895 -rdynamic -lpthread 
+make[1]: Leaving directory `/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles/CMakeTmp'
+
+

@@ -12,14 +12,14 @@ priority = 0; //Standard priority
 /*
 This function decomposes the command into a ROS message for sending over the network.  ROS messages don't support containing submessages of the same type as the message, so this requires all subcommands to be decomposed into a list of simple (nonrecursive) commands.
 */
-ardrone_application_node::serialized_ardrone_command command::serialize()
+ardrone_command::serialized_ardrone_command command::serialize()
 {
 //Unwrap the commands so that they can be converted into ros messages
 std::vector<command> commandList;
 unwrapCommand(*this, commandList); //Unwrap this command into the command list
 
 //Serialize
-ardrone_application_node::serialized_ardrone_command buffer;
+ardrone_command::serialized_ardrone_command buffer;
 buffer.command = serializeCommandPart(commandList[0]);
 
 for(int i=1; i<commandList.size(); i++)
@@ -304,9 +304,9 @@ unwrapCommand(inputCommand.subCommands[i], inputCommandList);
 This function serializes the command to a serialized_ardrone_command_part, ignoring any subcommands the command may have.
 @param inputCommand: The command to serialize
 */
-ardrone_application_node::serialized_ardrone_command_part serializeCommandPart(const command &inputCommand)
+ardrone_command::serialized_ardrone_command_part serializeCommandPart(const command &inputCommand)
 {
-ardrone_application_node::serialized_ardrone_command_part buffer;
+ardrone_command::serialized_ardrone_command_part buffer;
 buffer.type = inputCommand.type;
 for(int i=0; i<inputCommand.strings.size(); i++)
 {
@@ -341,7 +341,7 @@ This function converts a serialized command into a list of commands/subcommands.
 @param inputSerializedCommand: The message to deserialize
 @return: The list of commands stored in the message
 */
-std::vector<command> deserialize_commands(const ardrone_application_node::serialized_ardrone_command &inputSerializedCommand)
+std::vector<command> deserialize_commands(const ardrone_command::serialized_ardrone_command &inputSerializedCommand)
 {
 std::vector<command> buffer;
 buffer.push_back(deserialize_command_part(inputSerializedCommand.command));
@@ -359,7 +359,7 @@ This function converts a serialized command part into a command
 @param inputSerializedCommandPart: The message to deserialize
 @return: The command stored in the message
 */
-command deserialize_command_part(const ardrone_application_node::serialized_ardrone_command_part &inputSerializedCommandPart)
+command deserialize_command_part(const ardrone_command::serialized_ardrone_command_part &inputSerializedCommandPart)
 {
 command buffer;
 

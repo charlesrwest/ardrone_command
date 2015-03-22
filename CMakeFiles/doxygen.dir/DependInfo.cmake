@@ -6,7 +6,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
 # Preprocessor definitions for this target.
 SET(CMAKE_TARGET_DEFINITIONS
   "ROSCONSOLE_BACKEND_LOG4CXX"
-  "ROS_PACKAGE_NAME=\"ardrone_application_node\""
+  "ROS_PACKAGE_NAME=\"ardrone_command\""
   )
 
 # Targets to which this target links.
@@ -16,6 +16,7 @@ SET(CMAKE_TARGET_LINKED_INFO_FILES
 # The include file search paths:
 SET(CMAKE_C_TARGET_INCLUDE_PATH
   "devel/include"
+  "devel/ardrone_command"
   "/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include"
   "/opt/ros/indigo/include"
   "/usr/include/opencv"

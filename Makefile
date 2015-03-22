@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node
+CMAKE_SOURCE_DIR = /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node
+CMAKE_BINARY_DIR = /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,16 +79,6 @@ install/local: preinstall
 install/local/fast: install/local
 .PHONY : install/local/fast
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-.PHONY : install/strip/fast
-
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -120,9 +110,9 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -150,30 +140,43 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command
+# Target rules for targets named _ardrone_command_generate_messages_check_deps_commandInterface
 
 # Build rule for target.
-_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command
-.PHONY : _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command
+_ardrone_command_generate_messages_check_deps_commandInterface: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _ardrone_command_generate_messages_check_deps_commandInterface
+.PHONY : _ardrone_command_generate_messages_check_deps_commandInterface
 
 # fast build rule for target.
-_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command/fast:
-	$(MAKE) -f CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/build.make CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/build
-.PHONY : _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command/fast
+_ardrone_command_generate_messages_check_deps_commandInterface/fast:
+	$(MAKE) -f CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/build.make CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/build
+.PHONY : _ardrone_command_generate_messages_check_deps_commandInterface/fast
 
 #=============================================================================
-# Target rules for targets named _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part
+# Target rules for targets named _ardrone_command_generate_messages_check_deps_serialized_ardrone_command
 
 # Build rule for target.
-_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part
-.PHONY : _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part
+_ardrone_command_generate_messages_check_deps_serialized_ardrone_command: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _ardrone_command_generate_messages_check_deps_serialized_ardrone_command
+.PHONY : _ardrone_command_generate_messages_check_deps_serialized_ardrone_command
 
 # fast build rule for target.
-_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part/fast:
-	$(MAKE) -f CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/build.make CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/build
-.PHONY : _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part/fast
+_ardrone_command_generate_messages_check_deps_serialized_ardrone_command/fast:
+	$(MAKE) -f CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/build.make CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/build
+.PHONY : _ardrone_command_generate_messages_check_deps_serialized_ardrone_command/fast
+
+#=============================================================================
+# Target rules for targets named _ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part
+
+# Build rule for target.
+_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part
+.PHONY : _ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part
+
+# fast build rule for target.
+_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part/fast:
+	$(MAKE) -f CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/build.make CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/build
+.PHONY : _ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part/fast
 
 #=============================================================================
 # Target rules for targets named actionlib_generate_messages_cpp
@@ -254,110 +257,6 @@ actionlib_msgs_generate_messages_py/fast:
 .PHONY : actionlib_msgs_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named ardrone_application_node
-
-# Build rule for target.
-ardrone_application_node: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node
-.PHONY : ardrone_application_node
-
-# fast build rule for target.
-ardrone_application_node/fast:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/build
-.PHONY : ardrone_application_node/fast
-
-#=============================================================================
-# Target rules for targets named ardrone_application_node_gencpp
-
-# Build rule for target.
-ardrone_application_node_gencpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_gencpp
-.PHONY : ardrone_application_node_gencpp
-
-# fast build rule for target.
-ardrone_application_node_gencpp/fast:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_gencpp.dir/build.make CMakeFiles/ardrone_application_node_gencpp.dir/build
-.PHONY : ardrone_application_node_gencpp/fast
-
-#=============================================================================
-# Target rules for targets named ardrone_application_node_generate_messages
-
-# Build rule for target.
-ardrone_application_node_generate_messages: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_generate_messages
-.PHONY : ardrone_application_node_generate_messages
-
-# fast build rule for target.
-ardrone_application_node_generate_messages/fast:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages.dir/build.make CMakeFiles/ardrone_application_node_generate_messages.dir/build
-.PHONY : ardrone_application_node_generate_messages/fast
-
-#=============================================================================
-# Target rules for targets named ardrone_application_node_generate_messages_cpp
-
-# Build rule for target.
-ardrone_application_node_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_generate_messages_cpp
-.PHONY : ardrone_application_node_generate_messages_cpp
-
-# fast build rule for target.
-ardrone_application_node_generate_messages_cpp/fast:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/build
-.PHONY : ardrone_application_node_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named ardrone_application_node_generate_messages_lisp
-
-# Build rule for target.
-ardrone_application_node_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_generate_messages_lisp
-.PHONY : ardrone_application_node_generate_messages_lisp
-
-# fast build rule for target.
-ardrone_application_node_generate_messages_lisp/fast:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/build
-.PHONY : ardrone_application_node_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named ardrone_application_node_generate_messages_py
-
-# Build rule for target.
-ardrone_application_node_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_generate_messages_py
-.PHONY : ardrone_application_node_generate_messages_py
-
-# fast build rule for target.
-ardrone_application_node_generate_messages_py/fast:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_py.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_py.dir/build
-.PHONY : ardrone_application_node_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named ardrone_application_node_genlisp
-
-# Build rule for target.
-ardrone_application_node_genlisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_genlisp
-.PHONY : ardrone_application_node_genlisp
-
-# fast build rule for target.
-ardrone_application_node_genlisp/fast:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_genlisp.dir/build.make CMakeFiles/ardrone_application_node_genlisp.dir/build
-.PHONY : ardrone_application_node_genlisp/fast
-
-#=============================================================================
-# Target rules for targets named ardrone_application_node_genpy
-
-# Build rule for target.
-ardrone_application_node_genpy: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ardrone_application_node_genpy
-.PHONY : ardrone_application_node_genpy
-
-# fast build rule for target.
-ardrone_application_node_genpy/fast:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_genpy.dir/build.make CMakeFiles/ardrone_application_node_genpy.dir/build
-.PHONY : ardrone_application_node_genpy/fast
-
-#=============================================================================
 # Target rules for targets named ardrone_autonomy_generate_messages_cpp
 
 # Build rule for target.
@@ -395,6 +294,110 @@ ardrone_autonomy_generate_messages_py: cmake_check_build_system
 ardrone_autonomy_generate_messages_py/fast:
 	$(MAKE) -f CMakeFiles/ardrone_autonomy_generate_messages_py.dir/build.make CMakeFiles/ardrone_autonomy_generate_messages_py.dir/build
 .PHONY : ardrone_autonomy_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_command
+
+# Build rule for target.
+ardrone_command: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_command
+.PHONY : ardrone_command
+
+# fast build rule for target.
+ardrone_command/fast:
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/build
+.PHONY : ardrone_command/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_command_gencpp
+
+# Build rule for target.
+ardrone_command_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_command_gencpp
+.PHONY : ardrone_command_gencpp
+
+# fast build rule for target.
+ardrone_command_gencpp/fast:
+	$(MAKE) -f CMakeFiles/ardrone_command_gencpp.dir/build.make CMakeFiles/ardrone_command_gencpp.dir/build
+.PHONY : ardrone_command_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_command_generate_messages
+
+# Build rule for target.
+ardrone_command_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_command_generate_messages
+.PHONY : ardrone_command_generate_messages
+
+# fast build rule for target.
+ardrone_command_generate_messages/fast:
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages.dir/build.make CMakeFiles/ardrone_command_generate_messages.dir/build
+.PHONY : ardrone_command_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_command_generate_messages_cpp
+
+# Build rule for target.
+ardrone_command_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_command_generate_messages_cpp
+.PHONY : ardrone_command_generate_messages_cpp
+
+# fast build rule for target.
+ardrone_command_generate_messages_cpp/fast:
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages_cpp.dir/build.make CMakeFiles/ardrone_command_generate_messages_cpp.dir/build
+.PHONY : ardrone_command_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_command_generate_messages_lisp
+
+# Build rule for target.
+ardrone_command_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_command_generate_messages_lisp
+.PHONY : ardrone_command_generate_messages_lisp
+
+# fast build rule for target.
+ardrone_command_generate_messages_lisp/fast:
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages_lisp.dir/build.make CMakeFiles/ardrone_command_generate_messages_lisp.dir/build
+.PHONY : ardrone_command_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_command_generate_messages_py
+
+# Build rule for target.
+ardrone_command_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_command_generate_messages_py
+.PHONY : ardrone_command_generate_messages_py
+
+# fast build rule for target.
+ardrone_command_generate_messages_py/fast:
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages_py.dir/build.make CMakeFiles/ardrone_command_generate_messages_py.dir/build
+.PHONY : ardrone_command_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_command_genlisp
+
+# Build rule for target.
+ardrone_command_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_command_genlisp
+.PHONY : ardrone_command_genlisp
+
+# fast build rule for target.
+ardrone_command_genlisp/fast:
+	$(MAKE) -f CMakeFiles/ardrone_command_genlisp.dir/build.make CMakeFiles/ardrone_command_genlisp.dir/build
+.PHONY : ardrone_command_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named ardrone_command_genpy
+
+# Build rule for target.
+ardrone_command_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ardrone_command_genpy
+.PHONY : ardrone_command_genpy
+
+# fast build rule for target.
+ardrone_command_genpy/fast:
+	$(MAKE) -f CMakeFiles/ardrone_command_genpy.dir/build.make CMakeFiles/ardrone_command_genpy.dir/build
+.PHONY : ardrone_command_genpy/fast
 
 #=============================================================================
 # Target rules for targets named clean_test_results
@@ -791,7 +794,7 @@ src/ARDroneControllerNode.o: src/ARDroneControllerNode.cpp.o
 
 # target to build an object file
 src/ARDroneControllerNode.cpp.o:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.o
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/ARDroneControllerNode.cpp.o
 .PHONY : src/ARDroneControllerNode.cpp.o
 
 src/ARDroneControllerNode.i: src/ARDroneControllerNode.cpp.i
@@ -799,7 +802,7 @@ src/ARDroneControllerNode.i: src/ARDroneControllerNode.cpp.i
 
 # target to preprocess a source file
 src/ARDroneControllerNode.cpp.i:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.i
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/ARDroneControllerNode.cpp.i
 .PHONY : src/ARDroneControllerNode.cpp.i
 
 src/ARDroneControllerNode.s: src/ARDroneControllerNode.cpp.s
@@ -807,7 +810,7 @@ src/ARDroneControllerNode.s: src/ARDroneControllerNode.cpp.s
 
 # target to generate assembly for a file
 src/ARDroneControllerNode.cpp.s:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/ARDroneControllerNode.cpp.s
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/ARDroneControllerNode.cpp.s
 .PHONY : src/ARDroneControllerNode.cpp.s
 
 src/QRCodeBasedPoseInformation.o: src/QRCodeBasedPoseInformation.cpp.o
@@ -815,7 +818,7 @@ src/QRCodeBasedPoseInformation.o: src/QRCodeBasedPoseInformation.cpp.o
 
 # target to build an object file
 src/QRCodeBasedPoseInformation.cpp.o:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.o
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/QRCodeBasedPoseInformation.cpp.o
 .PHONY : src/QRCodeBasedPoseInformation.cpp.o
 
 src/QRCodeBasedPoseInformation.i: src/QRCodeBasedPoseInformation.cpp.i
@@ -823,7 +826,7 @@ src/QRCodeBasedPoseInformation.i: src/QRCodeBasedPoseInformation.cpp.i
 
 # target to preprocess a source file
 src/QRCodeBasedPoseInformation.cpp.i:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.i
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/QRCodeBasedPoseInformation.cpp.i
 .PHONY : src/QRCodeBasedPoseInformation.cpp.i
 
 src/QRCodeBasedPoseInformation.s: src/QRCodeBasedPoseInformation.cpp.s
@@ -831,7 +834,7 @@ src/QRCodeBasedPoseInformation.s: src/QRCodeBasedPoseInformation.cpp.s
 
 # target to generate assembly for a file
 src/QRCodeBasedPoseInformation.cpp.s:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeBasedPoseInformation.cpp.s
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/QRCodeBasedPoseInformation.cpp.s
 .PHONY : src/QRCodeBasedPoseInformation.cpp.s
 
 src/QRCodeStateEstimator.o: src/QRCodeStateEstimator.cpp.o
@@ -839,7 +842,7 @@ src/QRCodeStateEstimator.o: src/QRCodeStateEstimator.cpp.o
 
 # target to build an object file
 src/QRCodeStateEstimator.cpp.o:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.o
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/QRCodeStateEstimator.cpp.o
 .PHONY : src/QRCodeStateEstimator.cpp.o
 
 src/QRCodeStateEstimator.i: src/QRCodeStateEstimator.cpp.i
@@ -847,7 +850,7 @@ src/QRCodeStateEstimator.i: src/QRCodeStateEstimator.cpp.i
 
 # target to preprocess a source file
 src/QRCodeStateEstimator.cpp.i:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.i
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/QRCodeStateEstimator.cpp.i
 .PHONY : src/QRCodeStateEstimator.cpp.i
 
 src/QRCodeStateEstimator.s: src/QRCodeStateEstimator.cpp.s
@@ -855,7 +858,7 @@ src/QRCodeStateEstimator.s: src/QRCodeStateEstimator.cpp.s
 
 # target to generate assembly for a file
 src/QRCodeStateEstimator.cpp.s:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/QRCodeStateEstimator.cpp.s
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/QRCodeStateEstimator.cpp.s
 .PHONY : src/QRCodeStateEstimator.cpp.s
 
 src/SOMException.o: src/SOMException.cpp.o
@@ -863,7 +866,7 @@ src/SOMException.o: src/SOMException.cpp.o
 
 # target to build an object file
 src/SOMException.cpp.o:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.o
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/SOMException.cpp.o
 .PHONY : src/SOMException.cpp.o
 
 src/SOMException.i: src/SOMException.cpp.i
@@ -871,7 +874,7 @@ src/SOMException.i: src/SOMException.cpp.i
 
 # target to preprocess a source file
 src/SOMException.cpp.i:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.i
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/SOMException.cpp.i
 .PHONY : src/SOMException.cpp.i
 
 src/SOMException.s: src/SOMException.cpp.s
@@ -879,7 +882,7 @@ src/SOMException.s: src/SOMException.cpp.s
 
 # target to generate assembly for a file
 src/SOMException.cpp.s:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/SOMException.cpp.s
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/SOMException.cpp.s
 .PHONY : src/SOMException.cpp.s
 
 src/SOMScopeGuard.o: src/SOMScopeGuard.cpp.o
@@ -887,7 +890,7 @@ src/SOMScopeGuard.o: src/SOMScopeGuard.cpp.o
 
 # target to build an object file
 src/SOMScopeGuard.cpp.o:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/SOMScopeGuard.cpp.o
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/SOMScopeGuard.cpp.o
 .PHONY : src/SOMScopeGuard.cpp.o
 
 src/SOMScopeGuard.i: src/SOMScopeGuard.cpp.i
@@ -895,7 +898,7 @@ src/SOMScopeGuard.i: src/SOMScopeGuard.cpp.i
 
 # target to preprocess a source file
 src/SOMScopeGuard.cpp.i:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/SOMScopeGuard.cpp.i
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/SOMScopeGuard.cpp.i
 .PHONY : src/SOMScopeGuard.cpp.i
 
 src/SOMScopeGuard.s: src/SOMScopeGuard.cpp.s
@@ -903,7 +906,7 @@ src/SOMScopeGuard.s: src/SOMScopeGuard.cpp.s
 
 # target to generate assembly for a file
 src/SOMScopeGuard.cpp.s:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/SOMScopeGuard.cpp.s
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/SOMScopeGuard.cpp.s
 .PHONY : src/SOMScopeGuard.cpp.s
 
 src/ardrone_application_node.o: src/ardrone_application_node.cpp.o
@@ -911,7 +914,7 @@ src/ardrone_application_node.o: src/ardrone_application_node.cpp.o
 
 # target to build an object file
 src/ardrone_application_node.cpp.o:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.o
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/ardrone_application_node.cpp.o
 .PHONY : src/ardrone_application_node.cpp.o
 
 src/ardrone_application_node.i: src/ardrone_application_node.cpp.i
@@ -919,7 +922,7 @@ src/ardrone_application_node.i: src/ardrone_application_node.cpp.i
 
 # target to preprocess a source file
 src/ardrone_application_node.cpp.i:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.i
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/ardrone_application_node.cpp.i
 .PHONY : src/ardrone_application_node.cpp.i
 
 src/ardrone_application_node.s: src/ardrone_application_node.cpp.s
@@ -927,7 +930,7 @@ src/ardrone_application_node.s: src/ardrone_application_node.cpp.s
 
 # target to generate assembly for a file
 src/ardrone_application_node.cpp.s:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/ardrone_application_node.cpp.s
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/ardrone_application_node.cpp.s
 .PHONY : src/ardrone_application_node.cpp.s
 
 src/command.o: src/command.cpp.o
@@ -935,7 +938,7 @@ src/command.o: src/command.cpp.o
 
 # target to build an object file
 src/command.cpp.o:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/command.cpp.o
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/command.cpp.o
 .PHONY : src/command.cpp.o
 
 src/command.i: src/command.cpp.i
@@ -943,7 +946,7 @@ src/command.i: src/command.cpp.i
 
 # target to preprocess a source file
 src/command.cpp.i:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/command.cpp.i
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/command.cpp.i
 .PHONY : src/command.cpp.i
 
 src/command.s: src/command.cpp.s
@@ -951,7 +954,7 @@ src/command.s: src/command.cpp.s
 
 # target to generate assembly for a file
 src/command.cpp.s:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/command.cpp.s
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/command.cpp.s
 .PHONY : src/command.cpp.s
 
 src/tagTrackingInfo.o: src/tagTrackingInfo.cpp.o
@@ -959,7 +962,7 @@ src/tagTrackingInfo.o: src/tagTrackingInfo.cpp.o
 
 # target to build an object file
 src/tagTrackingInfo.cpp.o:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/tagTrackingInfo.cpp.o
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/tagTrackingInfo.cpp.o
 .PHONY : src/tagTrackingInfo.cpp.o
 
 src/tagTrackingInfo.i: src/tagTrackingInfo.cpp.i
@@ -967,7 +970,7 @@ src/tagTrackingInfo.i: src/tagTrackingInfo.cpp.i
 
 # target to preprocess a source file
 src/tagTrackingInfo.cpp.i:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/tagTrackingInfo.cpp.i
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/tagTrackingInfo.cpp.i
 .PHONY : src/tagTrackingInfo.cpp.i
 
 src/tagTrackingInfo.s: src/tagTrackingInfo.cpp.s
@@ -975,7 +978,7 @@ src/tagTrackingInfo.s: src/tagTrackingInfo.cpp.s
 
 # target to generate assembly for a file
 src/tagTrackingInfo.cpp.s:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/src/tagTrackingInfo.cpp.s
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/src/tagTrackingInfo.cpp.s
 .PHONY : src/tagTrackingInfo.cpp.s
 
 # Help Target
@@ -984,25 +987,26 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command"
-	@echo "... _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part"
+	@echo "... _ardrone_command_generate_messages_check_deps_commandInterface"
+	@echo "... _ardrone_command_generate_messages_check_deps_serialized_ardrone_command"
+	@echo "... _ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part"
 	@echo "... actionlib_generate_messages_cpp"
 	@echo "... actionlib_generate_messages_lisp"
 	@echo "... actionlib_generate_messages_py"
 	@echo "... actionlib_msgs_generate_messages_cpp"
 	@echo "... actionlib_msgs_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_py"
-	@echo "... ardrone_application_node"
-	@echo "... ardrone_application_node_gencpp"
-	@echo "... ardrone_application_node_generate_messages"
-	@echo "... ardrone_application_node_generate_messages_cpp"
-	@echo "... ardrone_application_node_generate_messages_lisp"
-	@echo "... ardrone_application_node_generate_messages_py"
-	@echo "... ardrone_application_node_genlisp"
-	@echo "... ardrone_application_node_genpy"
 	@echo "... ardrone_autonomy_generate_messages_cpp"
 	@echo "... ardrone_autonomy_generate_messages_lisp"
 	@echo "... ardrone_autonomy_generate_messages_py"
+	@echo "... ardrone_command"
+	@echo "... ardrone_command_gencpp"
+	@echo "... ardrone_command_generate_messages"
+	@echo "... ardrone_command_generate_messages_cpp"
+	@echo "... ardrone_command_generate_messages_lisp"
+	@echo "... ardrone_command_generate_messages_py"
+	@echo "... ardrone_command_genlisp"
+	@echo "... ardrone_command_genpy"
 	@echo "... clean_test_results"
 	@echo "... doxygen"
 	@echo "... edit_cache"
@@ -1011,7 +1015,6 @@ help:
 	@echo "... geometry_msgs_generate_messages_py"
 	@echo "... install"
 	@echo "... install/local"
-	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... roscpp_generate_messages_cpp"

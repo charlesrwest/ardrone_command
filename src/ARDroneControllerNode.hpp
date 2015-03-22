@@ -26,7 +26,7 @@
 #include <std_srvs/Empty.h>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Vector3.h>
-#include "ardrone_application_node/serialized_ardrone_command.h"
+#include "ardrone_command/serialized_ardrone_command.h"
 
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>

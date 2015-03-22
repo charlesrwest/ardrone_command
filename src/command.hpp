@@ -5,7 +5,7 @@
 #include<string>
 #include "ARDroneEnums.hpp"
 #include<cstdint>
-#include "ardrone_application_node/serialized_ardrone_command.h"
+#include "ardrone_command/serialized_ardrone_command.h"
 
 
 #define MAX_PRIORITY 1000
@@ -51,7 +51,7 @@ command();
 /*
 This function decomposes the command into a ROS message for sending over the network.  ROS messages don't support containing submessages of the same type as the message, so this requires all subcommands to be decomposed into a list of simple (nonrecursive) commands.
 */
-ardrone_application_node::serialized_ardrone_command serialize();
+ardrone_command::serialized_ardrone_command serialize();
 
 /*
 This function clears the command and then creates a command that will have maximum priority and clear all of the remaining commands in the command queue.
@@ -221,20 +221,20 @@ void unwrapCommand(const command &inputCommand, std::vector<command> &inputComma
 This function serializes the command to a serialized_ardrone_command_part, ignoring any subcommands the command may have.
 @param inputCommand: The command to serialize
 */
-ardrone_application_node::serialized_ardrone_command_part serializeCommandPart(const command &inputCommand);
+ardrone_command::serialized_ardrone_command_part serializeCommandPart(const command &inputCommand);
 
 /*
 This function converts a serialized command into a list of commands/subcommands.
 @param inputSerializedCommand: The message to deserialize
 @return: The list of commands stored in the message
 */
-std::vector<command> deserialize_commands(const ardrone_application_node::serialized_ardrone_command &inputSerializedCommand);
+std::vector<command> deserialize_commands(const ardrone_command::serialized_ardrone_command &inputSerializedCommand);
 
 /*
 This function converts a serialized command part into a command
 @param inputSerializedCommandPart: The message to deserialize
 @return: The command stored in the message
 */
-command deserialize_command_part(const ardrone_application_node::serialized_ardrone_command_part &inputSerializedCommandPart);
+command deserialize_command_part(const ardrone_command::serialized_ardrone_command_part &inputSerializedCommandPart);
 
 #endif

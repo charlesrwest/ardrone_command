@@ -47,71 +47,102 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node
+CMAKE_SOURCE_DIR = /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node
+CMAKE_BINARY_DIR = /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command
 
 #=============================================================================
-# Target rules for target CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir
+# Target rules for target CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir
 
 # All Build rule for target.
-CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/all:
-	$(MAKE) -f CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/build.make CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/depend
-	$(MAKE) -f CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/build.make CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
-	@echo "Built target _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command"
-.PHONY : CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/all
+CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/all:
+	$(MAKE) -f CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/build.make CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/depend
+	$(MAKE) -f CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/build.make CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
+	@echo "Built target _ardrone_command_generate_messages_check_deps_commandInterface"
+.PHONY : CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
-.PHONY : CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/rule
+CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+.PHONY : CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/rule
 
 # Convenience name for target.
-_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command: CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/rule
-.PHONY : _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command
+_ardrone_command_generate_messages_check_deps_commandInterface: CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/rule
+.PHONY : _ardrone_command_generate_messages_check_deps_commandInterface
 
 # clean rule for target.
-CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/clean:
-	$(MAKE) -f CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/build.make CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/clean
-.PHONY : CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/clean
+CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/clean:
+	$(MAKE) -f CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/build.make CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/clean
+.PHONY : CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/clean
 
 # clean rule for target.
-clean: CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/clean
+clean: CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir
+# Target rules for target CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir
 
 # All Build rule for target.
-CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/all:
-	$(MAKE) -f CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/build.make CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/depend
-	$(MAKE) -f CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/build.make CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
-	@echo "Built target _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part"
-.PHONY : CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/all
+CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/all:
+	$(MAKE) -f CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/build.make CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/depend
+	$(MAKE) -f CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/build.make CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
+	@echo "Built target _ardrone_command_generate_messages_check_deps_serialized_ardrone_command"
+.PHONY : CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
-.PHONY : CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/rule
+CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+.PHONY : CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/rule
 
 # Convenience name for target.
-_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part: CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/rule
-.PHONY : _ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part
+_ardrone_command_generate_messages_check_deps_serialized_ardrone_command: CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/rule
+.PHONY : _ardrone_command_generate_messages_check_deps_serialized_ardrone_command
 
 # clean rule for target.
-CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/clean:
-	$(MAKE) -f CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/build.make CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/clean
-.PHONY : CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/clean
+CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/clean:
+	$(MAKE) -f CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/build.make CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/clean
+.PHONY : CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/clean
 
 # clean rule for target.
-clean: CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/clean
+clean: CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir
+
+# All Build rule for target.
+CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/all:
+	$(MAKE) -f CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/build.make CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/depend
+	$(MAKE) -f CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/build.make CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
+	@echo "Built target _ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part"
+.PHONY : CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+.PHONY : CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/rule
+
+# Convenience name for target.
+_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part: CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/rule
+.PHONY : _ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part
+
+# clean rule for target.
+CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/clean:
+	$(MAKE) -f CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/build.make CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/clean
+.PHONY : CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -121,15 +152,15 @@ clean: CMakeFiles/_ardrone_application_node_generate_messages_check_deps_seriali
 CMakeFiles/actionlib_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/actionlib_generate_messages_cpp.dir/build.make CMakeFiles/actionlib_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/actionlib_generate_messages_cpp.dir/build.make CMakeFiles/actionlib_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target actionlib_generate_messages_cpp"
 .PHONY : CMakeFiles/actionlib_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/actionlib_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/actionlib_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/actionlib_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -152,15 +183,15 @@ clean: CMakeFiles/actionlib_generate_messages_cpp.dir/clean
 CMakeFiles/actionlib_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/actionlib_generate_messages_lisp.dir/build.make CMakeFiles/actionlib_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/actionlib_generate_messages_lisp.dir/build.make CMakeFiles/actionlib_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target actionlib_generate_messages_lisp"
 .PHONY : CMakeFiles/actionlib_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/actionlib_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/actionlib_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/actionlib_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -183,15 +214,15 @@ clean: CMakeFiles/actionlib_generate_messages_lisp.dir/clean
 CMakeFiles/actionlib_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/actionlib_generate_messages_py.dir/build.make CMakeFiles/actionlib_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/actionlib_generate_messages_py.dir/build.make CMakeFiles/actionlib_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target actionlib_generate_messages_py"
 .PHONY : CMakeFiles/actionlib_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/actionlib_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/actionlib_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/actionlib_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -214,15 +245,15 @@ clean: CMakeFiles/actionlib_generate_messages_py.dir/clean
 CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target actionlib_msgs_generate_messages_cpp"
 .PHONY : CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -245,15 +276,15 @@ clean: CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/clean
 CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target actionlib_msgs_generate_messages_lisp"
 .PHONY : CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -276,15 +307,15 @@ clean: CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/clean
 CMakeFiles/actionlib_msgs_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make CMakeFiles/actionlib_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make CMakeFiles/actionlib_msgs_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target actionlib_msgs_generate_messages_py"
 .PHONY : CMakeFiles/actionlib_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/actionlib_msgs_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -301,288 +332,21 @@ clean: CMakeFiles/actionlib_msgs_generate_messages_py.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/ardrone_application_node.dir
-
-# All Build rule for target.
-CMakeFiles/ardrone_application_node.dir/all:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/depend
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles  1 2 3 4 5 6 7 8
-	@echo "Built target ardrone_application_node"
-.PHONY : CMakeFiles/ardrone_application_node.dir/all
-
-# Include target in all.
-all: CMakeFiles/ardrone_application_node.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/ardrone_application_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 8
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_application_node.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
-.PHONY : CMakeFiles/ardrone_application_node.dir/rule
-
-# Convenience name for target.
-ardrone_application_node: CMakeFiles/ardrone_application_node.dir/rule
-.PHONY : ardrone_application_node
-
-# clean rule for target.
-CMakeFiles/ardrone_application_node.dir/clean:
-	$(MAKE) -f CMakeFiles/ardrone_application_node.dir/build.make CMakeFiles/ardrone_application_node.dir/clean
-.PHONY : CMakeFiles/ardrone_application_node.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/ardrone_application_node.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/ardrone_application_node_gencpp.dir
-
-# All Build rule for target.
-CMakeFiles/ardrone_application_node_gencpp.dir/all: CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/all
-	$(MAKE) -f CMakeFiles/ardrone_application_node_gencpp.dir/build.make CMakeFiles/ardrone_application_node_gencpp.dir/depend
-	$(MAKE) -f CMakeFiles/ardrone_application_node_gencpp.dir/build.make CMakeFiles/ardrone_application_node_gencpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
-	@echo "Built target ardrone_application_node_gencpp"
-.PHONY : CMakeFiles/ardrone_application_node_gencpp.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/ardrone_application_node_gencpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_application_node_gencpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
-.PHONY : CMakeFiles/ardrone_application_node_gencpp.dir/rule
-
-# Convenience name for target.
-ardrone_application_node_gencpp: CMakeFiles/ardrone_application_node_gencpp.dir/rule
-.PHONY : ardrone_application_node_gencpp
-
-# clean rule for target.
-CMakeFiles/ardrone_application_node_gencpp.dir/clean:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_gencpp.dir/build.make CMakeFiles/ardrone_application_node_gencpp.dir/clean
-.PHONY : CMakeFiles/ardrone_application_node_gencpp.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/ardrone_application_node_gencpp.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/ardrone_application_node_generate_messages.dir
-
-# All Build rule for target.
-CMakeFiles/ardrone_application_node_generate_messages.dir/all: CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/all
-CMakeFiles/ardrone_application_node_generate_messages.dir/all: CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/all
-CMakeFiles/ardrone_application_node_generate_messages.dir/all: CMakeFiles/ardrone_application_node_generate_messages_py.dir/all
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages.dir/build.make CMakeFiles/ardrone_application_node_generate_messages.dir/depend
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages.dir/build.make CMakeFiles/ardrone_application_node_generate_messages.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
-	@echo "Built target ardrone_application_node_generate_messages"
-.PHONY : CMakeFiles/ardrone_application_node_generate_messages.dir/all
-
-# Include target in all.
-all: CMakeFiles/ardrone_application_node_generate_messages.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/ardrone_application_node_generate_messages.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 7
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_application_node_generate_messages.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
-.PHONY : CMakeFiles/ardrone_application_node_generate_messages.dir/rule
-
-# Convenience name for target.
-ardrone_application_node_generate_messages: CMakeFiles/ardrone_application_node_generate_messages.dir/rule
-.PHONY : ardrone_application_node_generate_messages
-
-# clean rule for target.
-CMakeFiles/ardrone_application_node_generate_messages.dir/clean:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages.dir/build.make CMakeFiles/ardrone_application_node_generate_messages.dir/clean
-.PHONY : CMakeFiles/ardrone_application_node_generate_messages.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/ardrone_application_node_generate_messages.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/ardrone_application_node_generate_messages_cpp.dir
-
-# All Build rule for target.
-CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/all: CMakeFiles/std_msgs_generate_messages_cpp.dir/all
-CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/all: CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
-CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/all: CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/all
-CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/all: CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/all
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/depend
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles  9 10
-	@echo "Built target ardrone_application_node_generate_messages_cpp"
-.PHONY : CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
-.PHONY : CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-ardrone_application_node_generate_messages_cpp: CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/rule
-.PHONY : ardrone_application_node_generate_messages_cpp
-
-# clean rule for target.
-CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/clean:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/clean
-.PHONY : CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/ardrone_application_node_generate_messages_cpp.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/ardrone_application_node_generate_messages_lisp.dir
-
-# All Build rule for target.
-CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/all: CMakeFiles/std_msgs_generate_messages_lisp.dir/all
-CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/all: CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all
-CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/all: CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/all
-CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/all: CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/all
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/depend
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles  11 12
-	@echo "Built target ardrone_application_node_generate_messages_lisp"
-.PHONY : CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
-.PHONY : CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-ardrone_application_node_generate_messages_lisp: CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/rule
-.PHONY : ardrone_application_node_generate_messages_lisp
-
-# clean rule for target.
-CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/clean:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/clean
-.PHONY : CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/ardrone_application_node_generate_messages_py.dir
-
-# All Build rule for target.
-CMakeFiles/ardrone_application_node_generate_messages_py.dir/all: CMakeFiles/std_msgs_generate_messages_py.dir/all
-CMakeFiles/ardrone_application_node_generate_messages_py.dir/all: CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command.dir/all
-CMakeFiles/ardrone_application_node_generate_messages_py.dir/all: CMakeFiles/geometry_msgs_generate_messages_py.dir/all
-CMakeFiles/ardrone_application_node_generate_messages_py.dir/all: CMakeFiles/_ardrone_application_node_generate_messages_check_deps_serialized_ardrone_command_part.dir/all
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_py.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_py.dir/depend
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_py.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles  13 14 15
-	@echo "Built target ardrone_application_node_generate_messages_py"
-.PHONY : CMakeFiles/ardrone_application_node_generate_messages_py.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/ardrone_application_node_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_application_node_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
-.PHONY : CMakeFiles/ardrone_application_node_generate_messages_py.dir/rule
-
-# Convenience name for target.
-ardrone_application_node_generate_messages_py: CMakeFiles/ardrone_application_node_generate_messages_py.dir/rule
-.PHONY : ardrone_application_node_generate_messages_py
-
-# clean rule for target.
-CMakeFiles/ardrone_application_node_generate_messages_py.dir/clean:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_generate_messages_py.dir/build.make CMakeFiles/ardrone_application_node_generate_messages_py.dir/clean
-.PHONY : CMakeFiles/ardrone_application_node_generate_messages_py.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/ardrone_application_node_generate_messages_py.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/ardrone_application_node_genlisp.dir
-
-# All Build rule for target.
-CMakeFiles/ardrone_application_node_genlisp.dir/all: CMakeFiles/ardrone_application_node_generate_messages_lisp.dir/all
-	$(MAKE) -f CMakeFiles/ardrone_application_node_genlisp.dir/build.make CMakeFiles/ardrone_application_node_genlisp.dir/depend
-	$(MAKE) -f CMakeFiles/ardrone_application_node_genlisp.dir/build.make CMakeFiles/ardrone_application_node_genlisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
-	@echo "Built target ardrone_application_node_genlisp"
-.PHONY : CMakeFiles/ardrone_application_node_genlisp.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/ardrone_application_node_genlisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_application_node_genlisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
-.PHONY : CMakeFiles/ardrone_application_node_genlisp.dir/rule
-
-# Convenience name for target.
-ardrone_application_node_genlisp: CMakeFiles/ardrone_application_node_genlisp.dir/rule
-.PHONY : ardrone_application_node_genlisp
-
-# clean rule for target.
-CMakeFiles/ardrone_application_node_genlisp.dir/clean:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_genlisp.dir/build.make CMakeFiles/ardrone_application_node_genlisp.dir/clean
-.PHONY : CMakeFiles/ardrone_application_node_genlisp.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/ardrone_application_node_genlisp.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/ardrone_application_node_genpy.dir
-
-# All Build rule for target.
-CMakeFiles/ardrone_application_node_genpy.dir/all: CMakeFiles/ardrone_application_node_generate_messages_py.dir/all
-	$(MAKE) -f CMakeFiles/ardrone_application_node_genpy.dir/build.make CMakeFiles/ardrone_application_node_genpy.dir/depend
-	$(MAKE) -f CMakeFiles/ardrone_application_node_genpy.dir/build.make CMakeFiles/ardrone_application_node_genpy.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
-	@echo "Built target ardrone_application_node_genpy"
-.PHONY : CMakeFiles/ardrone_application_node_genpy.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/ardrone_application_node_genpy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_application_node_genpy.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
-.PHONY : CMakeFiles/ardrone_application_node_genpy.dir/rule
-
-# Convenience name for target.
-ardrone_application_node_genpy: CMakeFiles/ardrone_application_node_genpy.dir/rule
-.PHONY : ardrone_application_node_genpy
-
-# clean rule for target.
-CMakeFiles/ardrone_application_node_genpy.dir/clean:
-	$(MAKE) -f CMakeFiles/ardrone_application_node_genpy.dir/build.make CMakeFiles/ardrone_application_node_genpy.dir/clean
-.PHONY : CMakeFiles/ardrone_application_node_genpy.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/ardrone_application_node_genpy.dir/clean
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir
 
 # All Build rule for target.
 CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/build.make CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/build.make CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target ardrone_autonomy_generate_messages_cpp"
 .PHONY : CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -605,15 +369,15 @@ clean: CMakeFiles/ardrone_autonomy_generate_messages_cpp.dir/clean
 CMakeFiles/ardrone_autonomy_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/ardrone_autonomy_generate_messages_lisp.dir/build.make CMakeFiles/ardrone_autonomy_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/ardrone_autonomy_generate_messages_lisp.dir/build.make CMakeFiles/ardrone_autonomy_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target ardrone_autonomy_generate_messages_lisp"
 .PHONY : CMakeFiles/ardrone_autonomy_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ardrone_autonomy_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_autonomy_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/ardrone_autonomy_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -636,15 +400,15 @@ clean: CMakeFiles/ardrone_autonomy_generate_messages_lisp.dir/clean
 CMakeFiles/ardrone_autonomy_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/ardrone_autonomy_generate_messages_py.dir/build.make CMakeFiles/ardrone_autonomy_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/ardrone_autonomy_generate_messages_py.dir/build.make CMakeFiles/ardrone_autonomy_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target ardrone_autonomy_generate_messages_py"
 .PHONY : CMakeFiles/ardrone_autonomy_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ardrone_autonomy_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_autonomy_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/ardrone_autonomy_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -661,21 +425,292 @@ clean: CMakeFiles/ardrone_autonomy_generate_messages_py.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/ardrone_command.dir
+
+# All Build rule for target.
+CMakeFiles/ardrone_command.dir/all: CMakeFiles/ardrone_command_generate_messages_cpp.dir/all
+CMakeFiles/ardrone_command.dir/all: CMakeFiles/ardrone_command_gencpp.dir/all
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/depend
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles  1 2 3 4 5 6 7 8
+	@echo "Built target ardrone_command"
+.PHONY : CMakeFiles/ardrone_command.dir/all
+
+# Include target in all.
+all: CMakeFiles/ardrone_command.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ardrone_command.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 11
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_command.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+.PHONY : CMakeFiles/ardrone_command.dir/rule
+
+# Convenience name for target.
+ardrone_command: CMakeFiles/ardrone_command.dir/rule
+.PHONY : ardrone_command
+
+# clean rule for target.
+CMakeFiles/ardrone_command.dir/clean:
+	$(MAKE) -f CMakeFiles/ardrone_command.dir/build.make CMakeFiles/ardrone_command.dir/clean
+.PHONY : CMakeFiles/ardrone_command.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/ardrone_command.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/ardrone_command_gencpp.dir
+
+# All Build rule for target.
+CMakeFiles/ardrone_command_gencpp.dir/all: CMakeFiles/ardrone_command_generate_messages_cpp.dir/all
+	$(MAKE) -f CMakeFiles/ardrone_command_gencpp.dir/build.make CMakeFiles/ardrone_command_gencpp.dir/depend
+	$(MAKE) -f CMakeFiles/ardrone_command_gencpp.dir/build.make CMakeFiles/ardrone_command_gencpp.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
+	@echo "Built target ardrone_command_gencpp"
+.PHONY : CMakeFiles/ardrone_command_gencpp.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ardrone_command_gencpp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_command_gencpp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+.PHONY : CMakeFiles/ardrone_command_gencpp.dir/rule
+
+# Convenience name for target.
+ardrone_command_gencpp: CMakeFiles/ardrone_command_gencpp.dir/rule
+.PHONY : ardrone_command_gencpp
+
+# clean rule for target.
+CMakeFiles/ardrone_command_gencpp.dir/clean:
+	$(MAKE) -f CMakeFiles/ardrone_command_gencpp.dir/build.make CMakeFiles/ardrone_command_gencpp.dir/clean
+.PHONY : CMakeFiles/ardrone_command_gencpp.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/ardrone_command_gencpp.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/ardrone_command_generate_messages.dir
+
+# All Build rule for target.
+CMakeFiles/ardrone_command_generate_messages.dir/all: CMakeFiles/ardrone_command_generate_messages_cpp.dir/all
+CMakeFiles/ardrone_command_generate_messages.dir/all: CMakeFiles/ardrone_command_generate_messages_py.dir/all
+CMakeFiles/ardrone_command_generate_messages.dir/all: CMakeFiles/ardrone_command_generate_messages_lisp.dir/all
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages.dir/build.make CMakeFiles/ardrone_command_generate_messages.dir/depend
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages.dir/build.make CMakeFiles/ardrone_command_generate_messages.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
+	@echo "Built target ardrone_command_generate_messages"
+.PHONY : CMakeFiles/ardrone_command_generate_messages.dir/all
+
+# Include target in all.
+all: CMakeFiles/ardrone_command_generate_messages.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ardrone_command_generate_messages.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 11
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_command_generate_messages.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+.PHONY : CMakeFiles/ardrone_command_generate_messages.dir/rule
+
+# Convenience name for target.
+ardrone_command_generate_messages: CMakeFiles/ardrone_command_generate_messages.dir/rule
+.PHONY : ardrone_command_generate_messages
+
+# clean rule for target.
+CMakeFiles/ardrone_command_generate_messages.dir/clean:
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages.dir/build.make CMakeFiles/ardrone_command_generate_messages.dir/clean
+.PHONY : CMakeFiles/ardrone_command_generate_messages.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/ardrone_command_generate_messages.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/ardrone_command_generate_messages_cpp.dir
+
+# All Build rule for target.
+CMakeFiles/ardrone_command_generate_messages_cpp.dir/all: CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/all
+CMakeFiles/ardrone_command_generate_messages_cpp.dir/all: CMakeFiles/std_msgs_generate_messages_cpp.dir/all
+CMakeFiles/ardrone_command_generate_messages_cpp.dir/all: CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/all
+CMakeFiles/ardrone_command_generate_messages_cpp.dir/all: CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
+CMakeFiles/ardrone_command_generate_messages_cpp.dir/all: CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/all
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages_cpp.dir/build.make CMakeFiles/ardrone_command_generate_messages_cpp.dir/depend
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages_cpp.dir/build.make CMakeFiles/ardrone_command_generate_messages_cpp.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles  9 10 11
+	@echo "Built target ardrone_command_generate_messages_cpp"
+.PHONY : CMakeFiles/ardrone_command_generate_messages_cpp.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ardrone_command_generate_messages_cpp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_command_generate_messages_cpp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+.PHONY : CMakeFiles/ardrone_command_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+ardrone_command_generate_messages_cpp: CMakeFiles/ardrone_command_generate_messages_cpp.dir/rule
+.PHONY : ardrone_command_generate_messages_cpp
+
+# clean rule for target.
+CMakeFiles/ardrone_command_generate_messages_cpp.dir/clean:
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages_cpp.dir/build.make CMakeFiles/ardrone_command_generate_messages_cpp.dir/clean
+.PHONY : CMakeFiles/ardrone_command_generate_messages_cpp.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/ardrone_command_generate_messages_cpp.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/ardrone_command_generate_messages_lisp.dir
+
+# All Build rule for target.
+CMakeFiles/ardrone_command_generate_messages_lisp.dir/all: CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/all
+CMakeFiles/ardrone_command_generate_messages_lisp.dir/all: CMakeFiles/std_msgs_generate_messages_lisp.dir/all
+CMakeFiles/ardrone_command_generate_messages_lisp.dir/all: CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/all
+CMakeFiles/ardrone_command_generate_messages_lisp.dir/all: CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all
+CMakeFiles/ardrone_command_generate_messages_lisp.dir/all: CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/all
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages_lisp.dir/build.make CMakeFiles/ardrone_command_generate_messages_lisp.dir/depend
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages_lisp.dir/build.make CMakeFiles/ardrone_command_generate_messages_lisp.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles  12 13 14
+	@echo "Built target ardrone_command_generate_messages_lisp"
+.PHONY : CMakeFiles/ardrone_command_generate_messages_lisp.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ardrone_command_generate_messages_lisp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_command_generate_messages_lisp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+.PHONY : CMakeFiles/ardrone_command_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+ardrone_command_generate_messages_lisp: CMakeFiles/ardrone_command_generate_messages_lisp.dir/rule
+.PHONY : ardrone_command_generate_messages_lisp
+
+# clean rule for target.
+CMakeFiles/ardrone_command_generate_messages_lisp.dir/clean:
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages_lisp.dir/build.make CMakeFiles/ardrone_command_generate_messages_lisp.dir/clean
+.PHONY : CMakeFiles/ardrone_command_generate_messages_lisp.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/ardrone_command_generate_messages_lisp.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/ardrone_command_generate_messages_py.dir
+
+# All Build rule for target.
+CMakeFiles/ardrone_command_generate_messages_py.dir/all: CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command_part.dir/all
+CMakeFiles/ardrone_command_generate_messages_py.dir/all: CMakeFiles/std_msgs_generate_messages_py.dir/all
+CMakeFiles/ardrone_command_generate_messages_py.dir/all: CMakeFiles/_ardrone_command_generate_messages_check_deps_serialized_ardrone_command.dir/all
+CMakeFiles/ardrone_command_generate_messages_py.dir/all: CMakeFiles/geometry_msgs_generate_messages_py.dir/all
+CMakeFiles/ardrone_command_generate_messages_py.dir/all: CMakeFiles/_ardrone_command_generate_messages_check_deps_commandInterface.dir/all
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages_py.dir/build.make CMakeFiles/ardrone_command_generate_messages_py.dir/depend
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages_py.dir/build.make CMakeFiles/ardrone_command_generate_messages_py.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles  15 16 17 18 19
+	@echo "Built target ardrone_command_generate_messages_py"
+.PHONY : CMakeFiles/ardrone_command_generate_messages_py.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ardrone_command_generate_messages_py.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 5
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_command_generate_messages_py.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+.PHONY : CMakeFiles/ardrone_command_generate_messages_py.dir/rule
+
+# Convenience name for target.
+ardrone_command_generate_messages_py: CMakeFiles/ardrone_command_generate_messages_py.dir/rule
+.PHONY : ardrone_command_generate_messages_py
+
+# clean rule for target.
+CMakeFiles/ardrone_command_generate_messages_py.dir/clean:
+	$(MAKE) -f CMakeFiles/ardrone_command_generate_messages_py.dir/build.make CMakeFiles/ardrone_command_generate_messages_py.dir/clean
+.PHONY : CMakeFiles/ardrone_command_generate_messages_py.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/ardrone_command_generate_messages_py.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/ardrone_command_genlisp.dir
+
+# All Build rule for target.
+CMakeFiles/ardrone_command_genlisp.dir/all: CMakeFiles/ardrone_command_generate_messages_lisp.dir/all
+	$(MAKE) -f CMakeFiles/ardrone_command_genlisp.dir/build.make CMakeFiles/ardrone_command_genlisp.dir/depend
+	$(MAKE) -f CMakeFiles/ardrone_command_genlisp.dir/build.make CMakeFiles/ardrone_command_genlisp.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
+	@echo "Built target ardrone_command_genlisp"
+.PHONY : CMakeFiles/ardrone_command_genlisp.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ardrone_command_genlisp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_command_genlisp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+.PHONY : CMakeFiles/ardrone_command_genlisp.dir/rule
+
+# Convenience name for target.
+ardrone_command_genlisp: CMakeFiles/ardrone_command_genlisp.dir/rule
+.PHONY : ardrone_command_genlisp
+
+# clean rule for target.
+CMakeFiles/ardrone_command_genlisp.dir/clean:
+	$(MAKE) -f CMakeFiles/ardrone_command_genlisp.dir/build.make CMakeFiles/ardrone_command_genlisp.dir/clean
+.PHONY : CMakeFiles/ardrone_command_genlisp.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/ardrone_command_genlisp.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/ardrone_command_genpy.dir
+
+# All Build rule for target.
+CMakeFiles/ardrone_command_genpy.dir/all: CMakeFiles/ardrone_command_generate_messages_py.dir/all
+	$(MAKE) -f CMakeFiles/ardrone_command_genpy.dir/build.make CMakeFiles/ardrone_command_genpy.dir/depend
+	$(MAKE) -f CMakeFiles/ardrone_command_genpy.dir/build.make CMakeFiles/ardrone_command_genpy.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
+	@echo "Built target ardrone_command_genpy"
+.PHONY : CMakeFiles/ardrone_command_genpy.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ardrone_command_genpy.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 5
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ardrone_command_genpy.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
+.PHONY : CMakeFiles/ardrone_command_genpy.dir/rule
+
+# Convenience name for target.
+ardrone_command_genpy: CMakeFiles/ardrone_command_genpy.dir/rule
+.PHONY : ardrone_command_genpy
+
+# clean rule for target.
+CMakeFiles/ardrone_command_genpy.dir/clean:
+	$(MAKE) -f CMakeFiles/ardrone_command_genpy.dir/build.make CMakeFiles/ardrone_command_genpy.dir/clean
+.PHONY : CMakeFiles/ardrone_command_genpy.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/ardrone_command_genpy.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/clean_test_results.dir
 
 # All Build rule for target.
 CMakeFiles/clean_test_results.dir/all:
 	$(MAKE) -f CMakeFiles/clean_test_results.dir/build.make CMakeFiles/clean_test_results.dir/depend
 	$(MAKE) -f CMakeFiles/clean_test_results.dir/build.make CMakeFiles/clean_test_results.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target clean_test_results"
 .PHONY : CMakeFiles/clean_test_results.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/clean_test_results.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/clean_test_results.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/clean_test_results.dir/rule
 
 # Convenience name for target.
@@ -698,15 +733,15 @@ clean: CMakeFiles/clean_test_results.dir/clean
 CMakeFiles/doxygen.dir/all:
 	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/depend
 	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target doxygen"
 .PHONY : CMakeFiles/doxygen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/doxygen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/doxygen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/doxygen.dir/rule
 
 # Convenience name for target.
@@ -729,15 +764,15 @@ clean: CMakeFiles/doxygen.dir/clean
 CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make CMakeFiles/geometry_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target geometry_msgs_generate_messages_cpp"
 .PHONY : CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -760,15 +795,15 @@ clean: CMakeFiles/geometry_msgs_generate_messages_cpp.dir/clean
 CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make CMakeFiles/geometry_msgs_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target geometry_msgs_generate_messages_lisp"
 .PHONY : CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -791,15 +826,15 @@ clean: CMakeFiles/geometry_msgs_generate_messages_lisp.dir/clean
 CMakeFiles/geometry_msgs_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make CMakeFiles/geometry_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make CMakeFiles/geometry_msgs_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target geometry_msgs_generate_messages_py"
 .PHONY : CMakeFiles/geometry_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/geometry_msgs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/geometry_msgs_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -822,15 +857,15 @@ clean: CMakeFiles/geometry_msgs_generate_messages_py.dir/clean
 CMakeFiles/roscpp_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_cpp.dir/build.make CMakeFiles/roscpp_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_cpp.dir/build.make CMakeFiles/roscpp_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target roscpp_generate_messages_cpp"
 .PHONY : CMakeFiles/roscpp_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/roscpp_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/roscpp_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/roscpp_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -853,15 +888,15 @@ clean: CMakeFiles/roscpp_generate_messages_cpp.dir/clean
 CMakeFiles/roscpp_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_lisp.dir/build.make CMakeFiles/roscpp_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_lisp.dir/build.make CMakeFiles/roscpp_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target roscpp_generate_messages_lisp"
 .PHONY : CMakeFiles/roscpp_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/roscpp_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/roscpp_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/roscpp_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -884,15 +919,15 @@ clean: CMakeFiles/roscpp_generate_messages_lisp.dir/clean
 CMakeFiles/roscpp_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_py.dir/build.make CMakeFiles/roscpp_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_py.dir/build.make CMakeFiles/roscpp_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target roscpp_generate_messages_py"
 .PHONY : CMakeFiles/roscpp_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/roscpp_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/roscpp_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/roscpp_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -915,15 +950,15 @@ clean: CMakeFiles/roscpp_generate_messages_py.dir/clean
 CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target rosgraph_msgs_generate_messages_cpp"
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -946,15 +981,15 @@ clean: CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/clean
 CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target rosgraph_msgs_generate_messages_lisp"
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -977,15 +1012,15 @@ clean: CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/clean
 CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target rosgraph_msgs_generate_messages_py"
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -1008,15 +1043,15 @@ clean: CMakeFiles/rosgraph_msgs_generate_messages_py.dir/clean
 CMakeFiles/run_tests.dir/all:
 	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/depend
 	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target run_tests"
 .PHONY : CMakeFiles/run_tests.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/run_tests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/run_tests.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/run_tests.dir/rule
 
 # Convenience name for target.
@@ -1039,15 +1074,15 @@ clean: CMakeFiles/run_tests.dir/clean
 CMakeFiles/sensor_msgs_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make CMakeFiles/sensor_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target sensor_msgs_generate_messages_cpp"
 .PHONY : CMakeFiles/sensor_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sensor_msgs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -1070,15 +1105,15 @@ clean: CMakeFiles/sensor_msgs_generate_messages_cpp.dir/clean
 CMakeFiles/sensor_msgs_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make CMakeFiles/sensor_msgs_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target sensor_msgs_generate_messages_lisp"
 .PHONY : CMakeFiles/sensor_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sensor_msgs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -1101,15 +1136,15 @@ clean: CMakeFiles/sensor_msgs_generate_messages_lisp.dir/clean
 CMakeFiles/sensor_msgs_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make CMakeFiles/sensor_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make CMakeFiles/sensor_msgs_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target sensor_msgs_generate_messages_py"
 .PHONY : CMakeFiles/sensor_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/sensor_msgs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sensor_msgs_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -1132,15 +1167,15 @@ clean: CMakeFiles/sensor_msgs_generate_messages_py.dir/clean
 CMakeFiles/std_msgs_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make CMakeFiles/std_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make CMakeFiles/std_msgs_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target std_msgs_generate_messages_cpp"
 .PHONY : CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/std_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_msgs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -1163,15 +1198,15 @@ clean: CMakeFiles/std_msgs_generate_messages_cpp.dir/clean
 CMakeFiles/std_msgs_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make CMakeFiles/std_msgs_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make CMakeFiles/std_msgs_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target std_msgs_generate_messages_lisp"
 .PHONY : CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/std_msgs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_msgs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -1194,15 +1229,15 @@ clean: CMakeFiles/std_msgs_generate_messages_lisp.dir/clean
 CMakeFiles/std_msgs_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_py.dir/build.make CMakeFiles/std_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_py.dir/build.make CMakeFiles/std_msgs_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target std_msgs_generate_messages_py"
 .PHONY : CMakeFiles/std_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/std_msgs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_msgs_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/std_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -1225,15 +1260,15 @@ clean: CMakeFiles/std_msgs_generate_messages_py.dir/clean
 CMakeFiles/std_srvs_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/std_srvs_generate_messages_cpp.dir/build.make CMakeFiles/std_srvs_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/std_srvs_generate_messages_cpp.dir/build.make CMakeFiles/std_srvs_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target std_srvs_generate_messages_cpp"
 .PHONY : CMakeFiles/std_srvs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/std_srvs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_srvs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/std_srvs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -1256,15 +1291,15 @@ clean: CMakeFiles/std_srvs_generate_messages_cpp.dir/clean
 CMakeFiles/std_srvs_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/std_srvs_generate_messages_lisp.dir/build.make CMakeFiles/std_srvs_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/std_srvs_generate_messages_lisp.dir/build.make CMakeFiles/std_srvs_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target std_srvs_generate_messages_lisp"
 .PHONY : CMakeFiles/std_srvs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/std_srvs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_srvs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -1287,15 +1322,15 @@ clean: CMakeFiles/std_srvs_generate_messages_lisp.dir/clean
 CMakeFiles/std_srvs_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/std_srvs_generate_messages_py.dir/build.make CMakeFiles/std_srvs_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/std_srvs_generate_messages_py.dir/build.make CMakeFiles/std_srvs_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target std_srvs_generate_messages_py"
 .PHONY : CMakeFiles/std_srvs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/std_srvs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_srvs_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/std_srvs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -1318,15 +1353,15 @@ clean: CMakeFiles/std_srvs_generate_messages_py.dir/clean
 CMakeFiles/tests.dir/all:
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/depend
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target tests"
 .PHONY : CMakeFiles/tests.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tests.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/tests.dir/rule
 
 # Convenience name for target.
@@ -1349,15 +1384,15 @@ clean: CMakeFiles/tests.dir/clean
 CMakeFiles/tf2_msgs_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/tf2_msgs_generate_messages_cpp.dir/build.make CMakeFiles/tf2_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/tf2_msgs_generate_messages_cpp.dir/build.make CMakeFiles/tf2_msgs_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target tf2_msgs_generate_messages_cpp"
 .PHONY : CMakeFiles/tf2_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tf2_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tf2_msgs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/tf2_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -1380,15 +1415,15 @@ clean: CMakeFiles/tf2_msgs_generate_messages_cpp.dir/clean
 CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/tf2_msgs_generate_messages_lisp.dir/build.make CMakeFiles/tf2_msgs_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/tf2_msgs_generate_messages_lisp.dir/build.make CMakeFiles/tf2_msgs_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target tf2_msgs_generate_messages_lisp"
 .PHONY : CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tf2_msgs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/tf2_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -1411,15 +1446,15 @@ clean: CMakeFiles/tf2_msgs_generate_messages_lisp.dir/clean
 CMakeFiles/tf2_msgs_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/tf2_msgs_generate_messages_py.dir/build.make CMakeFiles/tf2_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/tf2_msgs_generate_messages_py.dir/build.make CMakeFiles/tf2_msgs_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target tf2_msgs_generate_messages_py"
 .PHONY : CMakeFiles/tf2_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tf2_msgs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tf2_msgs_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/tf2_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -1442,15 +1477,15 @@ clean: CMakeFiles/tf2_msgs_generate_messages_py.dir/clean
 CMakeFiles/tf_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/tf_generate_messages_cpp.dir/build.make CMakeFiles/tf_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/tf_generate_messages_cpp.dir/build.make CMakeFiles/tf_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target tf_generate_messages_cpp"
 .PHONY : CMakeFiles/tf_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tf_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tf_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/tf_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -1473,15 +1508,15 @@ clean: CMakeFiles/tf_generate_messages_cpp.dir/clean
 CMakeFiles/tf_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/tf_generate_messages_lisp.dir/build.make CMakeFiles/tf_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/tf_generate_messages_lisp.dir/build.make CMakeFiles/tf_generate_messages_lisp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target tf_generate_messages_lisp"
 .PHONY : CMakeFiles/tf_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tf_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tf_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/tf_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -1504,15 +1539,15 @@ clean: CMakeFiles/tf_generate_messages_lisp.dir/clean
 CMakeFiles/tf_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/tf_generate_messages_py.dir/build.make CMakeFiles/tf_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/tf_generate_messages_py.dir/build.make CMakeFiles/tf_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 
 	@echo "Built target tf_generate_messages_py"
 .PHONY : CMakeFiles/tf_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tf_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tf_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : CMakeFiles/tf_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -1551,15 +1586,15 @@ gtest/preinstall:
 gtest/CMakeFiles/gtest.dir/all:
 	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/depend
 	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles  16
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles  20
 	@echo "Built target gtest"
 .PHONY : gtest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
 gtest/CMakeFiles/gtest.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 gtest/CMakeFiles/gtest.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : gtest/CMakeFiles/gtest.dir/rule
 
 # Convenience name for target.
@@ -1582,15 +1617,15 @@ clean: gtest/CMakeFiles/gtest.dir/clean
 gtest/CMakeFiles/gtest_main.dir/all: gtest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles  17
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles  21
 	@echo "Built target gtest_main"
 .PHONY : gtest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
 gtest/CMakeFiles/gtest_main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 gtest/CMakeFiles/gtest_main.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/CMakeFiles 0
 .PHONY : gtest/CMakeFiles/gtest_main.dir/rule
 
 # Convenience name for target.

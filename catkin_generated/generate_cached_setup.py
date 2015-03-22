@@ -18,9 +18,9 @@ except ImportError:
             break
     from catkin.environment_cache import generate_environment_script
 
-code = generate_environment_script('/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/devel/env.sh')
+code = generate_environment_script('/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/devel/env.sh')
 
-output_filename = '/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_application_node/catkin_generated/setup_cached.sh'
+output_filename = '/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/catkin_generated/setup_cached.sh'
 with open(output_filename, 'w') as f:
     #print('Generate script for cached setup "%s"' % output_filename)
     f.write('\n'.join(code))

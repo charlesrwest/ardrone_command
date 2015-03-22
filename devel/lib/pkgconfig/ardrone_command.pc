@@ -1,0 +1,8 @@
+prefix=/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/devel
+
+Name: ardrone_command
+Description: Description of ardrone_command
+Version: 0.0.0
+Cflags: -I/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/devel/include
+Libs: -L/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/src/ardrone_command/devel/lib 
+Requires: message_runtime ardrone_autonomy

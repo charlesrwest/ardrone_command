@@ -1,0 +1,10 @@
+(cl:defpackage ardrone_command-srv
+  (:use )
+  (:export
+   "COMMANDINTERFACE"
+   "<COMMANDINTERFACE-REQUEST>"
+   "COMMANDINTERFACE-REQUEST"
+   "<COMMANDINTERFACE-RESPONSE>"
+   "COMMANDINTERFACE-RESPONSE"
+  ))
+
