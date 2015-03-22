@@ -109,8 +109,6 @@ CMakeFiles/ardrone_command.dir/src/ARDroneControllerNode.cpp.o: /opt/ros/indigo/
 CMakeFiles/ardrone_command.dir/src/ARDroneControllerNode.cpp.o: /opt/ros/indigo/include/std_srvs/Empty.h
 CMakeFiles/ardrone_command.dir/src/ARDroneControllerNode.cpp.o: /opt/ros/indigo/include/std_srvs/EmptyRequest.h
 CMakeFiles/ardrone_command.dir/src/ARDroneControllerNode.cpp.o: /opt/ros/indigo/include/std_srvs/EmptyResponse.h
-CMakeFiles/ardrone_command.dir/src/ARDroneControllerNode.cpp.o: devel/include/ardrone_application_node/serialized_ardrone_command.h
-CMakeFiles/ardrone_command.dir/src/ARDroneControllerNode.cpp.o: devel/include/ardrone_application_node/serialized_ardrone_command_part.h
 CMakeFiles/ardrone_command.dir/src/ARDroneControllerNode.cpp.o: devel/include/ardrone_command/serialized_ardrone_command.h
 CMakeFiles/ardrone_command.dir/src/ARDroneControllerNode.cpp.o: devel/include/ardrone_command/serialized_ardrone_command_part.h
 
@@ -239,8 +237,6 @@ CMakeFiles/ardrone_command.dir/src/ardrone_application_node.cpp.o: /opt/ros/indi
 CMakeFiles/ardrone_command.dir/src/ardrone_application_node.cpp.o: /opt/ros/indigo/include/std_srvs/Empty.h
 CMakeFiles/ardrone_command.dir/src/ardrone_application_node.cpp.o: /opt/ros/indigo/include/std_srvs/EmptyRequest.h
 CMakeFiles/ardrone_command.dir/src/ardrone_application_node.cpp.o: /opt/ros/indigo/include/std_srvs/EmptyResponse.h
-CMakeFiles/ardrone_command.dir/src/ardrone_application_node.cpp.o: devel/include/ardrone_application_node/serialized_ardrone_command.h
-CMakeFiles/ardrone_command.dir/src/ardrone_application_node.cpp.o: devel/include/ardrone_application_node/serialized_ardrone_command_part.h
 CMakeFiles/ardrone_command.dir/src/ardrone_application_node.cpp.o: devel/include/ardrone_command/commandInterface.h
 CMakeFiles/ardrone_command.dir/src/ardrone_application_node.cpp.o: devel/include/ardrone_command/commandInterfaceRequest.h
 CMakeFiles/ardrone_command.dir/src/ardrone_application_node.cpp.o: devel/include/ardrone_command/commandInterfaceResponse.h

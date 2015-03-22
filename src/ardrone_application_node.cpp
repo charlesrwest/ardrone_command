@@ -13,7 +13,7 @@ This function is used to provide a service which allows other processes on the n
 
 @exceptions: This function can throw exceptions.
 */
-//bool commandReceivedFromNetwork(ardrone_command::commandInterface::Request &inputRequest, ardrone_command::commandInterface::Response &inputResponse);
+bool commandReceivedFromNetwork(ardrone_command::commandInterface::Request &inputRequest, ardrone_command::commandInterface::Response &inputResponse);
 
 //Initialize an object for this to point to before initializing the add command service.
 static std::unique_ptr<ARDroneControllerNode> myARDroneControllerNode;
@@ -22,9 +22,10 @@ static std::unique_ptr<ARDroneControllerNode> myARDroneControllerNode;
 int main(int argc, char** argv)
 {
 
-printf("Test 1\n");
-printf("Initializing ROS\n");
-ros::init(argc, argv, "droneTime");
+
+ros::init(argc, argv, "ardrone_command");
+ros::NodeHandle nodeHandle;
+
 
 //Define image size
 //int imageWidth = 1280;
@@ -67,6 +68,17 @@ catch(const std::exception &inputException)
 fprintf(stderr, "%s\n", inputException.what());
 }
 
+//Provide service to take commands
+auto serverHandle = nodeHandle.advertiseService("/ardrone_command/commandInterface", commandReceivedFromNetwork);
+
+while(true)
+{
+printf("Yawn!\n");
+//ros::spin();
+sleep(10); //Sleep while callbacks handle everything
+}
+
+/*
 command commandTakeoff;
 commandTakeoff.setTakeoffCommand();
 
@@ -130,7 +142,7 @@ myARDroneControllerNode->addCommand(QRCodePointWait1);
 command commandWait;
 commandWait.setWaitCommand(500.0);
 myARDroneControllerNode->addCommand(commandWait);
-
+*/
 
 /*
 command commandWait;
@@ -159,87 +171,23 @@ commandGoToQRCodePoint.setMaintainPositionAtSpecificQRCodePoint("BigQRCode", 0.0
 myARDroneControllerNode->addCommand(commandGoToQRCodePoint);
 */
 
+/*
 command commandSetHorizontalHeading;
 commandSetHorizontalHeading.setHorizontalHeadingCommand(0.05, 0.0);
 myARDroneControllerNode->addCommand(commandSetHorizontalHeading);
-
+*/
 /*
 command commandWait;
 commandWait.setWaitCommand(2.0);
 myARDroneControllerNode->addCommand(commandWait);
 */
 
-command commandSetAngularVelocity;
-commandSetAngularVelocity.setAngularVelocityCommand(0.5);
-myARDroneControllerNode->addCommand(commandSetAngularVelocity);
-
-
-command commandWait0;
-commandWait0.setWaitCommand(6.0);
-myARDroneControllerNode->addCommand(commandWait0);
-
-
-
-command commandLanding;
-commandLanding.setLandingCommand();
-printf("Adding landing command\n");
-myARDroneControllerNode->addCommand(commandLanding);
-printf("Landing command added\n");
-
-
-
-/*
-command commandSetHorizontalHeading;
-commandSetHorizontalHeading.setHorizontalHeadingCommand(0.025, 0.0);
-myARDroneControllerNode->addCommand(commandSetHorizontalHeading);
-
-command commandSetAngularVelocity;
-commandSetAngularVelocity.setAngularVelocityCommand(0.5);
-myARDroneControllerNode->addCommand(commandSetAngularVelocity);
-
-//Go to -1.0, 0 4.0
-command commandGoToQRCodePoint;
-commandGoToQRCodePoint.setMaintainPositionAtSpecificQRCodePoint("BigQRCode", -1.0, 0.0, 4.0);
-myARDroneControllerNode->addCommand(commandGoToQRCodePoint);
-*/
-
-
-/*
-
-//command commandWaitUntilTagSpotted;
-//commandWaitUntilTagSpotted.setWaitUntilTagIsSpottedCommand(6.0);
-//myARDroneControllerNode->addCommand(commandWaitUntilTagSpotted);
-
-command commandSetHorizontalHeading2;
-commandSetHorizontalHeading2.setHorizontalHeadingCommand(0.00, 0.0);
-myARDroneControllerNode->addCommand(commandSetHorizontalHeading2);
-
-
-
-//command commandSetHomeInOnTag;
-//commandSetHomeInOnTag.setHomeInOnTagCommand();
-//myARDroneControllerNode->addCommand(commandSetHomeInOnTag);
-
-
-command commandWait;
-commandWait.setWaitCommand(16.0);
-myARDroneControllerNode->addCommand(commandWait);
-
-
-
-
-
-
-
-
-
-
-
-*/
 
 while(myARDroneControllerNode->commandQueueSize() > 0)
 {
 }
+
+ros::shutdown();
 
 return 0;
 }
@@ -252,11 +200,11 @@ This function is used to provide a service which allows other processes on the n
 
 @exceptions: This function can throw exceptions.
 */
-/*
 bool commandReceivedFromNetwork(ardrone_command::commandInterface::Request &inputRequest, ardrone_command::commandInterface::Response &inputResponse)
 {
 auto receivedCommands = deserialize_commands(inputRequest.command);
 
+printf("Received command\n");
 
 for(int i=0; i<receivedCommands.size(); i++)
 {
@@ -270,6 +218,6 @@ inputResponse.received = true;
 return true;
 }
 
-*/
+
 
 

@@ -166,7 +166,7 @@ This function clears the command and then tells the drone to maintain its curren
 @param inputNumberOfSeconds: The number of seconds to wait
 @param inputTargetDistance: The distance from the point before the goal is considered achieved (in meters)
 */
-void setWaitUntilPositionAtSpecificQRCodePointReachedCommand(double inputNumberOfSeconds, double inputTargetDistance = .4);
+void setWaitUntilPositionAtSpecificQRCodePointReachedCommand(double inputNumberOfSeconds, double inputTargetDistance = .2);
 
 
 /*

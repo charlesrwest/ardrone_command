@@ -133,6 +133,8 @@ for(int i=0; i<simpleCommandsBuffer.size(); i++)
 commandQueue.push(simpleCommandsBuffer[i]);
 }
 
+printf("I've %ld commands\n", commandQueue.size());
+
 }
 
 /*
@@ -870,9 +872,22 @@ void ARDroneControllerNode::processCurrentCommandsForUpdateCycle()
 while(true)
 {
 command commandBuffer;
-if(copyNextCommand(commandBuffer) != true)
+bool gotACommand = copyNextCommand(commandBuffer);
+
+if(gotACommand != true && onTheGroundWithMotorsOff)
 {
-//No command is active, initiate emergency landing
+//No command is active, but we are on the ground, so just wait
+commandBuffer.setWaitCommand(.1);
+SOM_TRY
+addCommand(commandBuffer);
+adjustBehavior(commandBuffer);
+return; 
+SOM_CATCH("Error adding wait when there are no commands")
+}
+
+if(gotACommand != true && !onTheGroundWithMotorsOff)
+{
+//No command is active, initiate emergency landing if in the air
 commandBuffer.setEmergencyLandingCommand();
 SOM_TRY
 addCommand(commandBuffer);
