@@ -1,6 +1,64 @@
+Hello and welcome.
  
+///////////////////////////////////////////////////////////////////////////////////////////////
+Purpose:
 
+This library is meant to allow the ARDrone 2.0 to be controlled at a higher level of abstraction, showcase use of the QRCodeStateEstimation library for quadrotor control and enable safe demonstration of automatic control of UAVs in a small space.
 
-ARDrone_autonomy required libraries:
+////////////////////////////////////////////////////////////////////////////////////////////////
 
-libsdl1.2-dev
+How it works:
+
+The library accepts messages that consistute a set of commands which are placed in a queue and executed sequentially.  The commands are recursively defined, so new commands can be defined using pre-existing commands and new commands can be built from the basic ones.
+
+The library then takes these commands and sends the nessisary the low level commands to the ardrone_autonomy package.  Some of these commands are augmented by the QRCodeStateEstimation library to allow position holding and movement from point to point.
+
+Future development will add streaming of the state variables from the ardrone_command package so that it is easy to determine when particular commands are completed and development of higher level commands to enable operations such as demo (such as flying a rectangle of a certain size relative to a particular point).
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+Building/Dependencies:
+
+This library is being made as part of a NC State University research project sponsored by NextGen Air Transportation (NGAT).  It isn't really the main goal of the project, so there may be so rough edges.  If you run into trouble, please either open an issue on the Github project or send me an email (crwest@ncsu.edu).
+
+This code has been compiled/test on Ubuntu Linux.  The instructions are geared toward that platform, but contact me if you need help getting it working on a different one.
+
+Required libraries/packages:
+This is a ROS based library, so it is nessisary that ROS is installed on your platform.  The library was built/tested using ROS Indigo.
+
+Required ROS packages:
+
+ardrone_autonomy:
+This excellent library for low level control of the AR Drone can be found at https://github.com/AutonomyLab/ardrone_autonomy
+
+The indigo-devel branch was tested with this library.
+
+ros-perception/vision_opencv:
+This library helps convert ROS image messages into a format that can be used with opencv.  It appears to be part of the ros-perception suite and the source can be found here:
+https://github.com/ros-perception/vision_opencv
+
+Required libraries:
+
+Zbar:
+This library is used for find/reading QR codes.  It can be installed on Ubuntu using the following command:
+sudo apt-get install libzbar-dev
+
+Alternatively, it can be compiled from the source at:
+http://zbar.sourceforge.net/
+
+OpenCV:
+OpenCV is a powerful library for vision processing.  It can be installed on Ubuntu by running the following commands:
+sudo apt-get install libopencv-dev
+sudo apt-get install libopencv-highgui-dev
+sudo apt-get install libopencv-calib3d
+
+Alternatively, it can be compiled from the source at:
+http://opencv.org/downloads.html
+
+SDL:
+ardrone_autonomy requires SDL, so you might want to install that in case their autoinstall functionality doesn't work.  It is currently using version 1.2.  It can be installed on Ubuntu using the following command:
+sudo apt-get install libsdl1.2-dev
+
+The ardrone_command library uses the catkin build system, so to integrate it into your system: 
+Install the required libraries and ROS packages.
+Clone the git repository into your catkin workspace source directory (catkin_ws/src/).  This can be  
