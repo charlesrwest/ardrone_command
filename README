@@ -92,7 +92,11 @@ rosrun ardrone_autonomy ardrone_driver
 
 rosrun ardrone_command ardrone_command
 
-5.  Start sending commands to the ardone_command node service ("/ardrone_command/commandInterface/").  This can be done by using the command class defined in command.hpp (which is not yet automatically exported, so just copy it from the project for now with attribution).  An example controlling project will be posted shortly in a seperate github project.  Alternatively, you can modify the main function of ardrone_command library directly to add a fix set of commands that the drone will do.
+5.  Start sending commands to the ardone_command node service ("/ardrone_command/commandInterface/").  This can be done by using the command class defined in command.hpp (which is not yet automatically exported, so just copy it from the project for now with attribution).  An example controlling project can be found here:
+
+https://github.com/charlesrwest/ardrone_command_test
+
+Alternatively, you can modify the main function of ardrone_command library directly to add a fix set of commands that the drone will do.
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 Library design/Recommended command use:
@@ -105,6 +109,8 @@ This library currently has a hardcoded camera calibration for the forward camera
 There are two main types of commands in the library.  One type of commands alters the state machine associated with the library to make the AR Drone do some sort of behavior (such as seek a particular point in the QR Code coordinate system).  The other type of simply blocks until some condition is met, allowing the low level behaviors to do their job.  Definitions and descriptions of all of the supported commands can be found in the command.hpp header file.  New commands can be made by inheriting from the command class and adding subcommands.
 
 Command list:
+
+Behavior modification commands:
 
 ClearCommandQueueCommand:
 This command will clear all of the remaining commands in the command queue.
@@ -153,6 +159,7 @@ This command tells the AR drone to rotate to keep a certain QR code at the cente
 CancelMaintainOrientationTowardSpecificQRCodeCommand:
 This command cancels the effects of MaintainOrientationTowardSpecificQRCodeCommand.
 
+Wait commands:
 
 WaitCommand:
 This command stops the AR drone from processing any new commands for a designated number of seconds.
