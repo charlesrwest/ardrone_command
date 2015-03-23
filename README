@@ -134,73 +134,40 @@ FlightAnimationCommand:
 This command tells the AR drone to do one of several types of stunts.  Make sure you have a clear area and a high roof before using any of the flips.  You should also use a wait command to wait for the animation to finish before processing other commands.
 
 
+LEDAnimationCommand:
+This command makes the LED on the AR drone flash for a animation.
 
-/*
-This function clears the command and then sets the LED animation to perform.
-@param inputLEDAnimation: The type of LED animation to perform
-@param inputFrequency: The frequency to have the LEDs flash at
-@param inputDuration: The number of seconds to have the LEDs flash
-*/
-void setLEDAnimationCommand(LEDAnimationType inputLEDAnimation, double inputFrequency, int inputDuration);
+MaintainPositionAtSpecificQRCodePointCommand:
+This command tells the AR drone to go to a point specified in a certain QR code's coordinate system (Z outward from the QR code, X left and Y up with the side of the QR code with two rectangles on the -Y side) and attempt to hover there until told otherwise.  This is a QR code based command and as such will case the AR Drone to automatically land if tracking is lost for a second or more (safety feature).  
 
-/*
-This function clears the command and then tells the drone to attempt to maintain its position at the given (specific) QR code defined location while it does other things (such as wait).  This is a QR code state estimation based command, which means that landing will automatically engage if the designated QR code has not been seen within SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING.
-@param inputQRCodeID: The string identifying the QR code to use for state estimation (will use any if an empty string is passed)
-@param inputXCoordinate: The x coordinate in the QR code coordinate system (meters)
-@param inputYCoordinate: The y coordinate in the QR code coordinate system (meters)
-@param inputZCoordinate: The z coordinate in the QR code coordinate system (meters)
-*/
-void setMaintainPositionAtSpecificQRCodePoint(const std::string &inputQRCodeID, double inputXCoordinate, double inputYCoordinate, double inputZCoordinate);
-
-/*
-This function clears the command and then tells the drone to stop trying to maintain/go to a specific point in the QR code coordinate system.
-*/
-void setCancelMaintainPositionAtSpecificQRCodePoint();
-
-/*
-This function clears the command and then tells the drone to point at a specific QR code in its point that is defining its coordinate system.  This is a QR code state estimation based command, which means that landing will automatically engage if the designated QR code has not been seen within SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING.
-@param inputQRCodeID: The string identifying the QR code to use for state estimation (will use any if an empty string is passed)
-*/
-void setMaintainOrientationTowardSpecificQRCode(const std::string &inputQRCodeID);
-
-/*
-This function clears the command and then tells the drone to stop trying to point at a specific QR code in its point that is defining its coordinate system.
-*/
-void setCancelMaintainOrientationTowardSpecificQRCode();
+This can be used to have the AR drone fly patterns (such as a square).  Since the points are defined in the QR code coordinate system, if the QR code is slowly rotated, the AR drone will follow. This command is usually used with MaintainOrientationTowardSpecificQRCodeCommand, so that the tag is kept in view as the AR drone moves.
 
 
-/*
-This function clears the command and then tells the drone to simply maintain its current state for the given number of seconds.
-@param inputNumberOfSeconds: The number of seconds to wait
-*/
-void setWaitCommand(double inputNumberOfSeconds);
-
-/*
-This function clears the command and then tells the drone to maintain its current state for the given number of seconds until a tag comes into its field of view.
-@param inputNumberOfSeconds: The number of seconds to wait
-*/
-void setWaitUntilTagIsSpottedCommand(double inputNumberOfSeconds);
-
-/*
-This function clears the command and then tells the drone to maintain its current state for the given number of seconds until a specific QR code tag comes into its field of view.
-@param inputQRCodeID: The string identifying the QR code to use for state estimation (will use any if an empty string is passed)
-@param inputNumberOfSeconds: The number of seconds to wait
-*/
-void setWaitUntilSpecificQRCodeIsSpottedCommand(const std::string inputQRCodeID, double inputNumberOfSeconds);
-
-/*
-This function clears the command and then tells the drone to maintain its current state (seeking the QR code) for the given number of seconds until the weighted average position reaches within a certain distance of the target point.
-@param inputNumberOfSeconds: The number of seconds to wait
-@param inputTargetDistance: The distance from the point before the goal is considered achieved (in meters)
-*/
-void setWaitUntilPositionAtSpecificQRCodePointReachedCommand(double inputNumberOfSeconds, double inputTargetDistance = .2);
+CancelMaintainPositionAtSpecificQRCodePointCommand:
+This command tells the AR drone to stop trying to maintain its position in the QR code coordinate system.  This means that it will no longer land if tracking is lost (if that is the only QRCode based command currently being used).
 
 
-/*
-This function clears the command and then tells the drone to maintain its current state for the given number of seconds until a tag comes into its field of view.
-@param inputNumberOfSeconds: The number of seconds to wait
-@param inputNumberOfMillimetersToTarget: The wiggle room to match the target height (+- this amount from the target).  It is normally 1 mm.
-*/
-void setWaitUntilAltitudeReached(double inputNumberOfSeconds, int inputNumberOfMillimetersToTarget = 10); 
+MaintainOrientationTowardSpecificQRCodeCommand:
+This command tells the AR drone to rotate to keep a certain QR code at the center of its view (important if it is being used to estimate the position of the AR Drone).
 
+CancelMaintainOrientationTowardSpecificQRCodeCommand:
+This command cancels the effects of MaintainOrientationTowardSpecificQRCodeCommand.
+
+
+WaitCommand:
+This command stops the AR drone from processing any new commands for a designated number of seconds.
+
+WaitUntilTagIsSpottedCommand:
+This command stops the AR drone from processing any new commands until either a oriented roundel tag is spotted or the designated number of seconds has passed.
+
+
+WaitUntilSpecificQRCodeIsSpottedCommand:
+This command stops the AR drone from processing any new commands until either certain QR code is spotted (identified by its unique identifier string) or the designated number of seconds has passed.
+
+
+WaitUntilPositionAtSpecificQRCodePointReachedCommand:
+This command stops the AR drone from processing any new commands until either the AR drone is within a certain distance of the currently designated target QR code point or the designated number of seconds has passed.
+
+WaitUntilAltitudeReachedCommand:
+This command stops the AR drone from processing any new commands until either the AR drone reaches a certain altitude or the designated number of seconds pass (it is often used with takeoff).
 
