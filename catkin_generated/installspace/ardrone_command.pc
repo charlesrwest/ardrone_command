@@ -1,8 +1,0 @@
-prefix=/usr/local
-
-Name: ardrone_command
-Description: Description of ardrone_command
-Version: 0.0.0
-Cflags: -I/usr/local/include
-Libs: -L/usr/local/lib 
-Requires: message_runtime ardrone_autonomy
