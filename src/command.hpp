@@ -54,7 +54,7 @@ This function decomposes the command into a ROS message for sending over the net
 ardrone_command::serialized_ardrone_command serialize();
 
 /*
-This function clears the command and then creates a command that will have maximum priority and clear all of the remaining commands in the command queue.
+This function clears the command and then creates a command that will all of the remaining commands in the command queue.
 */
 void setClearCommandQueueCommand();
 

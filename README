@@ -60,5 +60,147 @@ ardrone_autonomy requires SDL, so you might want to install that in case their a
 sudo apt-get install libsdl1.2-dev
 
 The ardrone_command library uses the catkin build system, so to integrate it into your system: 
-Install the required libraries and ROS packages.
-Clone the git repository into your catkin workspace source directory (catkin_ws/src/).  This can be  
+
+1. Install the required libraries and ROS packages.
+2. Clone the git repository into your catkin workspace source directory (catkin_ws/src/).  This can be be done with the following command:
+git clone https://github.com/charlesrwest/ardrone_command.git 
+3. Run catkin_make at the root of your workspace (catkin_ws).
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+Running/using the library:
+
+//////////////////
+WARNING!: Quadrotor aircraft can be dangerous and can damage themselves or others.  Be sure to have a reasonably large/clear area before doing stuff with it (at least 15'x15', with smaller possible once you have a good handle on its behavior). 
+
+ Also, have the following command setup and ready to go so that you can make the drone land quickly if something goes wrong:
+
+rostopic pub /ardrone/land std_msgs/Empty
+
+QR code based commands will cause the aircraft to land quickly if tracking is lost (hopefully failsafe for demos), but bad non-QR code base commands will happily run wild.  Please be safe and be ready to stop the AR Drone if something happens.
+//////////////////
+
+To get started with ardrone_command, do the following:
+
+1. Connect to the AR Drone 2.0's network.
+2. Start ROS core to enable ROS packages to be used (run "roscore" in a terminal and leave it running)
+3. Start ardrone_autonomy to get/control low level ardrone behavior (all ardrone_autonomy command interfaces and data are still available, you just may be fighting with the commands sent from the ardrone_command library).  This can be done with the following if your system is correctly configured:  
+
+rosrun ardrone_autonomy ardrone_driver
+
+4. Start  the ardrone_command node, which will wait for commands before doing anything.  This can be done with the following command:
+
+rosrun ardrone_command ardrone_command
+
+5.  Start sending commands to the ardone_command node service ("/ardrone_command/commandInterface/").  This can be done by using the command class defined in command.hpp (which is not yet automatically exported, so just copy it from the project for now with attribution).  An example controlling project will be posted shortly in a seperate github project.  Alternatively, you can modify the main function of ardrone_command library directly to add a fix set of commands that the drone will do.
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+Library design/Recommended command use:
+
+The QRCodeStateEstimation used with this library was taken from another project and details on how to make good QR codes to use for position estimation can be found there.  The library was tested with a 26 in x 26 in QR code at a distance of about 3 meters.
+https://github.com/charlesrwest/QRCodeStateEstimation
+
+This library currently has a hardcoded camera calibration for the forward camera of the AR Drone.  This is defined in the main function (in case you need to change it) and was created using the OpenCV's calibration software (http://docs.opencv.org/doc/tutorials/calib3d/camera_calibration/camera_calibration.html) (using video recorded from the AR Drone's manual piloting software, found here https://projects.ardrone.org/ ).
+
+There are two main types of commands in the library.  One type of commands alters the state machine associated with the library to make the AR Drone do some sort of behavior (such as seek a particular point in the QR Code coordinate system).  The other type of simply blocks until some condition is met, allowing the low level behaviors to do their job.  Definitions and descriptions of all of the supported commands can be found in the command.hpp header file.  New commands can be made by inheriting from the command class and adding subcommands.
+
+Command list:
+
+ClearCommandQueueCommand:
+This command will clear all of the remaining commands in the command queue.
+
+EmergencyLandingCommand:
+This command will set the drone to land and clear all of the remaining commands in the command queue.
+
+EmergencyStopCommand:
+This command will set the drone to turn off all motors and clear all of the remaining commands in the command queue.
+
+TakeoffCommand:
+This command will tell the drone to takeoff.
+
+LandingCommand:
+This command will tell the drone to land.
+
+TargetAltitudeCommand:
+This commands takes the altitude to go to (measured by the ultrasonic sensor) and the library will do PID control to try to maintain the altitude.
+
+HorizontalHeadingCommand:
+This command takes the x/y direction to go in and sets the ardrone to go in that direction until told otherwise
+
+AngularVelocityCommand:
+This command takes an angular velocity and tells the ardrone to spin in that direction until told otherwise.
+
+FlightAnimationCommand:
+This command tells the AR drone to do one of several types of stunts.  Make sure you have a clear area and a high roof before using any of the flips.  You should also use a wait command to wait for the animation to finish before processing other commands.
+
+
+
+/*
+This function clears the command and then sets the LED animation to perform.
+@param inputLEDAnimation: The type of LED animation to perform
+@param inputFrequency: The frequency to have the LEDs flash at
+@param inputDuration: The number of seconds to have the LEDs flash
+*/
+void setLEDAnimationCommand(LEDAnimationType inputLEDAnimation, double inputFrequency, int inputDuration);
+
+/*
+This function clears the command and then tells the drone to attempt to maintain its position at the given (specific) QR code defined location while it does other things (such as wait).  This is a QR code state estimation based command, which means that landing will automatically engage if the designated QR code has not been seen within SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING.
+@param inputQRCodeID: The string identifying the QR code to use for state estimation (will use any if an empty string is passed)
+@param inputXCoordinate: The x coordinate in the QR code coordinate system (meters)
+@param inputYCoordinate: The y coordinate in the QR code coordinate system (meters)
+@param inputZCoordinate: The z coordinate in the QR code coordinate system (meters)
+*/
+void setMaintainPositionAtSpecificQRCodePoint(const std::string &inputQRCodeID, double inputXCoordinate, double inputYCoordinate, double inputZCoordinate);
+
+/*
+This function clears the command and then tells the drone to stop trying to maintain/go to a specific point in the QR code coordinate system.
+*/
+void setCancelMaintainPositionAtSpecificQRCodePoint();
+
+/*
+This function clears the command and then tells the drone to point at a specific QR code in its point that is defining its coordinate system.  This is a QR code state estimation based command, which means that landing will automatically engage if the designated QR code has not been seen within SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING.
+@param inputQRCodeID: The string identifying the QR code to use for state estimation (will use any if an empty string is passed)
+*/
+void setMaintainOrientationTowardSpecificQRCode(const std::string &inputQRCodeID);
+
+/*
+This function clears the command and then tells the drone to stop trying to point at a specific QR code in its point that is defining its coordinate system.
+*/
+void setCancelMaintainOrientationTowardSpecificQRCode();
+
+
+/*
+This function clears the command and then tells the drone to simply maintain its current state for the given number of seconds.
+@param inputNumberOfSeconds: The number of seconds to wait
+*/
+void setWaitCommand(double inputNumberOfSeconds);
+
+/*
+This function clears the command and then tells the drone to maintain its current state for the given number of seconds until a tag comes into its field of view.
+@param inputNumberOfSeconds: The number of seconds to wait
+*/
+void setWaitUntilTagIsSpottedCommand(double inputNumberOfSeconds);
+
+/*
+This function clears the command and then tells the drone to maintain its current state for the given number of seconds until a specific QR code tag comes into its field of view.
+@param inputQRCodeID: The string identifying the QR code to use for state estimation (will use any if an empty string is passed)
+@param inputNumberOfSeconds: The number of seconds to wait
+*/
+void setWaitUntilSpecificQRCodeIsSpottedCommand(const std::string inputQRCodeID, double inputNumberOfSeconds);
+
+/*
+This function clears the command and then tells the drone to maintain its current state (seeking the QR code) for the given number of seconds until the weighted average position reaches within a certain distance of the target point.
+@param inputNumberOfSeconds: The number of seconds to wait
+@param inputTargetDistance: The distance from the point before the goal is considered achieved (in meters)
+*/
+void setWaitUntilPositionAtSpecificQRCodePointReachedCommand(double inputNumberOfSeconds, double inputTargetDistance = .2);
+
+
+/*
+This function clears the command and then tells the drone to maintain its current state for the given number of seconds until a tag comes into its field of view.
+@param inputNumberOfSeconds: The number of seconds to wait
+@param inputNumberOfMillimetersToTarget: The wiggle room to match the target height (+- this amount from the target).  It is normally 1 mm.
+*/
+void setWaitUntilAltitudeReached(double inputNumberOfSeconds, int inputNumberOfMillimetersToTarget = 10); 
+
+
