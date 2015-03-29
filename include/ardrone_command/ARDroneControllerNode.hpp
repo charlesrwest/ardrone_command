@@ -27,6 +27,11 @@
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Vector3.h>
 #include "ardrone_command/serialized_ardrone_command.h"
+#include "ardrone_command/altitude_control_state.h"
+#include "ardrone_command/qr_code_state_info.h"
+#include "ardrone_command/qr_go_to_point_control_info.h"
+#include "ardrone_command/qr_orientation_control_info.h"
+#include "ardrone_command/command_status_info.h"
 
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
@@ -48,8 +53,19 @@
 #include <condition_variable>
 #include <chrono>
 
+
 //This defines how long to wait for a QR code sighting when in a mode reliant on QR code state estimation before automatically landing
 #define SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING 1
+
+//Topics that the drone publishes for public consumption
+#define QR_CODE_STATE_PUBLISHER_STRING "/ardrone_command/qr_code_state_estimates"
+#define ALTITUDE_CONTROL_PUBLISHER_STRING "/ardrone_command/altitude_control"
+#define QR_CODE_GO_TO_POINT_CONTROL_PUBLISHER_STRING "/ardrone_command/go_to_point_control"
+#define QR_CODE_ORIENTATION_CONTROL_PUBLISHER_STRING "/ardrone_command/orientation_control"
+#define COMMAND_PROCESSING_INFO_PUBLISHER_STRING "/ardrone_command/command_processing"
+
+
+
 
 /*
 This object subscribes to a set of ROS information streams that are available regarding a AR drone (some of which may be aggregators of other streams) and publishes a command stream to control the drone using information gleamed from those streams.  This object also has commands available to launch the other nodes so that it may subscribe to them.
@@ -283,6 +299,8 @@ bool homeInOnTag;
 bool matchTagOrientation;
 bool maintainQRCodeDefinedPosition;
 bool maintainQRCodeDefinedOrientation;
+int commandCounter; //How many commands have been completed
+int lastPublishedCommandCount; //Number of last command that the object published about
 double targetAltitude; //The altitude to maintain in mm
 double targetAltitudeITerm;
 double xHeading; //The current velocity settings of the drone
@@ -350,6 +368,12 @@ ros::ServiceClient setLEDAnimationClient;
 ros::ServiceClient setFlightAnimationClient;
 ros::ServiceClient calibrateFlatTrimClient;
 ros::ServiceClient setUSBRecordingClient;
+
+ros::Publisher QRCodeStateInfoPublisher;
+ros::Publisher altitudeControlInfoPublisher;
+ros::Publisher QRCodeGoToPointControlInfoPublisher;
+ros::Publisher QRCodeOrientationControlInfoPublisher;
+ros::Publisher commandProcessingInfoPublisher;
 };
 
 

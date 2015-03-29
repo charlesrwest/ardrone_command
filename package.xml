@@ -58,7 +58,7 @@
   <run_depend>opencv2</run_depend>
 
 <export>
-  <!--<cpp cflags="-I${prefix}/include" lflags="-L${prefix}/lib"/> -->
+  <cpp cflags="-I${prefix}/include/" lflags="-L${prefix}/lib"/> 
 </export>
 
 </package>

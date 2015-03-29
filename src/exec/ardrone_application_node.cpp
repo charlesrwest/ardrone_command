@@ -68,6 +68,7 @@ catch(const std::exception &inputException)
 fprintf(stderr, "%s\n", inputException.what());
 }
 
+/*
 //Provide service to take commands
 auto serverHandle = nodeHandle.advertiseService("/ardrone_command/commandInterface", commandReceivedFromNetwork);
 
@@ -77,8 +78,8 @@ printf("Yawn!\n");
 //ros::spin();
 sleep(10); //Sleep while callbacks handle everything
 }
+*/
 
-/*
 command commandTakeoff;
 commandTakeoff.setTakeoffCommand();
 
@@ -140,9 +141,9 @@ myARDroneControllerNode->addCommand(QRCodePointWait1);
 
 
 command commandWait;
-commandWait.setWaitCommand(500.0);
+commandWait.setWaitCommand(4.0);
 myARDroneControllerNode->addCommand(commandWait);
-*/
+
 
 /*
 command commandWait;
@@ -186,6 +187,7 @@ myARDroneControllerNode->addCommand(commandWait);
 while(myARDroneControllerNode->commandQueueSize() > 0)
 {
 }
+
 
 ros::shutdown();
 

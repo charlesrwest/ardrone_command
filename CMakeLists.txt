@@ -23,6 +23,11 @@ find_package(catkin REQUIRED COMPONENTS
  add_message_files(
    DIRECTORY msg
    FILES
+   altitude_control_state.msg
+   qr_orientation_control_info.msg
+   qr_go_to_point_control_info.msg 
+   qr_code_state_info.msg 
+   command_status_info.msg
    serialized_ardrone_command_part.msg
    serialized_ardrone_command.msg
  )
@@ -47,7 +52,8 @@ generate_messages(DEPENDENCIES geometry_msgs std_msgs)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  LIBRARIES beginner_tutorials
+INCLUDE_DIRS include/ardrone_command
+LIBRARIES ardrone_command_library
 #  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
 CATKIN_DEPENDS message_runtime ardrone_autonomy
@@ -125,18 +131,26 @@ CATKIN_DEPENDS message_runtime ardrone_autonomy
 
 #message('Yowser' ${ardrone_autonomy_INCLUDE_DIRS})
 # Add headers directory
-include_directories(${CATKIN_DEVEL_PREFIX}/ardrone_command ${catkin_INCLUDE_DIRS})
+include_directories(${CATKIN_DEVEL_PREFIX}/ardrone_command ${catkin_INCLUDE_DIRS} include/ardrone_command/)
 
 #include_directories(include)
 
 #include_directories('/home/hewhosurvives/c++/randomProjects/ros/catkin_ws/devel/include/' 'opt/ros/indigo/include/usr/include')
 
-FILE(GLOB SOURCEFILES src/*.cpp src/*.c)
+FILE(GLOB LIBRARY_SOURCEFILES src/lib/*.cpp src/lib/*.c)
+FILE(GLOB EXECUTABLE_SOURCEFILES src/exec/*.cpp src/exec/*.c)
 
-add_executable(ardrone_command ${SOURCEFILES})
-target_link_libraries(ardrone_command ${catkin_LIBRARIES} zbar opencv_core opencv_highgui opencv_calib3d)
+add_library(ardrone_command_library ${LIBRARY_SOURCEFILES})
+target_link_libraries(ardrone_command_library ${catkin_LIBRARIES} zbar opencv_core opencv_highgui opencv_calib3d)
+add_dependencies(ardrone_command_library ardrone_command_generate_messages_cpp ${PROJECT_NAME}_gencpp)
 
-add_dependencies(ardrone_command ardrone_command_generate_messages_cpp ${PROJECT_NAME}_gencpp)
+add_executable(ardrone_command ${EXECUTABLE_SOURCEFILES})
+
+target_link_libraries(ardrone_command ardrone_command_library)
+
+
 
 #add_dependencies(talker ${catkin_EXPORTED_TARGETS})
+
+
 

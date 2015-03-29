@@ -1,0 +1,11 @@
+What command is currently active -> Publishes command data as soon as it starts working on it
+
+Altitude control: -> stream of information related to maintaining the altitude of the drone (disabled when QR code based control being used)
+
+QR Code State Info: -> stream of info on any spotted QR codes and the transform of the drone relative to them
+
+QR Tracking: -> stream of info related to  the pose location of the QR code
+
+QR go to point info: -> stream of info (i amounts, etc) related to tracking a point
+
+

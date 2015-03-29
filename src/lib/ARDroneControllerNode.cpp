@@ -28,6 +28,8 @@ emergencyStopTriggered = false;
 maintainAltitude = false;
 maintainQRCodeDefinedPosition = false;
 maintainQRCodeDefinedOrientation = false;
+commandCounter = 0;
+lastPublishedCommandCount = -1;
 targetAltitude = 1000.0; //The altitude to maintain in mm
 xHeading = 0.0; 
 yHeading = 0.0; 
@@ -95,6 +97,23 @@ sleep(1);
 printf("Direction and speed publisher online\n");
 
 printf("Subscribe wait finished\n");
+
+//Initialize publishers to give ardrone_command state info
+
+//Create publisher to publish any state estimations we get from the QR code subsystem
+QRCodeStateInfoPublisher = nodeHandle.advertise<ardrone_command::qr_code_state_info>(QR_CODE_STATE_PUBLISHER_STRING, 1000);
+
+//Create publisher to publish what we are currently doing in the way of altitude control
+altitudeControlInfoPublisher = nodeHandle.advertise<ardrone_command::altitude_control_state>(ALTITUDE_CONTROL_PUBLISHER_STRING, 1000);
+
+//Create publisher to publish what we are currently doing in the way of controlling to go to a particular point
+QRCodeGoToPointControlInfoPublisher = nodeHandle.advertise<ardrone_command::qr_go_to_point_control_info>(QR_CODE_GO_TO_POINT_CONTROL_PUBLISHER_STRING, 1000);
+
+//Create publisher to publish what we are currently doing in the way of tracking so that we are pointed at the QR code
+QRCodeOrientationControlInfoPublisher = nodeHandle.advertise<ardrone_command::qr_orientation_control_info>(QR_CODE_ORIENTATION_CONTROL_PUBLISHER_STRING, 1000);
+
+//Create publisher to publish what command the drone is currently processing
+commandProcessingInfoPublisher = nodeHandle.advertise<ardrone_command::command_status_info>(COMMAND_PROCESSING_INFO_PUBLISHER_STRING, 1000);
 
 sleep(1);
 
@@ -197,6 +216,8 @@ printf("Queue size reached zero\n");
 return;
 }
 
+commandCounter++; //Increment completed command count
+
 //There should be a command ready and we should have mutex ownership
 commandQueue.pop();
 }
@@ -215,6 +236,7 @@ SOM_CATCH("Error locking command mutex\n")
 SOMScopeGuard mutexGuard([&](){commandMutex.unlock();});
 while(commandQueue.size() > 0)
 {
+commandCounter++; //Increment completed command count
 commandQueue.pop();
 }
 }
@@ -539,7 +561,6 @@ This function is used as a callback to handle images from the AR drone.
 */
 void ARDroneControllerNode::handleImageUpdate(const sensor_msgs::ImageConstPtr& inputImageMessage)
 {
-//TODO: Implement function
 //Update QR code pose information based on new image
 cv_bridge::CvImagePtr openCVBridgeImagePointer;
 
@@ -553,7 +574,7 @@ SOM_CATCH("Error converting from ROS image format to Opencv format")
 }
 catch(std::exception &inputException)
 {
-printf("!!!!!!!!!\n");
+printf("!!!!!!!!!%s\n", inputException.what());
 }
 
 
@@ -585,6 +606,25 @@ SOM_CATCH("Error inserting QRCodeBasedPoseInformation into map\n")
 }
 }
 
+//Post new pose information so using applications know what is going on
+auto currentTime = ros::Time::now();
+for(int i=0; i<QRCodeIdentifiers.size(); i++) //Send each pose update
+{
+ardrone_command::qr_code_state_info message;
+message.time_stamp = currentTime;
+message.qr_code_identifier = QRCodeIdentifiers[i];
+message.qr_code_size = QRCodeDimensions[i];
+
+for(int aa = 0; aa<4; aa++)
+{
+for(int a = 0; a < 4; a++)
+{
+message.transform[aa*4+a] = cameraPoses[i].at<double>(aa,a);
+}
+}
+
+QRCodeStateInfoPublisher.publish(message);
+}
 
 }
 
@@ -896,6 +936,17 @@ return; //Set emergency landing and then exit command loop
 SOM_CATCH("Error setting emergency landing")
 }
 
+if(commandCounter != lastPublishedCommandCount)
+{
+//We have a new command, so publish that we are working on it
+lastPublishedCommandCount = commandCounter;
+ardrone_command::command_status_info message;
+message.time_stamp = ros::Time::now();
+message.commandNumber = commandCounter;
+message.command = commandBuffer.serialize();
+commandProcessingInfoPublisher.publish(message);
+}
+
 if(adjustBehavior(commandBuffer) == true)
 {
 removeCompletedCommand();
@@ -1195,8 +1246,8 @@ This function takes care of low level behavior that depends on the specific stat
 void ARDroneControllerNode::handleLowLevelBehavior()
 {
 
-//if(controlEngineIsDisabled || onTheGroundWithMotorsOff || emergencyStopTriggered || shutdownControlEngine)
-if((controlEngineIsDisabled || onTheGroundWithMotorsOff || emergencyStopTriggered || shutdownControlEngine) && !maintainQRCodeDefinedPosition) //TODO: Change back
+if(controlEngineIsDisabled || onTheGroundWithMotorsOff || emergencyStopTriggered || shutdownControlEngine)
+//if((controlEngineIsDisabled || onTheGroundWithMotorsOff || emergencyStopTriggered || shutdownControlEngine) && !maintainQRCodeDefinedPosition)
 {
 printf("No control %d %d %d\n", controlEngineIsDisabled,  onTheGroundWithMotorsOff, emergencyStopTriggered);
 return; //Return if we shouldn't be trying to fly
@@ -1209,6 +1260,19 @@ double pTerm = (targetAltitude - fabs(altitude));
 targetAltitudeITerm = targetAltitudeITerm + pTerm;
 
 zThrottle = pTerm/600.0 + targetAltitudeITerm/100000000.0; //PI control for altitude
+
+//Send message to log changes from altitude control
+if(!maintainQRCodeDefinedPosition)
+{
+ardrone_command::altitude_control_state message;
+
+message.time_stamp = ros::Time::now();
+message.target_altitude = targetAltitude;
+message.current_p_term = pTerm;
+message.current_i_term = targetAltitudeITerm;
+
+altitudeControlInfoPublisher.publish(message);
+}
 
 //printf("Altitude values: target: %.1lf Current: %.1lf Diff: %.1lf throt:  %.1lf I:%.1lf\n", targetAltitude, altitude, targetAltitude -altitude, zThrottle, targetAltitudeITerm); 
 }
@@ -1250,6 +1314,8 @@ double yThrottle = yHeading;
 
 if(maintainQRCodeDefinedPosition)
 {
+ardrone_command::qr_go_to_point_control_info message;
+
 //Convert target point to the drone's coordinate system
 std::vector<double> localTargetPoint = QRCodeIDToStateEstimate[targetXYZCoordinateQRCodeIdentifier]->convertPointInQRCodeSpaceToCameraSpace(targetXYZCoordinate);
 
@@ -1266,6 +1332,7 @@ double distance = sqrt(pow(localTargetPoint[0], 2) + pow(localTargetPoint[1], 2)
 //Use one PID set if close, another if far
 if(distance < 1.5)
 { //Near
+message.mode = 0; //Mark as near
 printf("Near\n");
 //Camera xyz maps to ardrone (-y)xz
 xThrottle = -.0003*velocityX+ .15*localTargetPoint[2]  + .00005*QRTargetXITerm ; //Simple PI control for now
@@ -1275,11 +1342,31 @@ zThrottle = -.1*localTargetPoint[1];
 else
 {//Far
 printf("Far\n");
+message.mode = 1; //Mark far
 //Camera xyz maps to ardrone (-y)xz
 xThrottle = -.0006*velocityX+ .15*localTargetPoint[2]  + .00005*QRTargetXITerm ; //Simple PI control for now
 yThrottle = .0006*velocityY+ .15*localTargetPoint[0] + .00005*QRTargetYITerm ; 
 zThrottle = -.1*localTargetPoint[1]; 
 }
+
+//Get ready to send message detailing control stuff
+for(int i=0; i<localTargetPoint.size(); i++)
+{
+message.target_point_camera_xyz[i] =  localTargetPoint[i];
+}
+message.target_point_local_xyz[0] = localTargetPoint[2];
+message.target_point_local_xyz[1] = localTargetPoint[0];
+message.target_point_local_xyz[2] = localTargetPoint[1];
+message.estimated_distance_to_target = distance;
+message.qr_xyz_throttle[0] = xThrottle;
+message.qr_xyz_throttle[1] = yThrottle;
+message.qr_xyz_throttle[2] = zThrottle;
+message.qr_x_axis_I_term = QRTargetXITerm;
+message.qr_y_axis_I_term = QRTargetYITerm;
+message.time_stamp = ros::Time::now();
+
+//Send status message
+QRCodeGoToPointControlInfoPublisher.publish(message);
 
 
 //printf("Throttle: %lf %lf %lf  Point: %lf %lf %lf\n", xThrottle, yThrottle, zThrottle, localTargetPoint[2], localTargetPoint[0], localTargetPoint[1]);
@@ -1295,6 +1382,14 @@ std::vector<double> QRCodePoint = QRCodeIDToStateEstimate[targetOrientationQRCod
 
 //Override angular velocity setting to track tag orientation
 zRotationThrottle = -QRCodePoint[0]/fabs(QRCodePoint[2]); //Simple bang/bang control for now
+
+//Make status message to send
+ardrone_command::qr_orientation_control_info message;
+message.time_stamp = ros::Time::now();
+message.z_rotation_throttle = zRotationThrottle;
+
+//Send message
+QRCodeOrientationControlInfoPublisher.publish(message);
 }
 
 //Tell the drone how it should move TODO: Change back
