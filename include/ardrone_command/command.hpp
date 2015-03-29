@@ -237,4 +237,11 @@ This function converts a serialized command part into a command
 */
 command deserialize_command_part(const ardrone_command::serialized_ardrone_command_part &inputSerializedCommandPart);
 
+/*
+This function returns the text equivalent to the value of the command.
+@param inputCommandType: The command type to make a string version of
+@return: The string version
+*/
+std::string commandTypeToString(const commandType &inputCommandType);
+
 #endif
