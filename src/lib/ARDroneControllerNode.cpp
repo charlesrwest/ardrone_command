@@ -152,7 +152,7 @@ for(int i=0; i<simpleCommandsBuffer.size(); i++)
 commandQueue.push(simpleCommandsBuffer[i]);
 }
 
-printf("I've %ld commands\n", commandQueue.size());
+//printf("I've %ld commands\n", commandQueue.size());
 
 }
 
@@ -708,7 +708,9 @@ if(QRCodeIDToStateEstimate.count(inputQRCodeIdentifier) == 0)
 return true;
 }
 
-return (std::chrono::high_resolution_clock::now() - QRCodeIDToStateEstimate[inputQRCodeIdentifier]->cameraPoseUpdateTime) > std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputSecondsBeforeStale)); 
+//printf("%ld\n", std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - QRCodeIDToStateEstimate[inputQRCodeIdentifier]->cameraPoseUpdateTime).count());
+
+return (std::chrono::high_resolution_clock::now() - QRCodeIDToStateEstimate[inputQRCodeIdentifier]->cameraPoseUpdateTime) > std::chrono::duration<double>(inputSecondsBeforeStale); 
 }
 
 /*
@@ -793,7 +795,7 @@ break;
 case SET_WAIT_UNTIL_POSITION_AT_SPECIFIC_QR_CODE_POINT_REACHED:
 {
 //Calculate distance from point
-if(inputCommand.doubles.size() < 2)
+if(inputCommand.doubles.size() < 3)
 {
 return true;  //Invalid command, so completed
 }
@@ -819,8 +821,11 @@ distance = distance +  pow(targetXYZCoordinate[i] - weightedAverageBuffer[i], 2.
 }
 distance = sqrt(distance);
 
+//Calculate current speed
+double speed = sqrt(pow(velocityX, 2.0) + pow(velocityY, 2.0) + pow(velocityZ, 2.0));
+
 //Return true if the wait has finished or the distance is less than the command threshold
-return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - waitFinishTime).count() >= 0 || distance < inputCommand.doubles[1];
+return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - waitFinishTime).count() >= 0 || (distance < inputCommand.doubles[1] && speed < inputCommand.doubles[2]);
 }
 break;
 
@@ -1201,7 +1206,7 @@ break;
 case SET_WAIT_UNTIL_POSITION_AT_SPECIFIC_QR_CODE_POINT_REACHED:
 if(!currentlyWaiting)
 {
-if(inputCommand.doubles.size() == 2)
+if(inputCommand.doubles.size() == 3)
 {
 SOM_TRY
 waitFinishTime = std::chrono::high_resolution_clock::now()  + std::chrono::duration_cast<std::chrono::seconds>(std::chrono::duration<double>(inputCommand.doubles[0]));
@@ -1249,12 +1254,18 @@ void ARDroneControllerNode::handleLowLevelBehavior()
 if(controlEngineIsDisabled || onTheGroundWithMotorsOff || emergencyStopTriggered || shutdownControlEngine)
 //if((controlEngineIsDisabled || onTheGroundWithMotorsOff || emergencyStopTriggered || shutdownControlEngine) && !maintainQRCodeDefinedPosition)
 {
-printf("No control %d %d %d\n", controlEngineIsDisabled,  onTheGroundWithMotorsOff, emergencyStopTriggered);
+//printf("No control %d %d %d\n", controlEngineIsDisabled,  onTheGroundWithMotorsOff, emergencyStopTriggered);
 return; //Return if we shouldn't be trying to fly
 }
 
 double zThrottle = 0.0;
-if(maintainAltitude)
+if(maintainQRCodeDefinedPosition)
+{
+//Remove stale I term
+targetAltitudeITerm = 0.0;
+}
+
+if(maintainAltitude && !maintainQRCodeDefinedPosition)
 {
 double pTerm = (targetAltitude - fabs(altitude));
 targetAltitudeITerm = targetAltitudeITerm + pTerm;
@@ -1330,24 +1341,38 @@ QRTargetYITerm = QRTargetYITerm + localTargetPoint[0] ;
 double distance = sqrt(pow(localTargetPoint[0], 2) + pow(localTargetPoint[1], 2) + pow(localTargetPoint[2], 2) );
 
 //Use one PID set if close, another if far
-if(distance < 1.5)
+/*
+if(distance < 1)
 { //Near
+*/
 message.mode = 0; //Mark as near
 printf("Near\n");
 //Camera xyz maps to ardrone (-y)xz
-xThrottle = -.0003*velocityX+ .15*localTargetPoint[2]  + .00005*QRTargetXITerm ; //Simple PI control for now
-yThrottle = .0003*velocityY+ .15*localTargetPoint[0] + .00005*QRTargetYITerm ; 
+xThrottle = -.0003*velocityX+ .15*localTargetPoint[2]  + .00001*QRTargetXITerm ; //Simple PI control for now
+yThrottle = .0003*velocityY+ .15*localTargetPoint[0] + .00001*QRTargetYITerm ; 
 zThrottle = -.1*localTargetPoint[1]; 
+/*
 }
 else
 {//Far
 printf("Far\n");
 message.mode = 1; //Mark far
 //Camera xyz maps to ardrone (-y)xz
-xThrottle = -.0006*velocityX+ .15*localTargetPoint[2]  + .00005*QRTargetXITerm ; //Simple PI control for now
-yThrottle = .0006*velocityY+ .15*localTargetPoint[0] + .00005*QRTargetYITerm ; 
-zThrottle = -.1*localTargetPoint[1]; 
+xThrottle = -.0004*velocityX+ .1*localTargetPoint[2]  + .00001*QRTargetXITerm ; //Simple PI control for now
+yThrottle = .0004*velocityY+ .1*localTargetPoint[0] + .00001*QRTargetYITerm ; 
+zThrottle = -.05*localTargetPoint[1]; 
 }
+*/
+
+//Override control to make drone hover if experiencing high latency (but not high enough to make it land)
+if(checkIfQRCodeStateEstimateIsStale(targetXYZCoordinateQRCodeIdentifier, HIGH_LATENCY_WATER_MARK))
+{
+xThrottle = 0.0;
+yThrottle = 0.0;
+zThrottle = 0.0;
+printf("Experiencing high latency\n");
+}
+
 
 //Get ready to send message detailing control stuff
 for(int i=0; i<localTargetPoint.size(); i++)
@@ -1381,7 +1406,7 @@ std::vector<double> QRCodePoint = QRCodeIDToStateEstimate[targetOrientationQRCod
 //printf("Current QR code position: %lf\n", QRCodePoint[0]);
 
 //Override angular velocity setting to track tag orientation
-zRotationThrottle = -QRCodePoint[0]/fabs(QRCodePoint[2]); //Simple bang/bang control for now
+zRotationThrottle = -2.0*QRCodePoint[0]/fabs(QRCodePoint[2]); //Simple bang/bang control for now
 
 //Make status message to send
 ardrone_command::qr_orientation_control_info message;

@@ -165,8 +165,9 @@ void setWaitUntilSpecificQRCodeIsSpottedCommand(const std::string inputQRCodeID,
 This function clears the command and then tells the drone to maintain its current state (seeking the QR code) for the given number of seconds until the weighted average position reaches within a certain distance of the target point.
 @param inputNumberOfSeconds: The number of seconds to wait
 @param inputTargetDistance: The distance from the point before the goal is considered achieved (in meters)
+@param inputMaximumSpeed: The fastest the ar drone can be going before it is considered to have reached the point (to prevent gaining velocity when not wanted).
 */
-void setWaitUntilPositionAtSpecificQRCodePointReachedCommand(double inputNumberOfSeconds, double inputTargetDistance = .2);
+void setWaitUntilPositionAtSpecificQRCodePointReachedCommand(double inputNumberOfSeconds, double inputTargetDistance = .4, double inputMaximumSpeed = 10.0);
 
 
 /*

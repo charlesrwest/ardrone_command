@@ -57,6 +57,9 @@
 //This defines how long to wait for a QR code sighting when in a mode reliant on QR code state estimation before automatically landing
 #define SECONDS_TO_WAIT_FOR_QR_CODE_BEFORE_LANDING 1
 
+//This defines how long to wait (in microseconds) for a QR code before considering the drone to be experiencing "high latency" and having it simply hover for a little while till things mellow out or it considers itself to have lost tracking
+#define HIGH_LATENCY_WATER_MARK .3
+
 //Topics that the drone publishes for public consumption
 #define QR_CODE_STATE_PUBLISHER_STRING "/ardrone_command/qr_code_state_estimates"
 #define ALTITUDE_CONTROL_PUBLISHER_STRING "/ardrone_command/altitude_control"

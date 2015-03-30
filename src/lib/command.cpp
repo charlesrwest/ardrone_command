@@ -236,13 +236,15 @@ doubles.push_back(inputNumberOfSeconds);
 This function clears the command and then tells the drone to maintain its current state (seeking the QR code) for the given number of seconds until the weighted average position reaches within a certain distance of the target point.
 @param inputNumberOfSeconds: The number of seconds to wait
 @param inputTargetDistance: The distance from the point before the goal is considered achieved (in meters)
+@param inputMaximumSpeed: The fastest the ar drone can be going before it is considered to have reached the point (to prevent gaining velocity when not wanted).
 */
-void command::setWaitUntilPositionAtSpecificQRCodePointReachedCommand(double inputNumberOfSeconds, double inputTargetDistance)
+void command::setWaitUntilPositionAtSpecificQRCodePointReachedCommand(double inputNumberOfSeconds, double inputTargetDistance, double inputMaximumSpeed)
 {
 clear();
 type = SET_WAIT_UNTIL_POSITION_AT_SPECIFIC_QR_CODE_POINT_REACHED;
 doubles.push_back(inputNumberOfSeconds);
 doubles.push_back(inputTargetDistance);
+doubles.push_back(inputMaximumSpeed);
 }
 
 /*
