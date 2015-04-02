@@ -50,7 +50,7 @@ OpenCV:
 OpenCV is a powerful library for vision processing.  It can be installed on Ubuntu by running the following commands:
 sudo apt-get install libopencv-dev
 sudo apt-get install libopencv-highgui-dev
-sudo apt-get install libopencv-calib3d
+sudo apt-get install libopencv-calib3d-dev
 
 Alternatively, it can be compiled from the source at:
 http://opencv.org/downloads.html
