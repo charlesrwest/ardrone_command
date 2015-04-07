@@ -348,6 +348,8 @@ double accelerationZ;  //Current estimated Z acceleration
 std::vector<tagTrackingInfo> trackedTags; //Information about any oriented roundel tags in the field of view
 std::chrono::time_point<std::chrono::high_resolution_clock> navdataUpdateTime; //The timestamp of when the navdata update was received
 
+std::vector<double> localTargetPointMovingAverage;
+
 //Structure holding each of the most recently updated entries associated with a given QR code
 std::map<std::string, std::unique_ptr<QRCodeBasedPoseInformation> > QRCodeIDToStateEstimate;
 

@@ -86,7 +86,7 @@ To get started with ardrone_command, do the following:
 2. Start ROS core to enable ROS packages to be used (run "roscore" in a terminal and leave it running)
 3. Start ardrone_autonomy to get/control low level ardrone behavior (all ardrone_autonomy command interfaces and data are still available, you just may be fighting with the commands sent from the ardrone_command library).  This can be done with the following if your system is correctly configured:  
 
-rosrun ardrone_autonomy ardrone_driver
+rosrun ardrone_autonomy ardrone_driver _realtime_navdata:=True _navdata_demo:=0 _realtime_video:=True
 
 4. Start  the ardrone_command node, which will wait for commands before doing anything.  This can be done with the following command:
 

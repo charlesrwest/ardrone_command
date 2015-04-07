@@ -14,7 +14,7 @@ This function takes the AR drone address and starts up the nessisary ROS nodes t
 
 @exceptions: This function can throw exceptions
 */
-ARDroneControllerNode::ARDroneControllerNode(int inputCameraImageWidth, int inputCameraImageHeight, const cv::Mat_<double> &inputCameraCalibrationMatrix, const cv::Mat_<double> &inputCameraDistortionParameters, std::string inputARDroneAddress) : QRCodeEngine(inputCameraImageWidth, inputCameraImageHeight, inputCameraCalibrationMatrix, inputCameraDistortionParameters, true), targetXYZCoordinate(3)
+ARDroneControllerNode::ARDroneControllerNode(int inputCameraImageWidth, int inputCameraImageHeight, const cv::Mat_<double> &inputCameraCalibrationMatrix, const cv::Mat_<double> &inputCameraDistortionParameters, std::string inputARDroneAddress) : QRCodeEngine(inputCameraImageWidth, inputCameraImageHeight, inputCameraCalibrationMatrix, inputCameraDistortionParameters, true), targetXYZCoordinate(3), localTargetPointMovingAverage(3)
 {
 spinThreadExitFlag = false;
 controlEngineIsDisabled = false;
@@ -1330,6 +1330,16 @@ ardrone_command::qr_go_to_point_control_info message;
 //Convert target point to the drone's coordinate system
 std::vector<double> localTargetPoint = QRCodeIDToStateEstimate[targetXYZCoordinateQRCodeIdentifier]->convertPointInQRCodeSpaceToCameraSpace(targetXYZCoordinate);
 
+//Update moving average
+double memoryConstant = .9;
+for(int i=0; i<localTargetPointMovingAverage.size(); i++)
+{
+localTargetPointMovingAverage[i] = memoryConstant*localTargetPointMovingAverage[i] +(1.0-memoryConstant)*localTargetPoint[i]; 
+}
+
+//TODO: Change this back, quick substitution for testing
+//localTargetPoint = localTargetPointMovingAverage;
+
 std::vector<double> cameraPosition = QRCodeIDToStateEstimate[targetXYZCoordinateQRCodeIdentifier]->currentCameraPosition;
 //printf("Current camera position: %lf %lf %lf\n", cameraPosition[0], cameraPosition[1], cameraPosition[2]);
 
@@ -1341,30 +1351,32 @@ QRTargetYITerm = QRTargetYITerm + localTargetPoint[0] ;
 double distance = sqrt(pow(localTargetPoint[0], 2) + pow(localTargetPoint[1], 2) + pow(localTargetPoint[2], 2) );
 
 //Use one PID set if close, another if far
-/*
 if(distance < 1)
 { //Near
-*/
 message.mode = 0; //Mark as near
 printf("Near\n");
 //Camera xyz maps to ardrone (-y)xz
-xThrottle = -.0003*velocityX+ .15*localTargetPoint[2]  + .00001*QRTargetXITerm ; //Simple PI control for now
-yThrottle = .0003*velocityY+ .15*localTargetPoint[0] + .00001*QRTargetYITerm ; 
+xThrottle = -.00015*velocityX+ .1*localTargetPoint[2];//  + .00001*QRTargetXITerm ; //Simple PI control for now
+yThrottle = .00015*velocityY+ .1*localTargetPoint[0];// + .00001*QRTargetYITerm ; 
 zThrottle = -.1*localTargetPoint[1]; 
-/*
+printf("X: %lf %lf %lf   Y: %lf %lf %lf  D: %lf\n", -.0002*velocityX, .1*localTargetPoint[2], .00001*QRTargetXITerm, .0002*velocityY, .1*localTargetPoint[0], .00001*QRTargetYITerm, distance);
+
 }
 else
 {//Far
 printf("Far\n");
 message.mode = 1; //Mark far
 //Camera xyz maps to ardrone (-y)xz
-xThrottle = -.0004*velocityX+ .1*localTargetPoint[2]  + .00001*QRTargetXITerm ; //Simple PI control for now
-yThrottle = .0004*velocityY+ .1*localTargetPoint[0] + .00001*QRTargetYITerm ; 
+xThrottle = -.0004*velocityX+ .1*localTargetPoint[2];//  + .00001*QRTargetXITerm ; //Simple PI control for now
+yThrottle = .0004*velocityY+ .1*localTargetPoint[0];// + .00001*QRTargetYITerm ; 
 zThrottle = -.05*localTargetPoint[1]; 
+printf("X: %lf %lf %lf   Y: %lf %lf %lf  D: %lf\n", -.0004*velocityX, .1*localTargetPoint[2], .00001*QRTargetXITerm, .0004*velocityY, .1*localTargetPoint[0], .00001*QRTargetYITerm, distance);
+
 }
-*/
+
 
 //Override control to make drone hover if experiencing high latency (but not high enough to make it land)
+
 if(checkIfQRCodeStateEstimateIsStale(targetXYZCoordinateQRCodeIdentifier, HIGH_LATENCY_WATER_MARK))
 {
 xThrottle = 0.0;
@@ -1406,7 +1418,7 @@ std::vector<double> QRCodePoint = QRCodeIDToStateEstimate[targetOrientationQRCod
 //printf("Current QR code position: %lf\n", QRCodePoint[0]);
 
 //Override angular velocity setting to track tag orientation
-zRotationThrottle = -2.0*QRCodePoint[0]/fabs(QRCodePoint[2]); //Simple bang/bang control for now
+zRotationThrottle = -QRCodePoint[0]/fabs(QRCodePoint[2]); //Simple bang/bang control for now
 
 //Make status message to send
 ardrone_command::qr_orientation_control_info message;

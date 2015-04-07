@@ -167,7 +167,7 @@ This function clears the command and then tells the drone to maintain its curren
 @param inputTargetDistance: The distance from the point before the goal is considered achieved (in meters)
 @param inputMaximumSpeed: The fastest the ar drone can be going before it is considered to have reached the point (to prevent gaining velocity when not wanted).
 */
-void setWaitUntilPositionAtSpecificQRCodePointReachedCommand(double inputNumberOfSeconds, double inputTargetDistance = .4, double inputMaximumSpeed = 10.0);
+void setWaitUntilPositionAtSpecificQRCodePointReachedCommand(double inputNumberOfSeconds, double inputTargetDistance = .4, double inputMaximumSpeed = 30.0);
 
 
 /*
