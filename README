@@ -13,8 +13,6 @@ The library accepts messages that consistute a set of commands which are placed 
 
 The library then takes these commands and sends the nessisary the low level commands to the ardrone_autonomy package.  Some of these commands are augmented by the QRCodeStateEstimation library to allow position holding and movement from point to point.
 
-Future development will add streaming of the state variables from the ardrone_command package so that it is easy to determine when particular commands are completed and development of higher level commands to enable operations such as demo (such as flying a rectangle of a certain size relative to a particular point).
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 Building/Dependencies:
@@ -65,6 +63,18 @@ The ardrone_command library uses the catkin build system, so to integrate it int
 2. Clone the git repository into your catkin workspace source directory (catkin_ws/src/).  This can be be done with the following command:
 git clone https://github.com/charlesrwest/ardrone_command.git 
 3. Run catkin_make at the root of your workspace (catkin_ws).
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+Creating a project based on ardrone_command
+
+There are two distinct styles/ways that you can make a new ROS package that uses ardrone_command to control the quadrotor.
+
+The traditional (for ROS) way:
+ardrone_command creates a executable that can be run to make a ROS node with network interfaces.  The ardrone can then be controlled by sending ROS requests to "/ardrone_command/commandInterface" and receiving the information on what ardrone_command is doing at any given time via the information it publishes via ROS topics, as demonstrated in the ardrone_command_test package (topic details toward the end of the readme).  
+
+Library linking way:
+For really simple projects, you can link to the ardrone_command library directly and create a ARDroneControllerNode object.  This object will attempt to connect to the AR Drone (ardrone_autonomy still needs to be active) in a thread it creates and can be instructed to follow commands via the threadsafe addCommand function.  ardrone_command_test's cmake file demonstrates how to link to the library and the ardrone_command/src/exec/ardrone_application_node.cpp file has commented out examples of manually adding commands.
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -177,4 +187,28 @@ This command stops the AR drone from processing any new commands until either th
 
 WaitUntilAltitudeReachedCommand:
 This command stops the AR drone from processing any new commands until either the AR drone reaches a certain altitude or the designated number of seconds pass (it is often used with takeoff).
+
+Published Services:
+/ardrone_command/commandInterface/:  
+Commands can be sent to ardrone_command from your application using the "/ardrone_command/commandInterface/", which expects a valid serialized_ardrone_command message and returns a "true" bool value to confirm the command was added to the queue.  The best way to utilize this interface is to link to ardrone_command and use the "command" class's serialize interface to create a serialized_ardrone_command to send.  This is demonstrated in ardrone_command_test
+
+Published topics:
+Message definitions can be found in the ardrone_command/msg folder.  You can see examples for accessing each of these types of information sources in ardrone_command_test
+
+/ardrone_command/command_processing:
+This topic publishes serialized_ardrone_command messages when the ardrone_control library starts working on that command.  This is probably the most important topic and can be used to know what (in a broad sense) the drone is currently doing.
+
+/ardrone_command/qr_code_state_estimates:
+This topic publishes qr_code_state_info messages which detail the pose information retrieved from all observed QR codes and their associated identifier/dimension.
+
+/ardrone_command/altitude_control:
+This topic publishes altitude_control_state messages which detail the current PID values which are used to control the ardrone's altitude when the QR code based commands are not enabled.
+
+/ardrone_command/go_to_point_control:
+This topic publishes qr_go_to_point_control_info messages which detail the PID values and other information which are used in go to point commands, including distance from the target point.
+
+/ardrone_command/orientation_control:
+This topic publishes qr_orientation_control_info messages which detail the PID values of the process controlling the rotation of the AR drone to track a QR code.
+
+
 

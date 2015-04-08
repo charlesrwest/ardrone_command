@@ -2,4 +2,4 @@
 
 time time_stamp
 
-float64 z_rotation_throttle #Bang-bang, rotate left if target is left, etc (-QRCodePoint[0]/fabs(QRCodePoint[2]))
+float64 z_rotation_throttle #P control, rotate left if target is left, etc (-QRCodePoint[0]/fabs(QRCodePoint[2]))
